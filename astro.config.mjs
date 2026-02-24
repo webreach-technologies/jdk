@@ -7,4 +7,8 @@ export default defineConfig({
     vite: {
         plugins: [tailwindcss()],
     },
+
+    site: 'https://webreach-technologies.github.io',
+    base: '/jdk/',
+    output: 'static'
 });
