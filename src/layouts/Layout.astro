@@ -1,0 +1,34 @@
+---
+const { title , description} = Astro.props;
+const metaTitle = title;
+const siteUrl = "https://example.com";
+const metaUrl = `${siteUrl}${Astro.url.pathname}`;
+import '@fontsource-variable/phudu';
+import '@fontsource-variable/inter';
+import "../styles/global.css";
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{metaTitle}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={metaUrl} />
+	</head>
+	<body>
+		<Header />
+
+		<main>
+			<slot />
+		</main>
+
+		<Footer />
+		
+	</body>
+</html>

@@ -1,0 +1,85 @@
+---
+
+---
+
+<!-- Modal -->
+<div id="modal"
+  class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 px-4
+         opacity-0 invisible pointer-events-none transition duration-300">
+
+  <div class="bg-white w-full max-w-6xl rounded-3xl shadow-2xl p-6 md:p-10 relative overflow-y-auto max-h-[95vh]">
+
+    <!-- Close -->
+    <button id="closeModalBtn"
+      class="absolute top-5 right-6 hover:text-black text-2xl">
+      &times;
+    </button>
+
+    <!-- Heading -->
+    <div class="text-center mb-10">
+      <h2 class="text-2xl md:text-4xl font-phudu font-extrabold uppercase tracking-wide">
+        Online Reservation
+      </h2>
+      <p class="mt-2 text-sm font-light md:text-base">
+        Fill in your details and our team will contact you shortly.
+      </p>
+    </div>
+
+    <!-- Form -->
+    <form class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-8">
+      <input type="text" placeholder="Group Name" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+      <input type="text" placeholder="Full Name" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+      <input type="email" placeholder="Email Address" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+      <input type="tel" placeholder="Phone Number" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+
+      <input type="text" placeholder="Tour Type" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+      <input type="text" placeholder="Tour Destination" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+      <input type="text" placeholder="Tour Date & Time" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700" id="timedatepick">
+      <input type="text" placeholder="Pickup Location" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+
+      <input type="number" placeholder="No. Of Guests in Groups" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+
+      <input type="text" placeholder="Additional Info"
+        class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700 sm:col-span-2 lg:col-span-2">
+
+      <div class="flex items-end sm:col-span-2 lg:col-span-1">
+        <button type="submit"
+          class="w-full py-3 rounded-full bg-primary hover:bg-yellow-600 text-black uppercase font-medium transition duration-300">
+          Request
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+
+<script>
+  import flatpickr from 'flatpickr';
+  import "flatpickr/dist/flatpickr.min.css";
+  import "flatpickr/dist/themes/airbnb.css";
+
+  flatpickr("#timedatepick", {
+    enableTime: true,
+    dateFormat: "d-m-Y H:i",
+  });
+
+
+  const modal = document.getElementById("modal");
+  const openButtons = document.querySelectorAll(".open-modal");
+  const closeBtn = document.getElementById("closeModalBtn");
+
+  openButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      modal.classList.remove("opacity-0", "invisible", "pointer-events-none");
+      modal.classList.add("opacity-100", "visible");
+      document.body.classList.add("overflow-hidden");
+    });
+  });
+
+  closeBtn.addEventListener("click", () => {
+    modal.classList.add("opacity-0", "invisible", "pointer-events-none");
+    modal.classList.remove("opacity-100", "visible");
+    document.body.classList.remove("overflow-hidden");
+  });
+</script>

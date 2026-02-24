@@ -1,0 +1,100 @@
+---
+import { Image } from 'astro:assets';
+import Company1 from "../assets/companies/company1.png";
+import Company2 from "../assets/companies/company2.png";
+import Company3 from "../assets/companies/company3.png";
+import Company4 from "../assets/companies/company4.png";
+import Company5 from "../assets/companies/company5.png";
+---
+
+
+<section class="bg-gray-100 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+    <!-- Heading -->
+    <h2 class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide mb-8">
+      A FEW OF THE 
+      <span class="text-primary">TRANSPORTATION</span>
+      COMPANIES <br class="hidden md:inline"> WE’VE WORKED WITH
+    </h2>
+
+<!-- Marquee Wrapper INSIDE container -->
+   <div class="overflow-hidden relative">
+
+      <div class="marquee flex items-center">
+
+        <!-- Logo Set -->
+        <div class="logo-group flex items-center">
+          <div class="logo-item"><Image src={Company1} alt="Discover" quality={5}></Image></div>
+          <div class="logo-item"><Image src={Company2} alt="Microsoft" quality={5}></Image></div>
+          <div class="logo-item"><Image src={Company3} alt="Ford" quality={5}></Image></div>
+          <div class="logo-item"><Image src={Company4} alt="Walmart" quality={5}></Image></div>
+          <div class="logo-item"><Image src={Company5} alt="Disney" quality={5}></Image></div>
+        </div>
+
+        <!-- Duplicate -->
+        <div class="logo-group flex items-center">
+          <div class="logo-item"><Image src={Company1} alt="Discover" quality={5}></Image></div>
+          <div class="logo-item"><Image src={Company2} alt="Microsoft" quality={5}></Image></div>
+          <div class="logo-item"><Image src={Company3} alt="Ford" quality={5}></Image></div>
+          <div class="logo-item"><Image src={Company4} alt="Walmart" quality={5}></Image></div>
+          <div class="logo-item"><Image src={Company5} alt="Disney" quality={5}></Image></div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  
+</section>
+
+
+<style>
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: scroll 30s linear infinite;
+}
+
+.marquee:hover {
+  animation-play-state: paused;
+}
+
+.logo-group {
+  display: flex;
+  align-items: center;
+}
+
+.logo-item {
+  padding: 0 3rem;   /* Equal spacing */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-item img {
+  height: 40px;      /* Mobile size */
+  width: auto;
+  object-fit: contain;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .logo-item img {
+    height: 55px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1280px) {
+  .logo-item img {
+    height: 65px;
+  }
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+</style>

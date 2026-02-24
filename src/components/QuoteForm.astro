@@ -1,0 +1,96 @@
+---
+---
+
+
+<section class="bg-gray-100 py-12">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <!-- Heading -->
+    <div class="text-center mb-8">
+      <h2 class="text-4xl md:text-5xl font-extrabold uppercase font-phudu tracking-wide">
+        REQUEST A INSTANT 
+        <span class="text-primary">QUOTE</span>
+      </h2>
+    </div>
+
+    <!-- Form -->
+    <form class="grid md:grid-cols-4 gap-x-12 gap-y-6">
+
+      <!-- Row 1 -->
+      <div>
+        <input type="text" placeholder="Group Name"
+          class="font-light w-full bg-transparent border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+      </div>
+
+      <div>
+        <input type="text" placeholder="Full Name"
+          class="font-light w-full bg-transparent border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+      </div>
+
+      <div>
+        <input type="email" placeholder="Email Address"
+          class="font-light w-full bg-transparent border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+      </div>
+
+      <div>
+        <input type="tel" placeholder="Phone Number"
+          class="font-light w-full bg-transparent border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+      </div>
+
+      <!-- Row 2 -->
+      <div>
+        <input type="text" placeholder="Tour Type"
+          class="font-light w-full bg-transparent border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+      </div>
+
+      <div>
+        <input type="text" placeholder="Tour Destination"
+          class="font-light w-full bg-transparent border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+      </div>
+
+      <div>
+        <input type="text" placeholder="Tour Date & Time"
+          class="font-light w-full bg-transparent border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700" id="datetimepick">
+      </div>
+
+      <div>
+        <input type="text" placeholder="Pickup Location"
+          class="font-light w-full bg-transparent border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+      </div>
+
+      <!-- Row 3 -->
+      <div>
+        <input type="number" placeholder="No. Of Guests in Groups"
+          class="font-light w-full bg-transparent border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+      </div>
+
+      <!-- Additional Info (Span 2 Columns) -->
+      <div class="md:col-span-2">
+        <input type="text" placeholder="Additional Info"
+          class="font-light w-full bg-transparent border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+      </div>
+
+      <!-- Request Button -->
+      <div class="flex items-end">
+        <button type="submit"
+          class="font-normal w-full h-full py-2.25 md:py-0 rounded-full bg-primary hover:bg-yellow-600 text-black uppercase transition duration-300">
+          Request
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</section>
+
+
+<script>
+import flatpickr from 'flatpickr';
+import "flatpickr/dist/flatpickr.min.css";
+import "flatpickr/dist/themes/airbnb.css";
+
+flatpickr("#datetimepick", {
+  enableTime: true,
+  dateFormat: "d-m-Y H:i",
+});
+</script>

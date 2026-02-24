@@ -1,0 +1,19 @@
+{
+  "name": "jdk-trans",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource-variable/phudu": "^5.2.10",
+    "@tailwindcss/vite": "^4.2.0",
+    "astro": "^5.17.1",
+    "flatpickr": "^4.6.13",
+    "tailwindcss": "^4.2.0"
+  }
+}
