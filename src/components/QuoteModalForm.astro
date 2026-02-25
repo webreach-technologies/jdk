@@ -16,7 +16,7 @@
     </button>
 
     <!-- Heading -->
-    <div class="text-center mb-10">
+    <div class="text-center mb-6 md:mb-10">
       <h2 class="text-2xl md:text-4xl font-phudu font-extrabold uppercase tracking-wide">
         Online Reservation
       </h2>
@@ -26,25 +26,56 @@
     </div>
 
     <!-- Form -->
-    <form class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-8">
-      <input type="text" placeholder="Group Name" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
-      <input type="text" placeholder="Full Name" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
-      <input type="email" placeholder="Email Address" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
-      <input type="tel" placeholder="Phone Number" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+    <form class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-8" id="quoteModalForm" novalidate>
+      <div class="relative">
+        <input type="text" placeholder="Group Name" name="gname" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+        <small class="error text-red-500 text-xs absolute top-full left-0" id="Errorgname"></small>
+      </div>
+      <div class="relative">
+        <input type="text" placeholder="Full Name" name="fname" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+        <small class="error text-red-500 text-xs absolute top-full left-0" id="Errorfname"></small>
+      </div>
+      <div class="relative">
+        <input type="email" placeholder="Email Address" name="email" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+        <small class="error text-red-500 text-xs absolute top-full left-0" id="Erroremail"></small>
+      </div>
+      <div class="relative">
+        <input type="tel" placeholder="Phone Number" name="phone" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+        <small class="error text-red-500 text-xs absolute top-full left-0" id="Errorphone"></small>
+      </div>
+      <div class="relative">
+        <input type="text" placeholder="Tour Type" name="tourtype" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+        <small class="error text-red-500 text-xs absolute top-full left-0" id="Errortourtype"></small>
+      </div>
+      <div class="relative">
+        <input type="text" placeholder="Tour Destination" name="tourdesti" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+        <small class="error text-red-500 text-xs absolute top-full left-0" id="Errortourdesti"></small>
+      </div>
+      <div class="relative">
+        <input type="text" placeholder="Tour Date & Time" name="datetime" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700" id="timedatepick">
+        <small class="error text-red-500 text-xs absolute top-full left-0" id="Errordatetime"></small>
+      </div>
+      <div class="relative">
+        <input type="text" placeholder="Pickup Location" name="pickuploc" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+        <small class="error text-red-500 text-xs absolute top-full left-0" id="Errorpickuploc"></small>
+      </div>
+      <div class="relative">
+        <input type="number" placeholder="No. Of Guests in Groups" name="noofpass" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+        <small class="error text-red-500 text-xs absolute top-full left-0" id="Errornoofpass"></small>
+      </div>
+      <div class="relative sm:col-span-2 lg:col-span-2">
+        <input type="text" placeholder="Additional Info" name="addinfo" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
+        <small class="error text-red-500 text-xs absolute top-full left-0" id="Erroraddinfo"></small>
+      </div>
 
-      <input type="text" placeholder="Tour Type" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
-      <input type="text" placeholder="Tour Destination" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
-      <input type="text" placeholder="Tour Date & Time" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700" id="timedatepick">
-      <input type="text" placeholder="Pickup Location" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
-
-      <input type="number" placeholder="No. Of Guests in Groups" class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700">
-
-      <input type="text" placeholder="Additional Info"
-        class="font-light w-full border-b border-gray-400 focus:border-black focus:outline-none py-2 placeholder-gray-700 sm:col-span-2 lg:col-span-2">
+      <!-- Honeypot -->
+      <div class="hidden">
+        <input type="text" name="website">
+      </div>
 
       <div class="flex items-end sm:col-span-2 lg:col-span-1">
-        <button type="submit"
-          class="w-full py-3 rounded-full bg-primary hover:bg-yellow-600 text-black uppercase font-medium transition duration-300">
+        <button type="submit" id="btnSubmit"
+          class="w-full h-full py-2.25 md:py-0 rounded-full bg-primary hover:bg-yellow-600 text-black uppercase font-medium transition duration-300">
           Request
         </button>
       </div>
@@ -53,6 +84,19 @@
   </div>
 </div>
 
+<style>
+    /* Hide the spin buttons in WebKit browsers */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Hide spin buttons in Firefox */
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+</style>
 
 <script>
   import flatpickr from 'flatpickr';
@@ -82,4 +126,118 @@
     modal.classList.remove("opacity-100", "visible");
     document.body.classList.remove("overflow-hidden");
   });
+
+
+  const form = document.getElementById("quoteModalForm");
+  const btn = document.getElementById("btnSubmit");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    let isValid = true;
+    const fields = ["gname","fname","email","phone","tourtype","tourdesti","datetime","pickuploc","noofpass","addinfo"];
+
+    document.querySelectorAll(".error").forEach(el => el.textContent = "");
+
+    fields.forEach(name => {
+      const input = form.querySelector(`[name="${name}"]`);
+      if (!input.value.trim()) {
+        document.getElementById("Error"+name).textContent = "Required";
+        input.classList.add("border-red-500");
+        isValid = false;
+      }
+    });
+
+    // Email validation
+    if (!/^\S+@\S+\.\S+$/.test(form.email.value)) {
+      document.getElementById("Erroremail").textContent = "Invalid email";
+      isValid = false;
+    }
+
+    // Phone validation
+    const phoneValue = form.phone.value.trim();
+    const cleanedPhone = phoneValue.replace(/\D/g, "");
+
+    if (cleanedPhone.length < 10 || cleanedPhone.length > 15) {
+      document.getElementById("Errorphone").textContent = "Invalid phone number";
+      isValid = false;
+    }
+
+    if (!isValid) return;
+
+    btn.innerText = "Sending...";
+    btn.disabled = true;
+
+    const res = await fetch("/quoteform.php", {
+      method: "POST",
+      body: new FormData(form)
+    });
+
+    const data = await res.json();
+
+    if (data.status === "success") {
+
+      // ✅ Clear all fields
+      form.reset();
+
+      // Optional: clear error messages
+      document.querySelectorAll(".error").forEach(el => el.textContent = "");
+
+      // Small delay (optional)
+      setTimeout(() => {
+        window.location.href = "/success.php";
+      }, 500);
+
+    } else {
+      alert(data.message || "Something went wrong");
+      btn.innerText = "Request";
+      btn.disabled = false;
+    }
+  });
+
+
+  // ✅ Real-time validation (show + hide error dynamically)
+  const fields = ["gname","fname","email","phone","tourtype","tourdesti","datetime","pickuploc","noofpass","addinfo"];
+
+  fields.forEach(name => {
+    const input = form.querySelector(`[name="${name}"]`);
+    const errorEl = document.getElementById("Error" + name);
+
+    input.addEventListener("input", function () {
+
+      const value = input.value.trim();
+
+      // Required validation
+      if (value === "") {
+        errorEl.textContent = "Required";
+        input.classList.add("border-red-500");
+        return;
+      }
+
+      // Email validation
+      if (name === "email") {
+        if (!/^\S+@\S+\.\S+$/.test(value)) {
+          errorEl.textContent = "Invalid email";
+          input.classList.add("border-red-500");
+          return;
+        }
+      }
+
+      // Phone validation
+      if (name === "phone") {
+        const cleaned = value.replace(/\D/g, "");
+        if (cleaned.length < 10 || cleaned.length > 15) {
+          errorEl.textContent = "Invalid phone number";
+          input.classList.add("border-red-500");
+          return;
+        }
+      }
+
+      // If everything valid
+      errorEl.textContent = "";
+      input.classList.remove("border-red-500");
+
+      });
+    });
+
 </script>

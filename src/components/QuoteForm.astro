@@ -14,7 +14,7 @@
     </div>
 
     <!-- Form -->
-    <form class="grid md:grid-cols-4 gap-x-12 gap-y-6" id="contactForm" novalidate>
+    <form class="grid md:grid-cols-4 gap-x-12 gap-y-6" id="quoteForm" novalidate>
 
       <!-- Row 1 -->
       <div class="relative">
@@ -37,7 +37,6 @@
         <small class="error text-red-500 text-xs absolute top-full left-0" id="phoneError"></small>
       </div>
 
-      <!-- Row 2 -->
       <div class="relative">
         <input type="text" placeholder="Tour Type" name="tourtype" class="font-light w-full bg-transparent border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700 transition duration-300">
         <small class="error text-red-500 text-xs absolute top-full left-0" id="tourtypeError"></small>
@@ -113,7 +112,7 @@ flatpickr("#datetimepick", {
 });
 
 
-const form = document.getElementById("contactForm");
+const form = document.getElementById("quoteForm");
 const btn = document.getElementById("submitBtn");
 
 form.addEventListener("submit", async function (e) {
