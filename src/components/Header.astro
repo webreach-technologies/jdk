@@ -81,7 +81,10 @@ import Logo from "../assets/logo/logo.png";
                     <Image src={Logo} alt="JDK Transportation Logo" quality={1} loading="eager" class="w-45 md:w-35"></Image>
                 </a>
             </div>
-            <div class="flex items-center justify-center gap-2 md:gap-5">
+            <div class="sm:max-w-60 lg:max-w-75 xl:max-w-150">
+                <p class="text-sm font-medium leading-snug text-center blink-text">VIP TRANS, LLC is <br> GSA for ECR BUSLINE, PATINO TOURS, JDK Transportation</p>
+            </div>
+            <div class="flex md:flex-col lg:flex-row items-center justify-center gap-2 lg:gap-5 sm:p-3 lg:p-0">
                 <a href="javascript:void(0)" class="open-modal flex items-center gap-1 md:shrink-0 bg-black text-primary px-3 md:px-4 py-1.5 text-xs rounded-full border border-primary hover:scale-105 transition duration-300">
                     <svg id='Quote_Left_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
                     <g transform="matrix(0.83 0 0 0.83 12 12)" >
@@ -105,3 +108,16 @@ import Logo from "../assets/logo/logo.png";
         </div>
     </div>
 </header>
+
+
+<style>
+.blink-text {
+  animation: blinkColor 1s infinite;
+}
+
+@keyframes blinkColor {
+  0%   { color: black; text-shadow: 1px 1px 1px #f5b417;}
+  50%  { color: #f5b417; text-shadow: 1px 1px 1px black;}
+  100% { color: black; text-shadow: 1px 1px 1px #f5b417;}
+}
+</style>
