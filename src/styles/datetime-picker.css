@@ -1,0 +1,84 @@
+ .picker-container {
+    animation: picker-pop 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-origin: top left;
+}
+
+@keyframes picker-pop {
+    from { opacity: 0; transform: scale(0.95) translateY(-10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Hidden scrollbars */
+.time-column::-webkit-scrollbar { width: 0px; }
+.time-column { 
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+    scroll-behavior: smooth;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.no-select { user-select: none; -webkit-user-select: none; }
+
+/* Base button styles to ensure consistency */
+.date-btn, .hour-opt, .min-opt, .ampm-opt {
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+/* Hover states defined in CSS to bypass Tailwind JIT/Purge issues */
+.date-btn:hover:not(.selected-item):not(.past-date) {
+    background-color: #eff6ff; /* blue-50 */
+    color: #f5b417; /* blue-600 */
+}
+
+.hour-opt:hover:not(.selected-item), 
+.min-opt:hover:not(.selected-item) {
+    background-color: #eff6ff; /* blue-50 */
+    color: #f5b417;
+}
+
+.ampm-opt:hover:not(.ampm-active) {
+    border-color: #bfdbfe; /* blue-200 */
+    color: #f5b21785; /* blue-500 */
+}
+
+/* Active Selection Styles */
+.selected-item {
+    background-color: #f5b417 !important;
+    color: white !important;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    z-index: 10;
+}
+
+.unselected-item {
+    background-color: transparent;
+    color: #475569;
+}
+
+.ampm-active {
+    background-color: #f5b417 !important;
+    color: white !important;
+    border-color: #f5b417 !important;
+}
+
+.ampm-inactive {
+    background-color: white;
+    color: #94a3b8;
+    border-color: #f1f5f9;
+}
+
+/* Today Highlight */
+.today-mark {
+    box-shadow: inset 0 0 0 2px #dbeafe;
+    color: #f5b417;
+    font-weight: 700;
+}
+
+/* Past Date Styles */
+.past-date {
+    opacity: 0.3;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}

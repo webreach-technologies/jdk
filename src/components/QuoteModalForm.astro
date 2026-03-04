@@ -11,7 +11,7 @@
 
     <!-- Close -->
     <button id="closeModalBtn"
-      class="absolute top-5 right-6 hover:text-black text-2xl">
+      class="absolute top-5 right-6 hover:text-black text-2xl cursor-pointer">
       &times;
     </button>
 
@@ -28,43 +28,43 @@
     <!-- Form -->
     <form class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-8" id="quoteModalForm" novalidate>
       <div class="relative">
-        <input type="text" placeholder="Group Name" name="gname" class="font-light w-full border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700">
+        <input type="text" placeholder="Group Name" name="gname" class="font-light w-full bg-transparent border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700 transition duration-300">
         <small class="error text-red-500 text-xs absolute top-full left-0" id="Errorgname"></small>
       </div>
       <div class="relative">
-        <input type="text" placeholder="Full Name" name="fname" class="font-light w-full border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700">
+        <input type="text" placeholder="Full Name" name="fname" class="font-light w-full bg-transparent border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700 transition duration-300">
         <small class="error text-red-500 text-xs absolute top-full left-0" id="Errorfname"></small>
       </div>
       <div class="relative">
-        <input type="email" placeholder="Email Address" name="email" class="font-light w-full border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700">
+        <input type="email" placeholder="Email Address" name="email" class="font-light w-full bg-transparent border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700 transition duration-300">
         <small class="error text-red-500 text-xs absolute top-full left-0" id="Erroremail"></small>
       </div>
       <div class="relative">
-        <input type="tel" placeholder="Phone Number" name="phone" class="font-light w-full border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700">
+        <input type="tel" placeholder="Phone Number" name="phone" class="font-light w-full bg-transparent border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700 transition duration-300">
         <small class="error text-red-500 text-xs absolute top-full left-0" id="Errorphone"></small>
       </div>
       <div class="relative">
-        <input type="text" placeholder="Tour Type" name="tourtype" class="font-light w-full border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700">
+        <input type="text" placeholder="Tour Type" name="tourtype" class="font-light w-full bg-transparent border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700 transition duration-300">
         <small class="error text-red-500 text-xs absolute top-full left-0" id="Errortourtype"></small>
       </div>
       <div class="relative">
-        <input type="text" placeholder="Tour Destination" name="tourdesti" class="font-light w-full border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700">
+        <input type="text" placeholder="Tour Destination" name="tourdesti" class="font-light w-full bg-transparent border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700 transition duration-300">
         <small class="error text-red-500 text-xs absolute top-full left-0" id="Errortourdesti"></small>
       </div>
       <div class="relative">
-        <input type="text" placeholder="Tour Date & Time" name="datetime" class="font-light w-full border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700" id="timedatepick">
+        <input type="text" placeholder="Tour Date & Time" name="datetime" class="minimal-picker font-light w-full bg-transparent border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700 transition duration-300" readonly inputmode="none">
         <small class="error text-red-500 text-xs absolute top-full left-0" id="Errordatetime"></small>
       </div>
       <div class="relative">
-        <input type="text" placeholder="Pickup Location" name="pickuploc" class="font-light w-full border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700">
+        <input type="text" placeholder="Pickup Location" name="pickuploc" class="font-light w-full bg-transparent border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700 transition duration-300">
         <small class="error text-red-500 text-xs absolute top-full left-0" id="Errorpickuploc"></small>
       </div>
       <div class="relative">
-        <input type="number" placeholder="No. Of Guests in Groups" name="noofpass" class="font-light w-full border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700">
+        <input type="number" placeholder="No. Of Guests in Groups" name="noofpass" class="font-light w-full bg-transparent border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700 transition duration-300">
         <small class="error text-red-500 text-xs absolute top-full left-0" id="Errornoofpass"></small>
       </div>
       <div class="relative sm:col-span-2 lg:col-span-2">
-        <input type="text" placeholder="Additional Info" name="addinfo" class="font-light w-full border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700">
+        <input type="text" placeholder="Additional Info" name="addinfo" class="font-light w-full bg-transparent border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700 transition duration-300">
         <small class="error text-red-500 text-xs absolute top-full left-0" id="Erroraddinfo"></small>
       </div>
 
@@ -75,7 +75,7 @@
 
       <div class="flex items-end sm:col-span-2 lg:col-span-1">
         <button type="submit" id="btnSubmit"
-          class="w-full h-full py-2.25 md:py-0 rounded-full bg-primary hover:bg-yellow-600 text-black uppercase font-medium transition duration-300">
+          class="w-full h-full py-2.25 md:py-0 rounded-full bg-primary hover:bg-yellow-600 text-black uppercase font-medium transition duration-300 cursor-pointer">
           Request
         </button>
       </div>
@@ -99,15 +99,6 @@
 </style>
 
 <script>
-  import flatpickr from 'flatpickr';
-  import "flatpickr/dist/flatpickr.min.css";
-  import "flatpickr/dist/themes/airbnb.css";
-
-  flatpickr("#timedatepick", {
-    enableTime: true,
-    dateFormat: "d-m-Y H:i",
-  });
-
 
   const modal = document.getElementById("modal");
   const openButtons = document.querySelectorAll(".open-modal");
@@ -185,7 +176,7 @@
 
       // Small delay (optional)
       setTimeout(() => {
-        window.location.href = "/success.php";
+        window.location.href = "/success.html";
       }, 500);
 
     } else {

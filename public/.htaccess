@@ -1,0 +1,100 @@
+RewriteEngine On
+
+# ======================================================
+# 1️⃣ FORCE HTTPS
+# ======================================================
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ======================================================
+# 2️⃣ FORCE WWW (REMOVE if you prefer non-www)
+# ======================================================
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+# ======================================================
+# 3️⃣ REMOVE TRAILING SLASH (except folders)
+# example.com/about/ → example.com/about
+# ======================================================
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+# ======================================================
+# 4️⃣ REDIRECT index.html → / & /index → /
+# ======================================================
+RewriteRule ^index/?$ / [R=301,L]
+RewriteCond %{THE_REQUEST} \s/+index\.html [NC]
+RewriteRule ^index\.html$ / [R=301,L]
+
+# ======================================================
+# 5️⃣ REMOVE .html EXTENSION
+# example.com/about.html → example.com/about
+# ======================================================
+RewriteCond %{THE_REQUEST} \s/([^.]+)\.html [NC]
+RewriteRule ^ %1 [R=301,L]
+
+# ======================================================
+# 6️⃣ INTERNAL REWRITE TO .html
+# example.com/about → about.html
+# ======================================================
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L]
+
+# ======================================================
+# 7️⃣ CUSTOM 404 PAGE (Astro)
+# ======================================================
+ErrorDocument 404 /404.html
+
+# ======================================================
+# 8️⃣ GZIP COMPRESSION
+# ======================================================
+# <IfModule mod_deflate.c>
+#   AddOutputFilterByType DEFLATE text/plain
+#   AddOutputFilterByType DEFLATE text/html
+#   AddOutputFilterByType DEFLATE text/xml
+#   AddOutputFilterByType DEFLATE text/css
+#   AddOutputFilterByType DEFLATE application/xml
+#   AddOutputFilterByType DEFLATE application/xhtml+xml
+#   AddOutputFilterByType DEFLATE application/rss+xml
+#   AddOutputFilterByType DEFLATE application/javascript
+#   AddOutputFilterByType DEFLATE application/x-javascript
+#   AddOutputFilterByType DEFLATE application/json
+#   AddOutputFilterByType DEFLATE image/svg+xml
+# </IfModule>
+
+# ======================================================
+# 9️⃣ BROWSER CACHING
+# ======================================================
+# <IfModule mod_expires.c>
+#   ExpiresActive On
+# 
+#   # Images
+#   ExpiresByType image/jpg "access 1 year"
+#   ExpiresByType image/jpeg "access 1 year"
+#   ExpiresByType image/png "access 1 year"
+#   ExpiresByType image/gif "access 1 year"
+#   ExpiresByType image/webp "access 1 year"
+#   ExpiresByType image/svg+xml "access 1 year"
+# 
+#   # CSS & JS
+#   ExpiresByType text/css "access 1 month"
+#   ExpiresByType application/javascript "access 1 month"
+# 
+#   # Fonts
+#   ExpiresByType font/woff2 "access 1 year"
+#   ExpiresByType font/woff "access 1 year"
+# 
+#   # HTML
+#   ExpiresByType text/html "access 0 seconds"
+# </IfModule>
+
+# ======================================================
+# 🔟 SECURITY HEADERS (SEO + Performance)
+# ======================================================
+# <IfModule mod_headers.c>
+#   Header set X-Content-Type-Options "nosniff"
+#   Header set X-Frame-Options "SAMEORIGIN"
+#   Header set Referrer-Policy "strict-origin-when-cross-origin"
+#   Header set X-XSS-Protection "1; mode=block"
+# </IfModule>

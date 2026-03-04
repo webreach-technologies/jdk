@@ -1,11 +1,12 @@
 ---
 const { title , description} = Astro.props;
 const metaTitle = title;
-const siteUrl = "https://example.com";
+const siteUrl = "https://jdktransportation.com";
 const metaUrl = `${siteUrl}${Astro.url.pathname}`;
 import '@fontsource-variable/phudu';
 import '@fontsource-variable/inter';
 import "../styles/global.css";
+import "../styles/datetime-picker.css";
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
@@ -15,7 +16,11 @@ import Footer from '../components/Footer.astro';
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{metaTitle}</title>
 		<meta name="description" content={description} />
@@ -29,6 +34,9 @@ import Footer from '../components/Footer.astro';
 		</main>
 
 		<Footer />
-		
+
+		<script>
+			import "../scripts/datetimepicker.js";
+		</script>
 	</body>
 </html>
