@@ -41,11 +41,11 @@ try {
     $adminMail->addAddress($config['admin_email']);
 
     // Add CC
-    if (!empty($config['cc'])) {
-        foreach ($config['cc'] as $ccEmail) {
-            $adminMail->addCC($ccEmail);
-        }
-    }
+    // if (!empty($config['cc'])) {
+    //     foreach ($config['cc'] as $ccEmail) {
+    //         $adminMail->addCC($ccEmail);
+    //     }
+    // }
 
     // Add BCC
     if (!empty($config['bcc'])) {
@@ -57,16 +57,48 @@ try {
     $adminMail->isHTML(true);
     $adminMail->Subject = "JDK Online Request - {$_POST['gname']}";
     $adminMail->Body = "
-        <b>Group Name:</b> {$_POST['gname']}<br>
-        <b>Full Name:</b> {$_POST['fname']}<br>
-        <b>Email:</b> {$_POST['email']}<br>
-        <b>Phone:</b> {$_POST['phone']}<br>
-        <b>Tour Type:</b> {$_POST['tourtype']}<br>
-        <b>Tour Destination:</b> {$_POST['tourdesti']}<br>
-        <b>Tour Date & Time:</b> {$_POST['datetime']}<br>
-        <b>Pickup Location:</b> {$_POST['pickuploc']}<br>
-        <b>No. Of Guests in Groups:</b> {$_POST['noofpass']}<br>
-        <b>Additional Info:</b> {$_POST['addinfo']}<br>
+        <table style='border-collapse: collapse; width: 100%; max-width: 600px; border: 1px solid #ddd;'>
+            <tr style='background-color: #f2f2f2;'>
+                <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold; width: 40%;'>Group Name</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['gname']}</td>
+            </tr>
+            <tr>
+                <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Full Name</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['fname']}</td>
+            </tr>
+            <tr style='background-color: #f9f9f9;'>
+                <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Email</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['email']}</td>
+            </tr>
+            <tr>
+                <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Phone</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['phone']}</td>
+            </tr>
+            <tr style='background-color: #f9f9f9;'>
+                <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Tour Type</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['tourtype']}</td>
+            </tr>
+            <tr>
+                <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Tour Destination</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['tourdesti']}</td>
+            </tr>
+            <tr style='background-color: #f9f9f9;'>
+                <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Tour Date & Time</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['datetime']}</td>
+            </tr>
+            <tr>
+                <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Pickup Location</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['pickuploc']}</td>
+            </tr>
+            <tr style='background-color: #f9f9f9;'>
+                <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>No. Of Guests in Groups</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['noofpass']}</td>
+            </tr>
+            <tr>
+                <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Additional Info</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['addinfo']}</td>
+            </tr>
+        </table>
     ";
 
     $adminMail->send();
@@ -94,8 +126,16 @@ try {
         <p>Thank you for your request.</p>
         <p>Our team will contact you shortly.</p>
         <br>
-        <b>Tour Date:</b> {$_POST['datetime']}<br>
-        <b>Destination:</b> {$_POST['tourdesti']}<br>
+        <table style='border-collapse: collapse; width: 100%; max-width: 600px; border: 1px solid #ddd;'>
+            <tr style='background-color: #f2f2f2;'>
+                <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold; width: 40%;'>Tour Date</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['datetime']}</td>
+            </tr>
+            <tr>
+                <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Destination</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['tourdesti']}</td>
+            </tr>
+        </table>
         <br>
         <p>Best Regards,<br>{$config['from_name']}</p>
     ";

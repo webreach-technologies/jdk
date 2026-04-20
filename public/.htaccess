@@ -31,7 +31,7 @@ RewriteRule ^index\.html$ / [R=301,L]
 # example.com/about.html → example.com/about
 # ======================================================
 RewriteCond %{THE_REQUEST} \s/([^.]+)\.html [NC]
-RewriteRule ^ %1 [R=301,L]
+RewriteRule ^ /%1 [R=301,L]
 
 # ======================================================
 # 6️⃣ INTERNAL REWRITE TO .html
@@ -49,45 +49,41 @@ ErrorDocument 404 /404.html
 # ======================================================
 # 8️⃣ GZIP COMPRESSION
 # ======================================================
-# <IfModule mod_deflate.c>
-#   AddOutputFilterByType DEFLATE text/plain
-#   AddOutputFilterByType DEFLATE text/html
-#   AddOutputFilterByType DEFLATE text/xml
-#   AddOutputFilterByType DEFLATE text/css
-#   AddOutputFilterByType DEFLATE application/xml
-#   AddOutputFilterByType DEFLATE application/xhtml+xml
-#   AddOutputFilterByType DEFLATE application/rss+xml
-#   AddOutputFilterByType DEFLATE application/javascript
-#   AddOutputFilterByType DEFLATE application/x-javascript
-#   AddOutputFilterByType DEFLATE application/json
-#   AddOutputFilterByType DEFLATE image/svg+xml
-# </IfModule>
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json image/svg+xml
+</IfModule>
 
 # ======================================================
-# 9️⃣ BROWSER CACHING
+# 9️⃣ BROWSER CACHING (FIXED + OPTIMIZED)
 # ======================================================
-# <IfModule mod_expires.c>
-#   ExpiresActive On
-# 
-#   # Images
-#   ExpiresByType image/jpg "access 1 year"
-#   ExpiresByType image/jpeg "access 1 year"
-#   ExpiresByType image/png "access 1 year"
-#   ExpiresByType image/gif "access 1 year"
-#   ExpiresByType image/webp "access 1 year"
-#   ExpiresByType image/svg+xml "access 1 year"
-# 
-#   # CSS & JS
-#   ExpiresByType text/css "access 1 month"
-#   ExpiresByType application/javascript "access 1 month"
-# 
-#   # Fonts
-#   ExpiresByType font/woff2 "access 1 year"
-#   ExpiresByType font/woff "access 1 year"
-# 
-#   # HTML
-#   ExpiresByType text/html "access 0 seconds"
-# </IfModule>
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Images (1 year)
+  ExpiresByType image/jpg "access 1 year"
+  ExpiresByType image/jpeg "access 1 year"
+  ExpiresByType image/png "access 1 year"
+  ExpiresByType image/gif "access 1 year"
+  ExpiresByType image/webp "access 1 year"
+  ExpiresByType image/svg+xml "access 1 year"
+
+  # CSS & JS (1 year for Astro/Vite hashed files)
+  ExpiresByType text/css "access 1 year"
+  ExpiresByType application/javascript "access 1 year"
+
+  # Fonts (VERY IMPORTANT for your issue)
+  ExpiresByType font/woff2 "access 1 year"
+  ExpiresByType font/woff "access 1 year"
+
+  # HTML (no caching)
+  ExpiresByType text/html "access 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|png|jpg|jpeg|gif|webp|svg|woff|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
 
 # ======================================================
 # 🔟 SECURITY HEADERS (SEO + Performance)

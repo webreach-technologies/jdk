@@ -1,5 +1,8 @@
 # build output
 dist/
+
+public/config.php
+
 # generated types
 .astro/
 

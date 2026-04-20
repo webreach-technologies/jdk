@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Hero from "../assets/banners/hero.jpg";
+import Video from "../assets/video/hero-video.mp4";
 ---
 
 
@@ -8,7 +9,21 @@ import Hero from "../assets/banners/hero.jpg";
 
   <!-- Background Image -->
   <div class="absolute inset-0">
-    <Image src={Hero} alt="hero" quality={50} class="w-full h-full object-cover"></Image>
+    <Image src={Hero} alt="hero" quality={50} loading="eager" fetchpriority="high" class="w-full h-full object-cover transition-opacity duration-700" id="hero-image"></Image>
+
+    <!-- Desktop Video -->
+    <!-- <video
+      id="hero-video"
+      class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="none"
+    >
+      <source src={Video} type="video/mp4" />
+    </video> -->
+
     <div class="absolute inset-0 bg-black/30"></div>
   </div>
 
@@ -63,3 +78,13 @@ import Hero from "../assets/banners/hero.jpg";
 
   </div>
 </section>
+
+<!-- <script>
+  const video = document.getElementById("hero-video");
+  const image = document.getElementById("hero-image");
+
+  video.addEventListener("loadeddata", () => {
+    video.style.opacity = "1";
+    image.style.opacity = "0";
+  });
+</script> -->
