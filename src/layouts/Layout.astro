@@ -42,5 +42,33 @@ import Footer from '../components/Footer.astro';
 		<script>
 			import "../scripts/datetimepicker.js";
 		</script>
+
+		<!-- Google Places Autocomplete Initialization -->
+		<script is:inline>
+			function initPlacesAutocomplete() {
+				var fields = document.querySelectorAll('.places-autocomplete');
+				var options = {
+					types: ['geocode'],
+					componentRestrictions: { country: ['us', 'ca'] }
+				};
+				fields.forEach(function(input) {
+					var ac = new google.maps.places.Autocomplete(input, options);
+					ac.addListener('place_changed', function() {
+						var place = ac.getPlace();
+						if (place && place.formatted_address) {
+							input.value = place.formatted_address;
+						}
+					});
+				});
+			}
+
+			// Re-initialize after every View Transition navigation
+			document.addEventListener('astro:page-load', function() {
+				if (window.google && window.google.maps && window.google.maps.places) {
+					initPlacesAutocomplete();
+				}
+			});
+		</script>
+		<script is:inline async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSfZbNztBBdV-KdtuM4RmMtjvIm4q9F4c&loading=async&libraries=places&callback=initPlacesAutocomplete"></script>
 	</body>
 </html>
