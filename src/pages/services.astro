@@ -8,6 +8,7 @@ import CalltoBook from '../components/CalltoBook.astro';
 import QuoteModalForm from '../components/QuoteModalForm.astro';
 import ServicesHero from "../assets/banners/cta.jpg";
 import OverviewImage from "../assets/services/services-global.webp";
+import { withBase } from '../utils/url';
 
 const siteUrl = "https://jdktransportation.com";
 
@@ -133,7 +134,7 @@ const structuredData = {
       <!-- Breadcrumb -->
       <nav aria-label="Breadcrumb" class="mb-4 text-sm font-light">
         <ol class="flex items-center justify-center gap-2">
-          <li><a href="/" class="hover:text-primary transition duration-300">Home</a></li>
+          <li><a href={withBase('/')} class="hover:text-primary transition duration-300">Home</a></li>
           <li aria-hidden="true">/</li>
           <li aria-current="page" class="text-primary">Services</li>
         </ol>

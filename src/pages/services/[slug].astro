@@ -7,6 +7,7 @@ import CalltoBook from '../../components/CalltoBook.astro';
 import QuoteModalForm from '../../components/QuoteModalForm.astro';
 import ServicesTypes from '../../components/ServicesTypes.astro';
 import ServiceHero from "../../assets/banners/cta.jpg";
+import { withBase } from '../../utils/url';
 
 export async function getStaticPaths() {
   const services = await getCollection('services');
@@ -105,9 +106,9 @@ const structuredData = {
       <!-- Breadcrumb -->
       <nav aria-label="Breadcrumb" class="mb-4 text-sm font-light">
         <ol class="flex items-center justify-center gap-2">
-          <li><a href="/" class="hover:text-primary transition duration-300">Home</a></li>
+          <li><a href={withBase('/')} class="hover:text-primary transition duration-300">Home</a></li>
           <li aria-hidden="true">/</li>
-          <li><a href="/services" class="hover:text-primary transition duration-300">Services</a></li>
+          <li><a href={withBase('/services')} class="hover:text-primary transition duration-300">Services</a></li>
           <li aria-hidden="true">/</li>
           <li aria-current="page" class="text-primary">{title}</li>
         </ol>

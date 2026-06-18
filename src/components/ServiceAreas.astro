@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
+import { withBase } from '../utils/url';
 
 interface Props {
   currentSlug?: string;
@@ -53,7 +54,7 @@ const areas = (await getCollection('serviceAreas'))
                 </h3>
               </div>
               <p class="text-sm font-light leading-snug line-clamp-3">{area.data.summary}</p>
-              <a href={`/service-areas/${area.id}`} class="group/link inline-flex items-center gap-1 mt-3 text-sm font-semibold text-primary">
+              <a href={withBase(`/service-areas/${area.id}`)} class="group/link inline-flex items-center gap-1 mt-3 text-sm font-semibold text-primary">
                 View Details <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span>
               </a>
             </div>

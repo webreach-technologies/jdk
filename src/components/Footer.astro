@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Logo from "../assets/logo/logo.png";
+import { withBase } from '../utils/url';
 ---
 
 
@@ -13,7 +14,7 @@ import Logo from "../assets/logo/logo.png";
       
       <!-- Logo Section -->
       <div class="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-        <a href="/">
+        <a href={withBase('/')}>
           <Image src={Logo} alt="JDK Transportation Logo" quality={1} loading="lazy" class="w-62"></Image>
         </a>
       </div>

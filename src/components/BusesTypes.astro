@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
+import { withBase } from '../utils/url';
 
 interface Props {
   currentSlug?: string;
@@ -49,7 +50,7 @@ const vehicles = (await getCollection('fleet'))
           </div>
 
           <div class="flex flex-wrap items-center justify-center gap-3 mb-4">
-            <a href={`/fleet/${vehicle.id}`} class="bg-black
+            <a href={withBase(`/fleet/${vehicle.id}`)} class="bg-black
                         text-primary font-light px-6 py-2
                         rounded-full
                         transition-all duration-300 hover:scale-105">

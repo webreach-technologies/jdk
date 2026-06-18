@@ -1,8 +1,9 @@
 ---
 import { Image } from 'astro:assets';
 import Logo from "../assets/logo/logo.png";
+import { withBase, stripBase } from '../utils/url';
 
-const pathname = Astro.url.pathname;
+const pathname = stripBase(Astro.url.pathname);
 const isActive = (path: string) => pathname === path;
 const isActiveSection = (prefix: string) => pathname === prefix || pathname.startsWith(`${prefix}/`);
 ---
@@ -67,14 +68,14 @@ const isActiveSection = (prefix: string) => pathname === prefix || pathname.star
 
             <!-- Logo -->
             <div class="shrink-0">
-                <a href="/" class="block">
+                <a href={withBase('/')} class="block">
                     <Image src={Logo} alt="JDK Transportation Logo" quality={1} loading="lazy" class="w-28 xl:w-32"></Image>
                 </a>
             </div>
 
             <!-- Desktop Nav -->
             <ul class="hidden xl:flex items-center text-sm font-normal">
-                <li><a href="/about" class={`block px-3 2xl:px-4 py-3.5 hover:text-primary transition duration-300 ${isActive('/about') ? 'text-primary' : ''}`}>About Us</a></li>
+                <li><a href={withBase('/about')} class={`block px-3 2xl:px-4 py-3.5 hover:text-primary transition duration-300 ${isActive('/about') ? 'text-primary' : ''}`}>About Us</a></li>
 
                 <!-- Our Fleet Mega Menu -->
                 <li class="group relative">
@@ -90,36 +91,36 @@ const isActiveSection = (prefix: string) => pathname === prefix || pathname.star
                                 <div>
                                     <h4 class="text-xs font-semibold uppercase tracking-wider text-primary mb-2">Motor Coaches</h4>
                                     <ul class="space-y-1.5 text-sm">
-                                        <li><a href="/fleet/50-passenger-motor-coach" class="block text-black hover:text-primary transition duration-300">50 Passenger Motor Coach</a></li>
-                                        <li><a href="/fleet/54-passenger-motor-coach" class="block text-black hover:text-primary transition duration-300">54 Passenger Motor Coach</a></li>
-                                        <li><a href="/fleet/55-passenger-motor-coach" class="block text-black hover:text-primary transition duration-300">55 Passenger Motor Coach</a></li>
-                                        <li><a href="/fleet/56-passenger-motor-coach" class="block text-black hover:text-primary transition duration-300">56 Passenger Motor Coach</a></li>
+                                        <li><a href={withBase('/fleet/50-passenger-motor-coach')} class="block text-black hover:text-primary transition duration-300">50 Passenger Motor Coach</a></li>
+                                        <li><a href={withBase('/fleet/54-passenger-motor-coach')} class="block text-black hover:text-primary transition duration-300">54 Passenger Motor Coach</a></li>
+                                        <li><a href={withBase('/fleet/55-passenger-motor-coach')} class="block text-black hover:text-primary transition duration-300">55 Passenger Motor Coach</a></li>
+                                        <li><a href={withBase('/fleet/56-passenger-motor-coach')} class="block text-black hover:text-primary transition duration-300">56 Passenger Motor Coach</a></li>
                                     </ul>
                                     <h4 class="text-xs font-semibold uppercase tracking-wider text-primary mb-2 mt-4">Specialty Vehicles</h4>
                                     <ul class="space-y-1.5 text-sm">
-                                        <li><a href="/fleet/sprinter-van" class="block text-black hover:text-primary transition duration-300">Sprinter Van</a></li>
-                                        <li><a href="/fleet/party-bus" class="block text-black hover:text-primary transition duration-300">Party Bus</a></li>
+                                        <li><a href={withBase('/fleet/sprinter-van')} class="block text-black hover:text-primary transition duration-300">Sprinter Van</a></li>
+                                        <li><a href={withBase('/fleet/party-bus')} class="block text-black hover:text-primary transition duration-300">Party Bus</a></li>
                                     </ul>
                                 </div>
                                 <div>
                                     <h4 class="text-xs font-semibold uppercase tracking-wider text-primary mb-2">Mini Buses</h4>
                                     <ul class="space-y-1.5 text-sm">
-                                        <li><a href="/fleet/15-passenger-minibus" class="block text-black hover:text-primary transition duration-300">15 Passenger Minibus</a></li>
-                                        <li><a href="/fleet/18-passenger-minibus" class="block text-black hover:text-primary transition duration-300">18 Passenger Minibus</a></li>
-                                        <li><a href="/fleet/20-passenger-minibus" class="block text-black hover:text-primary transition duration-300">20 Passenger Minibus</a></li>
-                                        <li><a href="/fleet/25-passenger-minibus" class="block text-black hover:text-primary transition duration-300">25 Passenger Minibus</a></li>
-                                        <li><a href="/fleet/28-passenger-minibus" class="block text-black hover:text-primary transition duration-300">28 Passenger Minibus</a></li>
+                                        <li><a href={withBase('/fleet/15-passenger-minibus')} class="block text-black hover:text-primary transition duration-300">15 Passenger Minibus</a></li>
+                                        <li><a href={withBase('/fleet/18-passenger-minibus')} class="block text-black hover:text-primary transition duration-300">18 Passenger Minibus</a></li>
+                                        <li><a href={withBase('/fleet/20-passenger-minibus')} class="block text-black hover:text-primary transition duration-300">20 Passenger Minibus</a></li>
+                                        <li><a href={withBase('/fleet/25-passenger-minibus')} class="block text-black hover:text-primary transition duration-300">25 Passenger Minibus</a></li>
+                                        <li><a href={withBase('/fleet/28-passenger-minibus')} class="block text-black hover:text-primary transition duration-300">28 Passenger Minibus</a></li>
                                     </ul>
                                     <h4 class="text-xs font-semibold uppercase tracking-wider text-primary mb-2 mt-4">Mini Coaches</h4>
                                     <ul class="space-y-1.5 text-sm">
-                                        <li><a href="/fleet/30-passenger-mini-coach" class="block text-black hover:text-primary transition duration-300">30 Passenger Mini Coach</a></li>
-                                        <li><a href="/fleet/33-passenger-mini-coach" class="block text-black hover:text-primary transition duration-300">33 Passenger Mini Coach</a></li>
-                                        <li><a href="/fleet/35-passenger-mini-coach" class="block text-black hover:text-primary transition duration-300">35 Passenger Mini Coach</a></li>
-                                        <li><a href="/fleet/40-passenger-mini-coach" class="block text-black hover:text-primary transition duration-300">40 Passenger Mini Coach</a></li>
+                                        <li><a href={withBase('/fleet/30-passenger-mini-coach')} class="block text-black hover:text-primary transition duration-300">30 Passenger Mini Coach</a></li>
+                                        <li><a href={withBase('/fleet/33-passenger-mini-coach')} class="block text-black hover:text-primary transition duration-300">33 Passenger Mini Coach</a></li>
+                                        <li><a href={withBase('/fleet/35-passenger-mini-coach')} class="block text-black hover:text-primary transition duration-300">35 Passenger Mini Coach</a></li>
+                                        <li><a href={withBase('/fleet/40-passenger-mini-coach')} class="block text-black hover:text-primary transition duration-300">40 Passenger Mini Coach</a></li>
                                     </ul>
                                 </div>
                             </div>
-                            <a href="/fleet" class="group/link block mt-3 pt-2 border-t border-gray-200 text-sm font-semibold text-primary">View All Buses <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span></a>
+                            <a href={withBase('/fleet')} class="group/link block mt-3 pt-2 border-t border-gray-200 text-sm font-semibold text-primary">View All Buses <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span></a>
                         </div>
                     </div>
                 </li>
@@ -134,24 +135,24 @@ const isActiveSection = (prefix: string) => pathname === prefix || pathname.star
                     </button>
                     <div class="absolute left-0 top-full opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300">
                         <div class="bg-white text-black border-t-2 border-primary shadow-xl p-6 w-150 grid grid-cols-2 gap-x-8 gap-y-1.5 text-sm">
-                            <a href="/services/airport-shuttles" class="block text-black hover:text-primary transition duration-300">Airport Shuttles</a>
-                            <a href="/services/construction-site-shuttles" class="block text-black hover:text-primary transition duration-300">Construction Site Shuttles</a>
-                            <a href="/services/corporate-events" class="block text-black hover:text-primary transition duration-300">Corporate Events</a>
-                            <a href="/services/employee-shuttles" class="block text-black hover:text-primary transition duration-300">Employee Shuttles</a>
-                            <a href="/services/emergency-services" class="block text-black hover:text-primary transition duration-300">Emergency Services</a>
-                            <a href="/services/government-military-groups" class="block text-black hover:text-primary transition duration-300">Government & Military Groups</a>
-                            <a href="/services/hospital-healthcare-shuttles" class="block text-black hover:text-primary transition duration-300">Hospital & Healthcare Shuttles</a>
-                            <a href="/services/private-events" class="block text-black hover:text-primary transition duration-300">Private Events</a>
-                            <a href="/services/proms-homecomings" class="block text-black hover:text-primary transition duration-300">Proms & Homecomings</a>
-                            <a href="/services/religious-groups" class="block text-black hover:text-primary transition duration-300">Religious Groups</a>
-                            <a href="/services/school-trips" class="block text-black hover:text-primary transition duration-300">School Trips</a>
-                            <a href="/services/sports-teams" class="block text-black hover:text-primary transition duration-300">Sports Teams</a>
-                            <a href="/services/summer-camps" class="block text-black hover:text-primary transition duration-300">Summer Camps</a>
-                            <a href="/services/travel-agents" class="block text-black hover:text-primary transition duration-300">Travel Agents</a>
-                            <a href="/services/vacations-family-trips" class="block text-black hover:text-primary transition duration-300">Vacations & Family Trips</a>
-                            <a href="/services/wedding-shuttles" class="block text-black hover:text-primary transition duration-300">Wedding Shuttles</a>
-                            <a href="/services/wine-tours-pub-crawls" class="block text-black hover:text-primary transition duration-300">Wine Tours & Pub Crawls</a>
-                            <a href="/services" class="group/link block col-span-2 mt-2 pt-2 border-t border-gray-200 font-semibold text-primary">View All Services <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span></a>
+                            <a href={withBase('/services/airport-shuttles')} class="block text-black hover:text-primary transition duration-300">Airport Shuttles</a>
+                            <a href={withBase('/services/construction-site-shuttles')} class="block text-black hover:text-primary transition duration-300">Construction Site Shuttles</a>
+                            <a href={withBase('/services/corporate-events')} class="block text-black hover:text-primary transition duration-300">Corporate Events</a>
+                            <a href={withBase('/services/employee-shuttles')} class="block text-black hover:text-primary transition duration-300">Employee Shuttles</a>
+                            <a href={withBase('/services/emergency-services')} class="block text-black hover:text-primary transition duration-300">Emergency Services</a>
+                            <a href={withBase('/services/government-military-groups')} class="block text-black hover:text-primary transition duration-300">Government & Military Groups</a>
+                            <a href={withBase('/services/hospital-healthcare-shuttles')} class="block text-black hover:text-primary transition duration-300">Hospital & Healthcare Shuttles</a>
+                            <a href={withBase('/services/private-events')} class="block text-black hover:text-primary transition duration-300">Private Events</a>
+                            <a href={withBase('/services/proms-homecomings')} class="block text-black hover:text-primary transition duration-300">Proms & Homecomings</a>
+                            <a href={withBase('/services/religious-groups')} class="block text-black hover:text-primary transition duration-300">Religious Groups</a>
+                            <a href={withBase('/services/school-trips')} class="block text-black hover:text-primary transition duration-300">School Trips</a>
+                            <a href={withBase('/services/sports-teams')} class="block text-black hover:text-primary transition duration-300">Sports Teams</a>
+                            <a href={withBase('/services/summer-camps')} class="block text-black hover:text-primary transition duration-300">Summer Camps</a>
+                            <a href={withBase('/services/travel-agents')} class="block text-black hover:text-primary transition duration-300">Travel Agents</a>
+                            <a href={withBase('/services/vacations-family-trips')} class="block text-black hover:text-primary transition duration-300">Vacations & Family Trips</a>
+                            <a href={withBase('/services/wedding-shuttles')} class="block text-black hover:text-primary transition duration-300">Wedding Shuttles</a>
+                            <a href={withBase('/services/wine-tours-pub-crawls')} class="block text-black hover:text-primary transition duration-300">Wine Tours & Pub Crawls</a>
+                            <a href={withBase('/services')} class="group/link block col-span-2 mt-2 pt-2 border-t border-gray-200 font-semibold text-primary">View All Services <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span></a>
                         </div>
                     </div>
                 </li>
@@ -166,23 +167,23 @@ const isActiveSection = (prefix: string) => pathname === prefix || pathname.star
                     </button>
                     <div class="absolute left-0 top-full opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300">
                         <div class="bg-white text-black border-t-2 border-primary shadow-xl p-6 w-100 grid grid-cols-2 gap-x-8 gap-y-1.5 text-sm">
-                            <a href="/service-areas/newark" class="block text-black hover:text-primary transition duration-300">Newark</a>
-                            <a href="/service-areas/jersey-city" class="block text-black hover:text-primary transition duration-300">Jersey City</a>
-                            <a href="/service-areas/new-york" class="block text-black hover:text-primary transition duration-300">New York</a>
-                            <a href="/service-areas/philadelphia" class="block text-black hover:text-primary transition duration-300">Philadelphia</a>
-                            <a href="/service-areas/toronto" class="block text-black hover:text-primary transition duration-300">Toronto</a>
-                            <a href="/service-areas/niagara-falls-ny" class="block text-black hover:text-primary transition duration-300">Niagara Falls (NY)</a>
-                            <a href="/service-areas/niagara-falls-on" class="block text-black hover:text-primary transition duration-300">Niagara Falls (ON)</a>
-                            <a href="/service-areas/miami" class="block text-black hover:text-primary transition duration-300">Miami</a>
-                            <a href="/service-areas/fort-lauderdale" class="block text-black hover:text-primary transition duration-300">Fort Lauderdale</a>
-                            <a href="/service-areas/orlando" class="block text-black hover:text-primary transition duration-300">Orlando</a>
-                            <a href="/service-areas" class="group/link block col-span-2 mt-2 pt-2 border-t border-gray-200 font-semibold text-primary">View All Locations <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span></a>
+                            <a href={withBase('/service-areas/newark')} class="block text-black hover:text-primary transition duration-300">Newark</a>
+                            <a href={withBase('/service-areas/jersey-city')} class="block text-black hover:text-primary transition duration-300">Jersey City</a>
+                            <a href={withBase('/service-areas/new-york')} class="block text-black hover:text-primary transition duration-300">New York</a>
+                            <a href={withBase('/service-areas/philadelphia')} class="block text-black hover:text-primary transition duration-300">Philadelphia</a>
+                            <a href={withBase('/service-areas/toronto')} class="block text-black hover:text-primary transition duration-300">Toronto</a>
+                            <a href={withBase('/service-areas/niagara-falls-ny')} class="block text-black hover:text-primary transition duration-300">Niagara Falls (NY)</a>
+                            <a href={withBase('/service-areas/niagara-falls-on')} class="block text-black hover:text-primary transition duration-300">Niagara Falls (ON)</a>
+                            <a href={withBase('/service-areas/miami')} class="block text-black hover:text-primary transition duration-300">Miami</a>
+                            <a href={withBase('/service-areas/fort-lauderdale')} class="block text-black hover:text-primary transition duration-300">Fort Lauderdale</a>
+                            <a href={withBase('/service-areas/orlando')} class="block text-black hover:text-primary transition duration-300">Orlando</a>
+                            <a href={withBase('/service-areas')} class="group/link block col-span-2 mt-2 pt-2 border-t border-gray-200 font-semibold text-primary">View All Locations <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span></a>
                         </div>
                     </div>
                 </li>
 
-                <li><a href="/prices" class={`block px-3 2xl:px-4 py-3.5 hover:text-primary transition duration-300 ${isActive('/prices') ? 'text-primary' : ''}`}>Prices</a></li>
-                <li><a href="/contact" class={`block px-3 2xl:px-4 py-3.5 hover:text-primary transition duration-300 ${isActive('/contact') ? 'text-primary' : ''}`}>Contact Us</a></li>
+                <li><a href={withBase('/prices')} class={`block px-3 2xl:px-4 py-3.5 hover:text-primary transition duration-300 ${isActive('/prices') ? 'text-primary' : ''}`}>Prices</a></li>
+                <li><a href={withBase('/contact')} class={`block px-3 2xl:px-4 py-3.5 hover:text-primary transition duration-300 ${isActive('/contact') ? 'text-primary' : ''}`}>Contact Us</a></li>
             </ul>
 
             <!-- Desktop CTAs -->
@@ -241,7 +242,7 @@ const isActiveSection = (prefix: string) => pathname === prefix || pathname.star
         </div>
 
         <ul class="flex flex-col text-sm divide-y divide-white/10 px-4 pb-6 font-normal">
-            <li><a href="/about" class={`block py-3 hover:text-primary transition duration-300 ${isActive('/about') ? 'text-primary' : ''}`}>About Us</a></li>
+            <li><a href={withBase('/about')} class={`block py-3 hover:text-primary transition duration-300 ${isActive('/about') ? 'text-primary' : ''}`}>About Us</a></li>
 
             <li>
                 <button type="button" class={`mobile-dropdown-toggle flex items-center justify-between w-full py-3 hover:text-primary transition duration-300 cursor-pointer ${isActiveSection('/fleet') ? 'text-primary' : ''}`}>
@@ -252,25 +253,25 @@ const isActiveSection = (prefix: string) => pathname === prefix || pathname.star
                 </button>
                 <ul class="mobile-dropdown hidden space-y-3 pb-3 ps-4 text-white/80">
                     <li class="text-xs font-semibold uppercase tracking-wider text-primary pt-1">Motor Coaches</li>
-                    <li><a href="/fleet/50-passenger-motor-coach" class="block hover:text-primary transition duration-300">50 Passenger Motor Coach</a></li>
-                    <li><a href="/fleet/54-passenger-motor-coach" class="block hover:text-primary transition duration-300">54 Passenger Motor Coach</a></li>
-                    <li><a href="/fleet/55-passenger-motor-coach" class="block hover:text-primary transition duration-300">55 Passenger Motor Coach</a></li>
-                    <li><a href="/fleet/56-passenger-motor-coach" class="block hover:text-primary transition duration-300">56 Passenger Motor Coach</a></li>
+                    <li><a href={withBase('/fleet/50-passenger-motor-coach')} class="block hover:text-primary transition duration-300">50 Passenger Motor Coach</a></li>
+                    <li><a href={withBase('/fleet/54-passenger-motor-coach')} class="block hover:text-primary transition duration-300">54 Passenger Motor Coach</a></li>
+                    <li><a href={withBase('/fleet/55-passenger-motor-coach')} class="block hover:text-primary transition duration-300">55 Passenger Motor Coach</a></li>
+                    <li><a href={withBase('/fleet/56-passenger-motor-coach')} class="block hover:text-primary transition duration-300">56 Passenger Motor Coach</a></li>
                     <li class="text-xs font-semibold uppercase tracking-wider text-primary pt-1">Mini Buses</li>
-                    <li><a href="/fleet/15-passenger-minibus" class="block hover:text-primary transition duration-300">15 Passenger Minibus</a></li>
-                    <li><a href="/fleet/18-passenger-minibus" class="block hover:text-primary transition duration-300">18 Passenger Minibus</a></li>
-                    <li><a href="/fleet/20-passenger-minibus" class="block hover:text-primary transition duration-300">20 Passenger Minibus</a></li>
-                    <li><a href="/fleet/25-passenger-minibus" class="block hover:text-primary transition duration-300">25 Passenger Minibus</a></li>
-                    <li><a href="/fleet/28-passenger-minibus" class="block hover:text-primary transition duration-300">28 Passenger Minibus</a></li>
+                    <li><a href={withBase('/fleet/15-passenger-minibus')} class="block hover:text-primary transition duration-300">15 Passenger Minibus</a></li>
+                    <li><a href={withBase('/fleet/18-passenger-minibus')} class="block hover:text-primary transition duration-300">18 Passenger Minibus</a></li>
+                    <li><a href={withBase('/fleet/20-passenger-minibus')} class="block hover:text-primary transition duration-300">20 Passenger Minibus</a></li>
+                    <li><a href={withBase('/fleet/25-passenger-minibus')} class="block hover:text-primary transition duration-300">25 Passenger Minibus</a></li>
+                    <li><a href={withBase('/fleet/28-passenger-minibus')} class="block hover:text-primary transition duration-300">28 Passenger Minibus</a></li>
                     <li class="text-xs font-semibold uppercase tracking-wider text-primary pt-1">Mini Coaches</li>
-                    <li><a href="/fleet/30-passenger-mini-coach" class="block hover:text-primary transition duration-300">30 Passenger Mini Coach</a></li>
-                    <li><a href="/fleet/33-passenger-mini-coach" class="block hover:text-primary transition duration-300">33 Passenger Mini Coach</a></li>
-                    <li><a href="/fleet/35-passenger-mini-coach" class="block hover:text-primary transition duration-300">35 Passenger Mini Coach</a></li>
-                    <li><a href="/fleet/40-passenger-mini-coach" class="block hover:text-primary transition duration-300">40 Passenger Mini Coach</a></li>
+                    <li><a href={withBase('/fleet/30-passenger-mini-coach')} class="block hover:text-primary transition duration-300">30 Passenger Mini Coach</a></li>
+                    <li><a href={withBase('/fleet/33-passenger-mini-coach')} class="block hover:text-primary transition duration-300">33 Passenger Mini Coach</a></li>
+                    <li><a href={withBase('/fleet/35-passenger-mini-coach')} class="block hover:text-primary transition duration-300">35 Passenger Mini Coach</a></li>
+                    <li><a href={withBase('/fleet/40-passenger-mini-coach')} class="block hover:text-primary transition duration-300">40 Passenger Mini Coach</a></li>
                     <li class="text-xs font-semibold uppercase tracking-wider text-primary pt-1">Specialty Vehicles</li>
-                    <li><a href="/fleet/sprinter-van" class="block hover:text-primary transition duration-300">Sprinter Van</a></li>
-                    <li><a href="/fleet/party-bus" class="block hover:text-primary transition duration-300">Party Bus</a></li>
-                    <li><a href="/fleet" class="group/link block font-semibold text-primary">View All Buses <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span></a></li>
+                    <li><a href={withBase('/fleet/sprinter-van')} class="block hover:text-primary transition duration-300">Sprinter Van</a></li>
+                    <li><a href={withBase('/fleet/party-bus')} class="block hover:text-primary transition duration-300">Party Bus</a></li>
+                    <li><a href={withBase('/fleet')} class="group/link block font-semibold text-primary">View All Buses <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span></a></li>
                 </ul>
             </li>
 
@@ -282,24 +283,24 @@ const isActiveSection = (prefix: string) => pathname === prefix || pathname.star
                     </svg>
                 </button>
                 <ul class="mobile-dropdown hidden space-y-3 pb-3 ps-4 text-white/80">
-                    <li><a href="/services/airport-shuttles" class="block hover:text-primary transition duration-300">Airport Shuttles</a></li>
-                    <li><a href="/services/construction-site-shuttles" class="block hover:text-primary transition duration-300">Construction Site Shuttles</a></li>
-                    <li><a href="/services/corporate-events" class="block hover:text-primary transition duration-300">Corporate Events</a></li>
-                    <li><a href="/services/employee-shuttles" class="block hover:text-primary transition duration-300">Employee Shuttles</a></li>
-                    <li><a href="/services/emergency-services" class="block hover:text-primary transition duration-300">Emergency Services</a></li>
-                    <li><a href="/services/government-military-groups" class="block hover:text-primary transition duration-300">Government & Military Groups</a></li>
-                    <li><a href="/services/hospital-healthcare-shuttles" class="block hover:text-primary transition duration-300">Hospital & Healthcare Shuttles</a></li>
-                    <li><a href="/services/private-events" class="block hover:text-primary transition duration-300">Private Events</a></li>
-                    <li><a href="/services/proms-homecomings" class="block hover:text-primary transition duration-300">Proms & Homecomings</a></li>
-                    <li><a href="/services/religious-groups" class="block hover:text-primary transition duration-300">Religious Groups</a></li>
-                    <li><a href="/services/school-trips" class="block hover:text-primary transition duration-300">School Trips</a></li>
-                    <li><a href="/services/sports-teams" class="block hover:text-primary transition duration-300">Sports Teams</a></li>
-                    <li><a href="/services/summer-camps" class="block hover:text-primary transition duration-300">Summer Camps</a></li>
-                    <li><a href="/services/travel-agents" class="block hover:text-primary transition duration-300">Travel Agents</a></li>
-                    <li><a href="/services/vacations-family-trips" class="block hover:text-primary transition duration-300">Vacations & Family Trips</a></li>
-                    <li><a href="/services/wedding-shuttles" class="block hover:text-primary transition duration-300">Wedding Shuttles</a></li>
-                    <li><a href="/services/wine-tours-pub-crawls" class="block hover:text-primary transition duration-300">Wine Tours & Pub Crawls</a></li>
-                    <li><a href="/services" class="group/link block font-semibold text-primary">View All Services <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span></a></li>
+                    <li><a href={withBase('/services/airport-shuttles')} class="block hover:text-primary transition duration-300">Airport Shuttles</a></li>
+                    <li><a href={withBase('/services/construction-site-shuttles')} class="block hover:text-primary transition duration-300">Construction Site Shuttles</a></li>
+                    <li><a href={withBase('/services/corporate-events')} class="block hover:text-primary transition duration-300">Corporate Events</a></li>
+                    <li><a href={withBase('/services/employee-shuttles')} class="block hover:text-primary transition duration-300">Employee Shuttles</a></li>
+                    <li><a href={withBase('/services/emergency-services')} class="block hover:text-primary transition duration-300">Emergency Services</a></li>
+                    <li><a href={withBase('/services/government-military-groups')} class="block hover:text-primary transition duration-300">Government & Military Groups</a></li>
+                    <li><a href={withBase('/services/hospital-healthcare-shuttles')} class="block hover:text-primary transition duration-300">Hospital & Healthcare Shuttles</a></li>
+                    <li><a href={withBase('/services/private-events')} class="block hover:text-primary transition duration-300">Private Events</a></li>
+                    <li><a href={withBase('/services/proms-homecomings')} class="block hover:text-primary transition duration-300">Proms & Homecomings</a></li>
+                    <li><a href={withBase('/services/religious-groups')} class="block hover:text-primary transition duration-300">Religious Groups</a></li>
+                    <li><a href={withBase('/services/school-trips')} class="block hover:text-primary transition duration-300">School Trips</a></li>
+                    <li><a href={withBase('/services/sports-teams')} class="block hover:text-primary transition duration-300">Sports Teams</a></li>
+                    <li><a href={withBase('/services/summer-camps')} class="block hover:text-primary transition duration-300">Summer Camps</a></li>
+                    <li><a href={withBase('/services/travel-agents')} class="block hover:text-primary transition duration-300">Travel Agents</a></li>
+                    <li><a href={withBase('/services/vacations-family-trips')} class="block hover:text-primary transition duration-300">Vacations & Family Trips</a></li>
+                    <li><a href={withBase('/services/wedding-shuttles')} class="block hover:text-primary transition duration-300">Wedding Shuttles</a></li>
+                    <li><a href={withBase('/services/wine-tours-pub-crawls')} class="block hover:text-primary transition duration-300">Wine Tours & Pub Crawls</a></li>
+                    <li><a href={withBase('/services')} class="group/link block font-semibold text-primary">View All Services <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span></a></li>
                 </ul>
             </li>
 
@@ -311,22 +312,22 @@ const isActiveSection = (prefix: string) => pathname === prefix || pathname.star
                     </svg>
                 </button>
                 <ul class="mobile-dropdown hidden space-y-3 pb-3 ps-4 text-white/80">
-                    <li><a href="/service-areas/newark" class="block hover:text-primary transition duration-300">Newark</a></li>
-                    <li><a href="/service-areas/jersey-city" class="block hover:text-primary transition duration-300">Jersey City</a></li>
-                    <li><a href="/service-areas/new-york" class="block hover:text-primary transition duration-300">New York</a></li>
-                    <li><a href="/service-areas/philadelphia" class="block hover:text-primary transition duration-300">Philadelphia</a></li>
-                    <li><a href="/service-areas/toronto" class="block hover:text-primary transition duration-300">Toronto</a></li>
-                    <li><a href="/service-areas/niagara-falls-ny" class="block hover:text-primary transition duration-300">Niagara Falls (NY)</a></li>
-                    <li><a href="/service-areas/niagara-falls-on" class="block hover:text-primary transition duration-300">Niagara Falls (ON)</a></li>
-                    <li><a href="/service-areas/miami" class="block hover:text-primary transition duration-300">Miami</a></li>
-                    <li><a href="/service-areas/fort-lauderdale" class="block hover:text-primary transition duration-300">Fort Lauderdale</a></li>
-                    <li><a href="/service-areas/orlando" class="block hover:text-primary transition duration-300">Orlando</a></li>
-                    <li><a href="/service-areas" class="group/link block font-semibold text-primary">View All Locations <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span></a></li>
+                    <li><a href={withBase('/service-areas/newark')} class="block hover:text-primary transition duration-300">Newark</a></li>
+                    <li><a href={withBase('/service-areas/jersey-city')} class="block hover:text-primary transition duration-300">Jersey City</a></li>
+                    <li><a href={withBase('/service-areas/new-york')} class="block hover:text-primary transition duration-300">New York</a></li>
+                    <li><a href={withBase('/service-areas/philadelphia')} class="block hover:text-primary transition duration-300">Philadelphia</a></li>
+                    <li><a href={withBase('/service-areas/toronto')} class="block hover:text-primary transition duration-300">Toronto</a></li>
+                    <li><a href={withBase('/service-areas/niagara-falls-ny')} class="block hover:text-primary transition duration-300">Niagara Falls (NY)</a></li>
+                    <li><a href={withBase('/service-areas/niagara-falls-on')} class="block hover:text-primary transition duration-300">Niagara Falls (ON)</a></li>
+                    <li><a href={withBase('/service-areas/miami')} class="block hover:text-primary transition duration-300">Miami</a></li>
+                    <li><a href={withBase('/service-areas/fort-lauderdale')} class="block hover:text-primary transition duration-300">Fort Lauderdale</a></li>
+                    <li><a href={withBase('/service-areas/orlando')} class="block hover:text-primary transition duration-300">Orlando</a></li>
+                    <li><a href={withBase('/service-areas')} class="group/link block font-semibold text-primary">View All Locations <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span></a></li>
                 </ul>
             </li>
 
-            <li><a href="/prices" class={`block py-3 hover:text-primary transition duration-300 ${isActive('/prices') ? 'text-primary' : ''}`}>Prices</a></li>
-            <li><a href="/contact" class={`block py-3 hover:text-primary transition duration-300 ${isActive('/contact') ? 'text-primary' : ''}`}>Contact Us</a></li>
+            <li><a href={withBase('/prices')} class={`block py-3 hover:text-primary transition duration-300 ${isActive('/prices') ? 'text-primary' : ''}`}>Prices</a></li>
+            <li><a href={withBase('/contact')} class={`block py-3 hover:text-primary transition duration-300 ${isActive('/contact') ? 'text-primary' : ''}`}>Contact Us</a></li>
         </ul>
     </div>
 
