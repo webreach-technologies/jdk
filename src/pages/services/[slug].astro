@@ -1,0 +1,280 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import FAQ from '../../components/FAQ.astro';
+import CalltoBook from '../../components/CalltoBook.astro';
+import QuoteModalForm from '../../components/QuoteModalForm.astro';
+import ServicesTypes from '../../components/ServicesTypes.astro';
+import ServiceHero from "../../assets/banners/cta.jpg";
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+  return services.map((service) => ({
+    params: { slug: service.id },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const { title, summary, intro, heroImage, secondaryImage, benefits, idealFor, faqs, seo } = service.data;
+const { Content } = await render(service);
+
+// Icons cycled across the benefit highlights
+const benefitIcons = [
+  "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-13v4l3 2", // clock
+  "M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Zm-2.5 10.5 2 2 4-4.5", // shield/check
+  "M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3ZM8 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3Zm8 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4Zm-8 0c-.29 0-.62.02-.97.05C5.81 13.4 4 14.61 4 16v2H2v-2c0-2.66 4.13-4 6-4Z", // group
+  "M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2 2m8.8-2-2 2m-8.8 8.8 2-2m8.8 2-2-2M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z", // sparkles
+];
+
+const firstHalf = benefits.slice(0, Math.ceil(benefits.length / 2));
+const secondHalf = benefits.slice(Math.ceil(benefits.length / 2));
+
+const siteUrl = "https://jdktransportation.com";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": siteUrl + "/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Services",
+          "item": siteUrl + "/services"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": title,
+          "item": siteUrl + "/services/" + service.id
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "serviceType": title,
+      "name": title,
+      "description": summary,
+      "provider": {
+        "@type": "Organization",
+        "name": "JDK Transportation",
+        "url": siteUrl,
+        "telephone": "+1-877-377-7172",
+        "email": "info@jdktransportation.com"
+      },
+      "areaServed": "US",
+      "url": siteUrl + "/services/" + service.id
+    },
+    ...(faqs && faqs.length > 0 ? [{
+      "@type": "FAQPage",
+      "mainEntity": faqs.map((faq) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    }] : [])
+  ]
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+
+  <!-- Service Hero -->
+  <section aria-labelledby="service-hero-heading" class="relative w-full py-28 md:py-40 text-center text-white">
+
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <Image src={ServiceHero} alt="" quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-black/60"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm font-light">
+        <ol class="flex items-center justify-center gap-2">
+          <li><a href="/" class="hover:text-primary transition duration-300">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/services" class="hover:text-primary transition duration-300">Services</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-primary">{title}</li>
+        </ol>
+      </nav>
+
+      <h1 id="service-hero-heading" class="text-4xl md:text-6xl font-phudu font-extrabold uppercase tracking-wide">
+        {title}
+      </h1>
+
+      <p class="mt-4 text-base md:text-lg font-light leading-snug">
+        {summary}
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="javascript:void(0)" class="open-modal flex items-center gap-2 bg-primary text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
+          Get a Quote in 30 Minutes
+        </a>
+        <a href="tel:+18773777172" class="flex items-center gap-2 bg-white text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
+          Call: 877-377-7172
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section aria-labelledby="service-intro-heading" class="bg-white py-12 md:py-16">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 id="service-intro-heading" class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+        How JDK <span class="text-primary">Helps</span>
+      </h2>
+      <p class="mt-5 text-base md:text-lg font-light leading-snug">
+        {intro}
+      </p>
+    </div>
+  </section>
+
+  <!-- Overview: Image left, highlights right -->
+  <section aria-labelledby="service-overview-heading" class="bg-gray-100 py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-center">
+
+      <div class="overflow-hidden rounded-2xl shadow-md order-2 md:order-1">
+        <Image
+          src={heroImage}
+          alt={title}
+          quality={40}
+          loading="eager"
+          class="w-full h-auto object-cover" />
+      </div>
+
+      <div class="order-1 md:order-2">
+        <h2 id="service-overview-heading" class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+          What's <span class="text-primary">Included</span>
+        </h2>
+
+        <div class="mt-6 space-y-6">
+          {firstHalf.map((benefit, index) => (
+            <div class="flex items-start gap-4">
+              <div class="text-primary shrink-0" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d={benefitIcons[index % benefitIcons.length]} />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-medium mb-1">{benefit.label}</h3>
+                <p class="text-sm font-light leading-snug">{benefit.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Details: highlights left, image right -->
+  <section aria-labelledby="service-details-heading" class="bg-white py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-start">
+
+      <div>
+        <h2 id="service-details-heading" class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+          Service <span class="text-primary">Details</span>
+        </h2>
+
+        <div class="mt-5 prose prose-neutral max-w-none text-base md:text-lg font-light leading-snug [&_h2]:font-phudu [&_h2]:font-extrabold [&_h2]:uppercase [&_h2]:tracking-wide [&_h2]:text-2xl [&_h2]:md:text-3xl [&_h2]:mt-6 [&_h2]:mb-2">
+          <Content />
+        </div>
+
+        <div class="mt-6 space-y-6">
+          {secondHalf.map((benefit, index) => (
+            <div class="flex items-start gap-4">
+              <div class="text-primary shrink-0" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d={benefitIcons[(firstHalf.length + index) % benefitIcons.length]} />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-medium mb-1">{benefit.label}</h3>
+                <p class="text-sm font-light leading-snug">{benefit.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="overflow-hidden rounded-2xl shadow-md md:sticky md:top-24">
+        <Image
+          src={secondaryImage}
+          alt={`${title} interior`}
+          quality={40}
+          loading="lazy"
+          class="w-full h-auto object-cover" />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Ideal For -->
+  <section aria-labelledby="service-ideal-heading" class="bg-gray-100 py-16 md:py-20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-10">
+        <h2 id="service-ideal-heading" class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+          Ideal <span class="text-primary">For</span>
+        </h2>
+      </div>
+
+      <ul class="grid sm:grid-cols-2 gap-4">
+        {idealFor.map((item) => (
+          <li class="flex items-center gap-3 bg-white rounded-xl border border-gray-300 p-4">
+            <span class="flex items-center justify-center w-7 h-7 rounded-full bg-primary text-black shrink-0" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+            </span>
+            <span class="text-sm md:text-base font-light leading-snug">{item}</span>
+          </li>
+        ))}
+      </ul>
+
+    </div>
+  </section>
+
+  <!-- Our Other Services -->
+  <ServicesTypes currentSlug={service.id}>
+    <Fragment slot="heading">
+      OUR OTHER
+      <span class="text-primary">SERVICES</span>
+    </Fragment>
+  </ServicesTypes>
+
+  <!-- FAQ -->
+  {faqs && faqs.length > 0 && (
+    <FAQ
+      title={title}
+      titleHighlight="FAQs"
+      subheading={`Common questions about ${title.toLowerCase()} with JDK Transportation.`}
+      items={faqs}
+      headingId="service-faq-heading"
+    />
+  )}
+
+  <!-- Call to Action -->
+  <CalltoBook />
+
+  <QuoteModalForm />
+
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+</Layout>

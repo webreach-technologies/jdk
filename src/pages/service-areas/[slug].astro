@@ -1,0 +1,256 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import FAQ from '../../components/FAQ.astro';
+import CalltoBook from '../../components/CalltoBook.astro';
+import QuoteModalForm from '../../components/QuoteModalForm.astro';
+import AreaHero from "../../assets/banners/cta.jpg";
+
+export async function getStaticPaths() {
+  const areas = await getCollection('serviceAreas');
+  return areas.map((area) => ({
+    params: { slug: area.id },
+    props: { area },
+  }));
+}
+
+const { area } = Astro.props;
+const { name, state, summary, heroImage, highlights, idealFor, nearbyAreas, faqs, seo } = area.data;
+const { Content } = await render(area);
+
+const siteUrl = "https://jdktransportation.com";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": siteUrl + "/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Service Areas",
+          "item": siteUrl + "/service-areas"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": `${name}, ${state}`,
+          "item": siteUrl + "/service-areas/" + area.id
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "serviceType": "Motor Coach Rental",
+      "name": `Motor Coach Rentals in ${name}, ${state}`,
+      "description": summary,
+      "provider": {
+        "@type": "Organization",
+        "name": "JDK Transportation",
+        "url": siteUrl,
+        "telephone": "+1-877-377-7172",
+        "email": "info@jdktransportation.com"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": `${name}, ${state}`
+      },
+      "url": siteUrl + "/service-areas/" + area.id
+    },
+    ...(faqs && faqs.length > 0 ? [{
+      "@type": "FAQPage",
+      "mainEntity": faqs.map((faq) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    }] : [])
+  ]
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+
+  <!-- Area Hero -->
+  <section aria-labelledby="area-hero-heading" class="relative w-full py-28 md:py-40 text-center text-white">
+
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <Image src={AreaHero} alt="" quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-black/60"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm font-light">
+        <ol class="flex items-center justify-center gap-2">
+          <li><a href="/" class="hover:text-primary transition duration-300">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/service-areas" class="hover:text-primary transition duration-300">Service Areas</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-primary">{name}, {state}</li>
+        </ol>
+      </nav>
+
+      <h1 id="area-hero-heading" class="text-4xl md:text-6xl font-phudu font-extrabold uppercase tracking-wide">
+        {name}, {state}
+      </h1>
+
+      <p class="mt-4 text-base md:text-lg font-light leading-snug">
+        {summary}
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="javascript:void(0)" class="open-modal flex items-center gap-2 bg-primary text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
+          Get a Quote in 30 Minutes
+        </a>
+        <a href="tel:+18773777172" class="flex items-center gap-2 bg-white text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
+          Call: 877-377-7172
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Area Details -->
+  <section aria-labelledby="area-overview-heading" class="bg-white py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-3 gap-10 items-start">
+
+      <!-- Main Content -->
+      <div class="lg:col-span-2">
+
+        <p class="text-sm font-medium uppercase tracking-wide text-primary">{state}</p>
+        <h2 id="area-overview-heading" class="mt-2 text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+          Service <span class="text-primary">Overview</span>
+        </h2>
+
+        <div class="mt-5 prose prose-neutral max-w-none text-base md:text-lg font-light leading-snug [&_h2]:font-phudu [&_h2]:font-extrabold [&_h2]:uppercase [&_h2]:tracking-wide [&_h2]:text-2xl [&_h2]:md:text-3xl [&_h2]:mt-6 [&_h2]:mb-2">
+          <Content />
+        </div>
+
+        <!-- Popular Destinations -->
+        <div class="mt-12 pt-10 border-t border-gray-200">
+          <h2 class="text-3xl md:text-4xl font-phudu font-extrabold uppercase tracking-wide mb-6">
+            Popular <span class="text-primary">Destinations</span>
+          </h2>
+
+          <div class="grid sm:grid-cols-2 gap-6">
+            {highlights.map((highlight) => (
+              <div class="group bg-gray-100 rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
+                <div class="overflow-hidden">
+                  <Image
+                    src={highlight.image ?? heroImage}
+                    alt={highlight.label}
+                    quality={1}
+                    class="w-full h-40 object-cover transition-transform duration-700 group-hover:scale-110" />
+                </div>
+                <div class="p-5">
+                  <h3 class="font-medium text-lg">{highlight.label}</h3>
+                  <p class="mt-1 text-sm font-light leading-snug">{highlight.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="lg:col-span-1 lg:sticky lg:top-24">
+        <div class="rounded-2xl border border-gray-200 shadow-md overflow-hidden">
+
+          <div class="overflow-hidden">
+            <Image
+              src={heroImage}
+              alt={`Motor Coach serving ${name}, ${state}`}
+              quality={1}
+              loading="eager"
+              class="w-full h-48 object-cover" />
+          </div>
+
+          <div class="p-6">
+            <h3 class="text-xl font-phudu font-extrabold uppercase tracking-wide">{name}, {state}</h3>
+
+            <div class="mt-5 flex flex-col gap-3">
+              <a href="javascript:void(0)" class="open-modal flex items-center justify-center gap-2 bg-primary text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
+                Get a Quote in 30 Minutes
+              </a>
+              <a href="tel:+18773777172" class="flex items-center justify-center gap-2 bg-black text-white font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
+                Call: 877-377-7172
+              </a>
+            </div>
+
+            <!-- Ideal For -->
+            <div class="mt-6 pt-6 border-t border-gray-200">
+              <h4 class="text-sm font-semibold uppercase tracking-wide mb-3">
+                Ideal <span class="text-primary">For</span>
+              </h4>
+              <ul class="space-y-2">
+                {idealFor.map((item) => (
+                  <li class="flex items-start gap-2 text-sm font-light leading-snug">
+                    <svg class="w-4 h-4 mt-0.5 shrink-0 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <!-- Nearby Areas -->
+            {nearbyAreas.length > 0 && (
+              <div class="mt-6 pt-6 border-t border-gray-200">
+                <h4 class="text-sm font-semibold uppercase tracking-wide mb-3">
+                  Nearby <span class="text-primary">Areas</span>
+                </h4>
+                <div class="flex flex-wrap gap-2">
+                  {nearbyAreas.map((nearby) => (
+                    <a
+                      href={`/service-areas/${nearby.slug}`}
+                      class="inline-flex items-center gap-2 bg-gray-100 rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-300 hover:bg-primary hover:text-black"
+                    >
+                      {nearby.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  {faqs && faqs.length > 0 && (
+    <FAQ
+      title={`${name}, ${state}`}
+      titleHighlight="FAQs"
+      subheading={`Common questions about motor coach rentals in ${name}, ${state}.`}
+      items={faqs}
+      headingId="area-faq-heading"
+    />
+  )}
+
+  <!-- Call to Action -->
+  <CalltoBook />
+
+  <QuoteModalForm />
+
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+</Layout>

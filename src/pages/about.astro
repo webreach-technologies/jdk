@@ -1,0 +1,308 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import BusesTypes from '../components/BusesTypes.astro';
+import Amenities from '../components/Amenities.astro';
+import Companies from '../components/Companies.astro';
+import ServicesTypes from '../components/ServicesTypes.astro';
+import ServiceAreas from '../components/ServiceAreas.astro';
+import FAQ from '../components/FAQ.astro';
+import CalltoBook from '../components/CalltoBook.astro';
+import QuoteModalForm from '../components/QuoteModalForm.astro';
+import AboutHero from "../assets/banners/cta.jpg";
+import StoryImage from "../assets/banners/ourstory.jpg";
+
+const siteUrl = "https://jdktransportation.com";
+
+const aboutFaqs = [
+  {
+    question: "How long has JDK Transportation been in business?",
+    answer: "JDK Transportation has been providing motor coach rentals for over 15 years, growing from a small fleet into a trusted regional transportation provider for schools, corporations, sports teams, and groups of every size."
+  },
+  {
+    question: "What types of groups do you work with?",
+    answer: "We work with schools, corporations, wedding parties, sports teams, religious organizations, travel agents, government agencies, and any group that needs safe, reliable group transportation."
+  },
+  {
+    question: "What makes JDK Transportation different?",
+    answer: "We combine a diverse, well-maintained fleet with licensed professional drivers and 24/7 dispatch support. Every trip is backed by a team committed to safety, comfort, and on-time performance."
+  },
+  {
+    question: "Where does JDK Transportation operate?",
+    answer: "We serve the Northeast Corridor (Newark, Jersey City, New York, Philadelphia), Ontario (Toronto, Niagara Falls), and South and Central Florida (Miami, Fort Lauderdale, Orlando), with service to surrounding towns and regions."
+  },
+  {
+    question: "How do I contact JDK Transportation?",
+    answer: "Call our 24/7 team at 877-377-7172 or submit a quote request online. We typically respond with pricing details within 30 minutes."
+  },
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": siteUrl + "/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "About Us",
+          "item": siteUrl + "/about"
+        }
+      ]
+    },
+    {
+      "@type": "AboutPage",
+      "name": "About JDK Transportation",
+      "url": siteUrl + "/about",
+      "description": "Learn about JDK Transportation's story, mission, and commitment to safe, reliable motor coach rentals for groups of all sizes.",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "JDK Transportation",
+        "url": siteUrl,
+        "telephone": "+1-877-377-7172",
+        "email": "info@jdktransportation.com"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": aboutFaqs.map((faq) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    }
+  ]
+};
+---
+
+<Layout
+  title="About Us | JDK Transportation - Motor Coach Rental Company"
+  description="Learn about JDK Transportation, a trusted motor coach rental company providing safe, comfortable, and reliable group transportation for corporate travel, school trips, weddings, and special events.">
+
+  <!-- About Hero -->
+  <section class="relative w-full py-28 md:py-40 text-center text-white">
+
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <Image src={AboutHero} alt="" quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-black/60"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm font-light">
+        <ol class="flex items-center justify-center gap-2">
+          <li><a href="/" class="hover:text-primary transition duration-300">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-primary">About Us</li>
+        </ol>
+      </nav>
+
+      <h1 class="text-4xl md:text-6xl font-phudu font-extrabold uppercase tracking-wide">
+        About JDK Transportation
+      </h1>
+
+      <p class="mt-4 text-base md:text-lg font-light leading-snug">
+        Safe, comfortable, and reliable motor coach rentals for groups of every size.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- Our Story -->
+  <section aria-labelledby="our-story-heading" class="bg-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-center">
+
+      <div>
+        <h2 id="our-story-heading" class="text-center md:text-start text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+          Our <span class="text-primary">Story</span>
+        </h2>
+
+        <p class="mt-5 text-base md:text-lg font-light leading-snug">
+          JDK Transportation was built on a simple promise: get every passenger to their destination
+          safely, comfortably, and on time. What started as a small fleet has grown into a trusted
+          motor coach rental service relied on by schools, sports teams, corporations,
+          wedding parties, and travel agents across the region.
+        </p>
+
+        <p class="mt-4 text-base md:text-lg font-light leading-snug">
+          Today, our diverse fleet ranges from 15-seater minibuses to 56-seater motorcoaches, each
+          maintained to the highest safety standards and equipped with the amenities groups expect.
+          Our experienced, professional drivers and 24/7 support team work behind the scenes so your
+          trip runs smoothly from the first call to the final drop-off.
+        </p>
+      </div>
+
+      <div class="overflow-hidden rounded-2xl shadow-md">
+        <Image
+          src={StoryImage}
+          alt="Comfortable interior seating inside a JDK Transportation motor coach"
+          quality={40}
+          loading="lazy"
+          class="w-full h-auto object-cover" />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Mission & Values -->
+  <section aria-labelledby="mission-heading" class="bg-gray-100 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-10">
+        <h2 id="mission-heading" class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+          Our Mission & <span class="text-primary">Values</span>
+        </h2>
+        <p class="mt-4 text-sm md:text-base font-light max-w-2xl mx-auto">
+          Everything we do is guided by a commitment to safety, comfort, and dependable service.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <!-- Card 1 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 flex items-start gap-4 border border-gray-400 group transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl">
+          <div class="text-black shrink-0" aria-hidden="true">
+            <svg width="38" height="38" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <g transform="matrix(0.83 0 0 0.83 12 12)">
+                <g transform="matrix(1 0 0 1 -0.1 -0.6)">
+                  <path style="stroke: rgb(0,0,0); stroke-width: 1.8072289156626506; fill: none;" transform="translate(-12, -11.5)" d="M 8 11 L 11 14 L 16 9" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+                <g transform="matrix(1 0 0 1 -0.1 -0.1)">
+                  <path style="stroke: rgb(0,0,0); stroke-width: 1.8072289156626506; fill: none;" transform="translate(-12, -12)" d="M 19.778 15.222 L 23 12 L 19.778 8.778 L 19.778 4.222 L 15.222 4.222 L 12 1 L 8.778 4.222 L 4.222 4.222 L 4.222 8.778 L 1 12 L 4.222 15.222 L 4.222 19.778 L 8.778 19.778 L 12 23 L 15.222 19.778 L 19.778 19.778 L 19.778 15.222 z" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium mb-1">Safety First</h3>
+            <p class="text-sm font-light leading-snug">
+              Every vehicle in our fleet is regularly inspected and maintained, and every driver is
+              licensed, trained, and committed to getting your group there safely.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 flex items-start gap-4 border border-gray-400 group transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl">
+          <div class="text-black shrink-0" aria-hidden="true">
+            <svg width="38" height="38" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <g transform="matrix(0.83 0 0 0.83 12 12)">
+                <g transform="matrix(1 0 0 1 -0.1 -0.6)">
+                  <path style="stroke: rgb(0,0,0); stroke-width: 1.8072289156626506; fill: none;" transform="translate(-12, -11.5)" d="M 8 11 L 11 14 L 16 9" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+                <g transform="matrix(1 0 0 1 -0.1 -0.1)">
+                  <path style="stroke: rgb(0,0,0); stroke-width: 1.8072289156626506; fill: none;" transform="translate(-12, -12)" d="M 19.778 15.222 L 23 12 L 19.778 8.778 L 19.778 4.222 L 15.222 4.222 L 12 1 L 8.778 4.222 L 4.222 4.222 L 4.222 8.778 L 1 12 L 4.222 15.222 L 4.222 19.778 L 8.778 19.778 L 12 23 L 15.222 19.778 L 19.778 19.778 L 19.778 15.222 z" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium mb-1">Comfort & Reliability</h3>
+            <p class="text-sm font-light leading-snug">
+              From climate control to onboard amenities, our coaches are built for long trips and
+              short hops alike &mdash; and we pride ourselves on showing up on time, every time.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 flex items-start gap-4 border border-gray-400 group transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl">
+          <div class="text-black shrink-0" aria-hidden="true">
+            <svg width="38" height="38" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <g transform="matrix(0.83 0 0 0.83 12 12)">
+                <g transform="matrix(1 0 0 1 -0.1 -0.6)">
+                  <path style="stroke: rgb(0,0,0); stroke-width: 1.8072289156626506; fill: none;" transform="translate(-12, -11.5)" d="M 8 11 L 11 14 L 16 9" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+                <g transform="matrix(1 0 0 1 -0.1 -0.1)">
+                  <path style="stroke: rgb(0,0,0); stroke-width: 1.8072289156626506; fill: none;" transform="translate(-12, -12)" d="M 19.778 15.222 L 23 12 L 19.778 8.778 L 19.778 4.222 L 15.222 4.222 L 12 1 L 8.778 4.222 L 4.222 4.222 L 4.222 8.778 L 1 12 L 4.222 15.222 L 4.222 19.778 L 8.778 19.778 L 12 23 L 15.222 19.778 L 19.778 19.778 L 19.778 15.222 z" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium mb-1">Customer-Focused Service</h3>
+            <p class="text-sm font-light leading-snug">
+              Our 24/7 team works with you to plan the right vehicle, route, and schedule, so your
+              group can focus on the trip &mdash; not the logistics.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section aria-labelledby="why-choose-heading" class="relative w-full py-12 text-white">
+
+    <div class="absolute inset-0 bg-black"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 id="why-choose-heading" class="text-center text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+        Why Groups Choose <span class="text-primary">JDK Transportation</span>
+      </h2>
+
+      <dl class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <dt class="text-3xl md:text-4xl font-phudu font-extrabold text-primary">15+</dt>
+          <dd class="mt-2 text-sm md:text-base font-light">Years of Experience</dd>
+        </div>
+        <div>
+          <dt class="text-3xl md:text-4xl font-phudu font-extrabold text-primary">15-56</dt>
+          <dd class="mt-2 text-sm md:text-base font-light">Passenger Vehicle Sizes</dd>
+        </div>
+        <div>
+          <dt class="text-3xl md:text-4xl font-phudu font-extrabold text-primary">100+</dt>
+          <dd class="mt-2 text-sm md:text-base font-light">Metro Areas Served</dd>
+        </div>
+        <div>
+          <dt class="text-3xl md:text-4xl font-phudu font-extrabold text-primary">24/7</dt>
+          <dd class="mt-2 text-sm md:text-base font-light">Dispatch & Support</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Types of Buses We Offer -->
+  <BusesTypes />
+
+  <!-- Amenities -->
+  <Amenities />
+
+  <!-- Companies We've Worked With -->
+  <Companies />
+
+  <!-- Services We Offer -->
+  <ServicesTypes />
+
+  <!-- Areas We Serve -->
+  <ServiceAreas />
+
+  <!-- FAQ -->
+  <FAQ
+    title="About Us"
+    subheading="Common questions about JDK Transportation and how we work."
+    items={aboutFaqs}
+    headingId="about-faq-heading"
+  />
+
+  <!-- Call to Action -->
+  <CalltoBook />
+
+  <QuoteModalForm />
+
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+</Layout>

@@ -1,0 +1,226 @@
+---
+import type { InferGetStaticPropsType } from 'astro';
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import FAQ from '../../components/FAQ.astro';
+import CalltoBook from '../../components/CalltoBook.astro';
+import QuoteModalForm from '../../components/QuoteModalForm.astro';
+import BusesTypes from '../../components/BusesTypes.astro';
+import FleetHero from "../../assets/banners/wcu.jpg";
+
+export async function getStaticPaths() {
+  const vehicles = await getCollection('fleet');
+  return vehicles.map((vehicle) => ({
+    params: { slug: vehicle.id },
+    props: { vehicle },
+  }));
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { vehicle } = Astro.props as Props;
+const { title, category, capacity, summary, heroImage, interiorImage, features, faqs, seo } = vehicle.data;
+const { Content } = await render(vehicle);
+
+const siteUrl = "https://jdktransportation.com";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": siteUrl + "/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Our Fleet",
+          "item": siteUrl + "/fleet"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": title,
+          "item": siteUrl + "/fleet/" + vehicle.id
+        }
+      ]
+    },
+    {
+      "@type": "Product",
+      "name": title,
+      "description": summary,
+      "category": category,
+      "brand": {
+        "@type": "Organization",
+        "name": "JDK Transportation"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": siteUrl + "/fleet/" + vehicle.id,
+        "availability": "https://schema.org/InStock",
+        "seller": {
+          "@type": "Organization",
+          "name": "JDK Transportation",
+          "telephone": "+1-877-377-7172",
+          "email": "info@jdktransportation.com"
+        }
+      }
+    },
+    ...(faqs && faqs.length > 0 ? [{
+      "@type": "FAQPage",
+      "mainEntity": faqs.map((faq) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    }] : [])
+  ]
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+
+  <!-- Vehicle Hero -->
+  <section aria-labelledby="vehicle-hero-heading" class="relative w-full py-28 md:py-40 text-center text-white">
+
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <Image src={FleetHero} alt="" quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-black/60"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm font-light">
+        <ol class="flex items-center justify-center gap-2">
+          <li><a href="/" class="hover:text-primary transition duration-300">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/fleet" class="hover:text-primary transition duration-300">Our Fleet</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-primary">{title}</li>
+        </ol>
+      </nav>
+
+      <h1 id="vehicle-hero-heading" class="text-4xl md:text-6xl font-phudu font-extrabold uppercase tracking-wide">
+        {title}
+      </h1>
+
+      <p class="mt-4 text-base md:text-lg font-light leading-snug">
+        {summary}
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="javascript:void(0)" class="open-modal flex items-center gap-2 bg-primary text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
+          Get a Quote in 30 Minutes
+        </a>
+        <a href="tel:+18773777172" class="flex items-center gap-2 bg-white text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
+          Call: 877-377-7172
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Vehicle Overview -->
+  <section aria-labelledby="vehicle-overview-heading" class="bg-white py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-start">
+
+      <div class="overflow-hidden rounded-2xl shadow-md md:sticky md:top-24">
+        <Image
+          src={heroImage}
+          alt={title}
+          quality={40}
+          loading="eager"
+          class="w-full h-auto object-cover" />
+      </div>
+
+      <div>
+        <p class="text-sm font-medium uppercase tracking-wide text-primary">{category}</p>
+        <h2 id="vehicle-overview-heading" class="mt-2 text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+          Vehicle <span class="text-primary">Overview</span>
+        </h2>
+        <p class="mt-5 text-base md:text-lg font-light leading-snug">
+          {capacity}
+        </p>
+
+        <div class="mt-5 text-base md:text-lg font-light leading-snug
+          [&_h3]:font-phudu [&_h3]:font-extrabold [&_h3]:uppercase [&_h3]:tracking-wide [&_h3]:text-2xl [&_h3]:md:text-3xl [&_h3]:mt-6 [&_h3]:mb-2
+          [&_p]:mb-4
+          [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_ul]:mb-4">
+          <Content />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Features & Amenities -->
+  <section aria-labelledby="vehicle-features-heading" class="bg-gray-100 py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-10">
+        <h2 id="vehicle-features-heading" class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+          Features & <span class="text-primary">Amenities</span>
+        </h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+        {features.map((feature) => (
+          <div class="bg-white border border-gray-400 rounded-2xl py-8 md:py-6 px-6 text-center transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl">
+            <div class="mb-3 flex justify-center">
+              <Image src={feature.icon} alt={feature.label} class="w-14 md:w-12 h-14 md:h-12 object-contain" />
+            </div>
+            <p class="text-sm font-normal leading-snug">{feature.label}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="overflow-hidden rounded-2xl shadow-md max-w-3xl mx-auto">
+        <Image
+          src={interiorImage}
+          alt={`${title} Interior`}
+          quality={40}
+          loading="lazy"
+          class="w-full h-auto object-cover" />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Our Other Buses -->
+  <BusesTypes currentSlug={vehicle.id}>
+    <Fragment slot="heading">
+      OUR OTHER
+      <span class="text-primary">BUSES</span>
+    </Fragment>
+  </BusesTypes>
+
+  <!-- FAQ -->
+  {faqs && faqs.length > 0 && (
+    <FAQ
+      title={title}
+      titleHighlight="FAQs"
+      subheading={`Common questions about renting a ${title.toLowerCase()} with JDK Transportation.`}
+      items={faqs}
+      headingId="vehicle-faq-heading"
+    />
+  )}
+
+  <!-- Call to Action -->
+  <CalltoBook />
+
+  <QuoteModalForm />
+
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+</Layout>

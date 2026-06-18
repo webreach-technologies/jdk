@@ -1,8 +1,5 @@
 ---
-const { title , description} = Astro.props;
-const metaTitle = title;
-const siteUrl = "https://jdktransportation.com";
-const metaUrl = `${siteUrl}${Astro.url.pathname}`;
+import { getImage } from 'astro:assets';
 import '@fontsource-variable/phudu';
 import '@fontsource-variable/inter';
 import interFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
@@ -11,6 +8,45 @@ import "../styles/global.css";
 import "../styles/datetime-picker.css";
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { ClientRouter } from 'astro:transitions';
+import HeroImage from '../assets/banners/hero.jpg';
+import Logo from '../assets/logo/logo.png';
+
+const { title, description, image } = Astro.props;
+const metaTitle = title;
+const siteUrl = "https://jdktransportation.com";
+const metaUrl = `${siteUrl}${Astro.url.pathname}`;
+
+const ogImage = await getImage({ src: image ?? HeroImage, width: 1200, format: 'jpg' });
+const ogImageUrl = `${siteUrl}${ogImage.src}`;
+
+const logoImage = await getImage({ src: Logo, format: 'png' });
+const logoUrl = `${siteUrl}${logoImage.src}`;
+
+const businessSchema = {
+	"@context": "https://schema.org",
+	"@type": "LocalBusiness",
+	"@id": `${siteUrl}/#organization`,
+	name: "JDK Transportation",
+	image: logoUrl,
+	url: siteUrl,
+	telephone: "+1-877-377-7172",
+	email: "info@jdktransportation.com",
+	priceRange: "$$",
+	address: {
+		"@type": "PostalAddress",
+		streetAddress: "400 Rella Blvd #207-4",
+		addressLocality: "Montebello",
+		addressRegion: "NY",
+		postalCode: "10901",
+		addressCountry: "US",
+	},
+	areaServed: [
+		"Newark, NJ", "Jersey City, NJ", "New York, NY", "Philadelphia, PA",
+		"Toronto, ON", "Niagara Falls, NY", "Niagara Falls, ON", "Miami, FL",
+		"Fort Lauderdale, FL", "Orlando, FL", "Daytona Beach, FL",
+	],
+};
 ---
 
 <!doctype html>
@@ -29,6 +65,26 @@ import Footer from '../components/Footer.astro';
 		<title>{metaTitle}</title>
 		<meta name="description" content={description} />
 		<link rel="canonical" href={metaUrl} />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="JDK Transportation" />
+		<meta property="og:title" content={metaTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={metaUrl} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:locale" content="en_US" />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={metaTitle} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageUrl} />
+
+		<!-- Structured Data -->
+		<script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
+
+		<ClientRouter />
 	</head>
 	<body>
 		<Header />

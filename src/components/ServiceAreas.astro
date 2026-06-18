@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+interface Props {
+  currentSlug?: string;
+}
+
+const { currentSlug } = Astro.props;
+
+const areas = (await getCollection('serviceAreas'))
+  .filter((area) => area.id !== currentSlug)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="bg-white py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Heading -->
+    <div class="text-center mb-10">
+      <h2 class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+        <slot name="heading">
+          AREAS WE
+          <span class="text-primary">SERVE</span>
+        </slot>
+      </h2>
+      <p class="mt-4 text-sm md:text-base font-light max-w-2xl mx-auto">
+        JDK Transportation provides motor coach rentals across the following cities and regions.
+      </p>
+    </div>
+
+    <!-- Areas Grid -->
+    <div class="bg-gray-100 rounded-2xl p-6 md:p-10">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {areas.map((area) => (
+          <div class="group bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+            <div class="overflow-hidden">
+              <Image
+                src={area.data.heroImage}
+                alt={`${area.data.name}, ${area.data.state}`}
+                quality={1}
+                loading="lazy"
+                class="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-105" />
+            </div>
+
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-2">
+                <svg class="w-6 h-6 shrink-0 text-primary" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M 12 0 C 7.581722001353652 0 4 3.5817220013536524 4 8 C 4 11.51 9 20 11.15 23.52 C 11.332339276920418 23.814216930468866 11.65386243474251 23.993217312357363 12 23.993217312357363 C 12.34613756525749 23.993217312357363 12.667660723079582 23.814216930468863 12.85 23.52 C 15 20 20 11.51 20 8 C 20 3.5817220013536524 16.418277998646346 0 12 0 Z M 12 11.5 C 10.067003375592222 11.5 8.5 9.932996624407778 8.5 8 C 8.5 6.067003375592223 10.067003375592222 4.5 12 4.5 C 13.932996624407778 4.5 15.5 6.067003375592222 15.5 7.999999999999999 C 15.5 9.932996624407778 13.932996624407778 11.5 12 11.5 Z" />
+                </svg>
+                <h3 class="font-medium text-lg">
+                  {area.data.name}, {area.data.state}
+                </h3>
+              </div>
+              <p class="text-sm font-light leading-snug line-clamp-3">{area.data.summary}</p>
+              <a href={`/service-areas/${area.id}`} class="group/link inline-flex items-center gap-1 mt-3 text-sm font-semibold text-primary">
+                View Details <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>

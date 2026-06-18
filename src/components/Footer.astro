@@ -14,11 +14,8 @@ import Logo from "../assets/logo/logo.png";
       <!-- Logo Section -->
       <div class="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
         <a href="/">
-          <Image src={Logo} alt="JDK Transportation Logo" quality={1} loading="eager" class="w-62"></Image>
+          <Image src={Logo} alt="JDK Transportation Logo" quality={1} loading="lazy" class="w-62"></Image>
         </a>
-        <p class="text-sm leading-relaxed max-w-md hidden">
-          Partnered with JDK TRANSPORTATION Groupe le Chatelier, luxury transport across Québec and Ontario.
-        </p>
       </div>
 
       <!-- Contact Section -->
@@ -76,9 +73,8 @@ import Logo from "../assets/logo/logo.png";
             <span><svg id='Phone_24' width='23' height='23' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
             <g transform="matrix(0.87 0 0 0.87 12 12)" >
             <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #000; fill-rule: nonzero; opacity: 1;" transform=" translate(-15.5, -14.5)" d="M 21.225 17.889 C 20.819000000000003 17.651 20.32 17.656 19.916 17.896 L 17.87 19.115000000000002 C 17.412000000000003 19.388 16.84 19.356 16.42 19.028000000000002 C 15.694000000000003 18.461000000000002 14.525000000000002 17.507 13.508000000000003 16.490000000000002 C 12.491000000000003 15.473000000000003 11.537000000000003 14.304000000000002 10.970000000000002 13.578000000000003 C 10.642000000000003 13.158000000000003 10.610000000000003 12.586000000000002 10.883000000000003 12.128000000000004 L 12.102000000000002 10.082000000000004 C 12.343000000000002 9.678000000000004 12.345000000000002 9.175000000000004 12.107000000000003 8.769000000000004 L 9.105 3.641 C 8.814 3.145 8.236 2.901 7.6770000000000005 3.0380000000000003 C 7.134 3.17 6.429 3.492 5.69 4.232 C 3.3760000000000003 6.546 2.1470000000000002 10.449 10.849 19.151 C 19.551000000000002 27.853 23.453 26.625 25.768 24.31 C 26.509 23.569 26.830000000000002 22.863 26.963 22.319 C 27.098000000000003 21.761 26.858 21.186999999999998 26.363 20.897 C 25.127 20.174 22.461 18.613 21.225 17.889 z" stroke-linecap="round" />
-            </g>
-            </svg></span>
-            <a href="tel:+18773777172">+1 (877) 377 7172</a>
+            </g></svg></span>
+            <a href="tel:+18773777172">Reservations & Quotes</a>
           </p>
 
           <p class="flex items-center justify-start gap-3">
@@ -86,7 +82,7 @@ import Logo from "../assets/logo/logo.png";
             <g transform="matrix(0.87 0 0 0.87 12 12)" >
             <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #000; fill-rule: nonzero; opacity: 1;" transform=" translate(-15.5, -14.5)" d="M 21.225 17.889 C 20.819000000000003 17.651 20.32 17.656 19.916 17.896 L 17.87 19.115000000000002 C 17.412000000000003 19.388 16.84 19.356 16.42 19.028000000000002 C 15.694000000000003 18.461000000000002 14.525000000000002 17.507 13.508000000000003 16.490000000000002 C 12.491000000000003 15.473000000000003 11.537000000000003 14.304000000000002 10.970000000000002 13.578000000000003 C 10.642000000000003 13.158000000000003 10.610000000000003 12.586000000000002 10.883000000000003 12.128000000000004 L 12.102000000000002 10.082000000000004 C 12.343000000000002 9.678000000000004 12.345000000000002 9.175000000000004 12.107000000000003 8.769000000000004 L 9.105 3.641 C 8.814 3.145 8.236 2.901 7.6770000000000005 3.0380000000000003 C 7.134 3.17 6.429 3.492 5.69 4.232 C 3.3760000000000003 6.546 2.1470000000000002 10.449 10.849 19.151 C 19.551000000000002 27.853 23.453 26.625 25.768 24.31 C 26.509 23.569 26.830000000000002 22.863 26.963 22.319 C 27.098000000000003 21.761 26.858 21.186999999999998 26.363 20.897 C 25.127 20.174 22.461 18.613 21.225 17.889 z" stroke-linecap="round" />
             </g></svg></span>
-            <a href="tel:+18884877507">Emergency Dispatch</a>
+            <a href="tel:+18884877507">24/7 Emergency Dispatch</a>
           </p>
 
           <p class="flex items-center justify-start gap-3">
@@ -145,28 +141,6 @@ import Logo from "../assets/logo/logo.png";
         </div>
       </div>
 
-
-      <!-- Reservation Section -->
-      <div class="hidden flex-col items-center md:items-start text-center md:text-left space-y-6">
-        
-        <!-- Buttons -->
-        <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-            <a href="javascript:void(0)" class="open-modal flex items-center justify-center gap-2 shrink-0 bg-primary text-black px-3 py-3 text-sm rounded-full hover:scale-105 transition duration-300">
-                Online Reservation
-            </a>
-
-            <a href="javascript:void(0)" class="open-modal flex items-center justify-center gap-2 md:shrink-0 bg-primary text-black px-3 py-3 text-sm rounded-full hover:scale-105 transition duration-300">
-                Get a Quote
-            </a>
-        </div>
-
-        <!-- Description -->
-        <p class="text-sm leading-relaxed max-w-md">
-          Partnered with JDK TRANSPORTATION Groupe le Chatelier, luxury transport across Québec and Ontario.
-        </p>
-
-      </div>
-
     </div>
 
   </div>
@@ -177,6 +151,28 @@ import Logo from "../assets/logo/logo.png";
   </div>
 
 </footer>
+
+
+<!-- Floating Emergency Dispatch Button -->
+<a href="tel:+18884877507" aria-label="Call Emergency Dispatch: 888-487-7507"
+  class="flex items-center fixed bottom-6 left-6 z-49
+         shrink-0
+         w-12 h-12 rounded-full
+         bg-red-600 text-white shadow-lg
+         transition-transform duration-300 hover:scale-105">
+
+  <span class="absolute inset-0 rounded-full bg-red-600 animate-ping opacity-75"></span>
+
+  <svg class="relative w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.36 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" />
+  </svg>
+
+  <!-- Tooltip -->
+  <span class="pointer-events-none absolute left-full ml-3 whitespace-nowrap rounded-md bg-black text-white text-xs font-light px-3 py-2 shadow-lg">
+    Emergency Dispatch
+  </span>
+</a>
 
 
 <!-- Scroll To Top Button -->
@@ -202,22 +198,36 @@ import Logo from "../assets/logo/logo.png";
 
 
 <script>
-  const scrollTopBtn = document.getElementById("scrollTopBtn");
+  function initScrollTop() {
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+    if (!scrollTopBtn) return;
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      scrollTopBtn.classList.remove("opacity-0", "translate-y-6", "pointer-events-none");
-      scrollTopBtn.classList.add("opacity-100", "translate-y-0");
-    } else {
-      scrollTopBtn.classList.add("opacity-0", "translate-y-6", "pointer-events-none");
-      scrollTopBtn.classList.remove("opacity-100", "translate-y-0");
+    // Remove any listener bound to a previous (now detached) button
+    if (window.__scrollTopHandler) {
+      window.removeEventListener("scroll", window.__scrollTopHandler);
     }
-  });
 
-  scrollTopBtn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
+    window.__scrollTopHandler = () => {
+      if (window.scrollY > 300) {
+        scrollTopBtn.classList.remove("opacity-0", "translate-y-6", "pointer-events-none");
+        scrollTopBtn.classList.add("opacity-100", "translate-y-0");
+      } else {
+        scrollTopBtn.classList.add("opacity-0", "translate-y-6", "pointer-events-none");
+        scrollTopBtn.classList.remove("opacity-100", "translate-y-0");
+      }
+    };
+
+    window.addEventListener("scroll", window.__scrollTopHandler);
+    window.__scrollTopHandler();
+
+    scrollTopBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     });
-  });
+  }
+
+  // Re-run on initial load and after every View Transition navigation
+  document.addEventListener('astro:page-load', initScrollTop);
 </script>

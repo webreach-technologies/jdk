@@ -23,6 +23,17 @@ foreach ($required as $field) {
     }
 }
 
+$gname    = htmlspecialchars($_POST['gname']);
+$fname    = htmlspecialchars($_POST['fname']);
+$email    = htmlspecialchars($_POST['email']);
+$phone    = htmlspecialchars($_POST['phone']);
+$tourtype = htmlspecialchars($_POST['tourtype']);
+$tourdesti = htmlspecialchars($_POST['tourdesti']);
+$datetime = htmlspecialchars($_POST['datetime']);
+$pickuploc = htmlspecialchars($_POST['pickuploc']);
+$noofpass = htmlspecialchars($_POST['noofpass']);
+$addinfo  = htmlspecialchars($_POST['addinfo']);
+
 try {
 
     // ======================
@@ -55,48 +66,48 @@ try {
     }
 
     $adminMail->isHTML(true);
-    $adminMail->Subject = "JDK Online Request - {$_POST['gname']}";
+    $adminMail->Subject = "JDK Online Request - {$gname}";
     $adminMail->Body = "
         <table style='border-collapse: collapse; width: 100%; max-width: 600px; border: 1px solid #ddd;'>
             <tr style='background-color: #f2f2f2;'>
                 <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold; width: 40%;'>Group Name</td>
-                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['gname']}</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$gname}</td>
             </tr>
             <tr>
                 <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Full Name</td>
-                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['fname']}</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$fname}</td>
             </tr>
             <tr style='background-color: #f9f9f9;'>
                 <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Email</td>
-                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['email']}</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$email}</td>
             </tr>
             <tr>
                 <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Phone</td>
-                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['phone']}</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$phone}</td>
             </tr>
             <tr style='background-color: #f9f9f9;'>
                 <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Tour Type</td>
-                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['tourtype']}</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$tourtype}</td>
             </tr>
             <tr>
                 <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Tour Destination</td>
-                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['tourdesti']}</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$tourdesti}</td>
             </tr>
             <tr style='background-color: #f9f9f9;'>
                 <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Tour Date & Time</td>
-                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['datetime']}</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$datetime}</td>
             </tr>
             <tr>
                 <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Pickup Location</td>
-                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['pickuploc']}</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$pickuploc}</td>
             </tr>
             <tr style='background-color: #f9f9f9;'>
                 <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>No. Of Guests in Groups</td>
-                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['noofpass']}</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$noofpass}</td>
             </tr>
             <tr>
                 <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Additional Info</td>
-                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['addinfo']}</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$addinfo}</td>
             </tr>
         </table>
     ";
@@ -117,23 +128,23 @@ try {
     $userMail->Port       = $config['port'];
 
     $userMail->setFrom($config['from_email'], $config['from_name']);
-    $userMail->addAddress($_POST['email'], $_POST['fname']);
+    $userMail->addAddress($_POST['email'], $fname);
 
     $userMail->isHTML(true);
     $userMail->Subject = "We Received Your Tour Request";
     $userMail->Body = "
-        <h2>Hi {$_POST['fname']},</h2>
+        <h2>Hi {$fname},</h2>
         <p>Thank you for your request.</p>
         <p>Our team will contact you shortly.</p>
         <br>
         <table style='border-collapse: collapse; width: 100%; max-width: 600px; border: 1px solid #ddd;'>
             <tr style='background-color: #f2f2f2;'>
                 <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold; width: 40%;'>Tour Date</td>
-                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['datetime']}</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$datetime}</td>
             </tr>
             <tr>
                 <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold;'>Destination</td>
-                <td style='border: 1px solid #ddd; padding: 8px;'>{$_POST['tourdesti']}</td>
+                <td style='border: 1px solid #ddd; padding: 8px;'>{$tourdesti}</td>
             </tr>
         </table>
         <br>

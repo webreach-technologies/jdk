@@ -1,0 +1,53 @@
+---
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  title: string;
+  titleHighlight?: string;
+  subheading?: string;
+  items: FAQItem[];
+  headingId?: string;
+}
+
+const {
+  title,
+  titleHighlight = "FAQs",
+  subheading,
+  items,
+  headingId = "faq-heading",
+} = Astro.props;
+---
+
+<section aria-labelledby={headingId} class="bg-white py-12">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-10">
+      <h2 id={headingId} class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+        {title} <span class="text-primary">{titleHighlight}</span>
+      </h2>
+      {subheading && (
+        <p class="mt-4 text-sm md:text-base font-light max-w-2xl mx-auto">{subheading}</p>
+      )}
+    </div>
+
+    <div class="space-y-4">
+      {items.map((item) => (
+        <details class="group bg-gray-100 rounded-xl border border-gray-300 p-4 md:p-6">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer font-medium text-base md:text-lg list-none">
+            {item.question}
+            <svg class="w-5 h-5 shrink-0 transition-transform duration-300 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <p class="mt-3 text-sm md:text-base font-light leading-snug">
+            {item.answer}
+          </p>
+        </details>
+      ))}
+    </div>
+
+  </div>
+</section>

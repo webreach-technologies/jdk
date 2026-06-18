@@ -312,8 +312,11 @@ class MinimalDateTimePicker {
             }
         }
 
-        window.onload = () => {
+        function initDateTimePickers() {
             document.querySelectorAll('.minimal-picker').forEach(el => {
                 new MinimalDateTimePicker(el, { minuteStep: 5 });
             });
-        };
+        }
+
+        // Re-run on initial load and after every View Transition navigation
+        document.addEventListener('astro:page-load', initDateTimePickers);

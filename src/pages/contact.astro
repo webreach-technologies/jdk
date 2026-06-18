@@ -1,0 +1,429 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import ServiceAreas from '../components/ServiceAreas.astro';
+import CalltoBook from '../components/CalltoBook.astro';
+import QuoteModalForm from '../components/QuoteModalForm.astro';
+import ContactHero from "../assets/banners/cta.jpg";
+
+const siteUrl = "https://jdktransportation.com";
+
+const locations = [
+  { name: "New York", address: "400 Rella Blvd #207-4, Montebello, NY, 10901, United States" },
+  { name: "Orlando", address: "13329 Greenpoint Dr, Orlando, FL 32824, United States" },
+  { name: "Miami (South Florida)", address: "13810 SW 284th Street Homestead, FL 33033, United States" },
+  { name: "Daytona Beach", address: "211 E International Speedway Blvd, Daytona Beach, FL 32118, United States" },
+];
+
+const faqs = [
+  {
+    question: "What is the fastest way to get a quote?",
+    answer: "Fill out the form on this page or our online quote form, and our team will respond with a custom quote in as little as 30 minutes. You can also call us directly at 877-377-7172."
+  },
+  {
+    question: "Is someone available if I need help outside business hours?",
+    answer: "Yes. Our dispatch and support team is available 24/7. For urgent or same-day needs, call our Emergency Dispatch line at 888-487-7507."
+  },
+  {
+    question: "What information should I include when I contact you?",
+    answer: "Let us know your pickup and destination locations, travel date and time, group size, and the type of trip. The more details you provide, the faster we can put together an accurate quote."
+  },
+  {
+    question: "Do you serve locations outside of your listed offices?",
+    answer: "Our offices are located in New York, Orlando, Miami, and Daytona Beach, but our motor coach services extend across many metro areas. Contact us to confirm availability for your route."
+  },
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": siteUrl + "/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Contact Us",
+          "item": siteUrl + "/contact"
+        }
+      ]
+    },
+    {
+      "@type": "ContactPage",
+      "name": "Contact JDK Transportation",
+      "url": siteUrl + "/contact",
+      "description": "Get in touch with JDK Transportation for motor coach rental quotes, bookings, and support. Call, email, or send us a message online.",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "JDK Transportation",
+        "url": siteUrl,
+        "telephone": "+1-877-377-7172",
+        "email": "info@jdktransportation.com",
+        "address": locations.map((location) => ({
+          "@type": "PostalAddress",
+          "name": location.name,
+          "streetAddress": location.address
+        }))
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map((faq) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    }
+  ]
+};
+---
+
+<Layout
+  title="Contact Us | JDK Transportation - Motor Coach Rental Company"
+  description="Contact JDK Transportation for motor coach rental quotes, bookings, and 24/7 support. Call 877-377-7172, email us, or send a message online.">
+
+  <!-- Contact Hero -->
+  <section aria-labelledby="contact-hero-heading" class="relative w-full py-28 md:py-40 text-center text-white">
+
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <Image src={ContactHero} alt="" quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-black/60"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm font-light">
+        <ol class="flex items-center justify-center gap-2">
+          <li><a href="/" class="hover:text-primary transition duration-300">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-primary">Contact Us</li>
+        </ol>
+      </nav>
+
+      <h1 id="contact-hero-heading" class="text-4xl md:text-6xl font-phudu font-extrabold uppercase tracking-wide">
+        Contact Us
+      </h1>
+
+      <p class="mt-4 text-base md:text-lg font-light leading-snug">
+        Questions, quotes, or booking changes &mdash; our team is here to help, 24 hours a day.
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="javascript:void(0)" class="open-modal flex items-center gap-2 bg-primary text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
+          Get a Quote in 30 Minutes
+        </a>
+        <a href="tel:+18773777172" class="flex items-center gap-2 bg-white text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
+          Call: 877-377-7172
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Get In Touch -->
+  <section aria-labelledby="contact-info-heading" class="bg-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10">
+
+      <!-- Contact Details -->
+      <div>
+        <h2 id="contact-info-heading" class="text-center md:text-start text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+          Get In <span class="text-primary">Touch</span>
+        </h2>
+
+        <p class="mt-5 text-base md:text-lg font-light leading-snug">
+          Whether you need a quote for an upcoming trip, want to make changes to an existing
+          booking, or just have a question about our services, our team is ready to help.
+          Reach out using the details below or send us a message and we'll get back to you shortly.
+        </p>
+
+        <div class="mt-8 space-y-5 text-sm md:text-base font-light">
+
+          <p class="flex items-center gap-3">
+            <span class="shrink-0" aria-hidden="true"><svg id='Phone_24' width='23' height='23' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
+            <g transform="matrix(0.87 0 0 0.87 12 12)" >
+            <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #000; fill-rule: nonzero; opacity: 1;" transform=" translate(-15.5, -14.5)" d="M 21.225 17.889 C 20.819000000000003 17.651 20.32 17.656 19.916 17.896 L 17.87 19.115000000000002 C 17.412000000000003 19.388 16.84 19.356 16.42 19.028000000000002 C 15.694000000000003 18.461000000000002 14.525000000000002 17.507 13.508000000000003 16.490000000000002 C 12.491000000000003 15.473000000000003 11.537000000000003 14.304000000000002 10.970000000000002 13.578000000000003 C 10.642000000000003 13.158000000000003 10.610000000000003 12.586000000000002 10.883000000000003 12.128000000000004 L 12.102000000000002 10.082000000000004 C 12.343000000000002 9.678000000000004 12.345000000000002 9.175000000000004 12.107000000000003 8.769000000000004 L 9.105 3.641 C 8.814 3.145 8.236 2.901 7.6770000000000005 3.0380000000000003 C 7.134 3.17 6.429 3.492 5.69 4.232 C 3.3760000000000003 6.546 2.1470000000000002 10.449 10.849 19.151 C 19.551000000000002 27.853 23.453 26.625 25.768 24.31 C 26.509 23.569 26.830000000000002 22.863 26.963 22.319 C 27.098000000000003 21.761 26.858 21.186999999999998 26.363 20.897 C 25.127 20.174 22.461 18.613 21.225 17.889 z" stroke-linecap="round" />
+            </g></svg></span>
+            <span><a href="tel:+18773777172" class="hover:text-primary transition duration-300">877-377-7172</a> &mdash; Reservations & Quotes</span>
+          </p>
+
+          <p class="flex items-center gap-3">
+            <span class="shrink-0" aria-hidden="true"><svg id='Phone_24' width='23' height='23' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
+            <g transform="matrix(0.87 0 0 0.87 12 12)" >
+            <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #000; fill-rule: nonzero; opacity: 1;" transform=" translate(-15.5, -14.5)" d="M 21.225 17.889 C 20.819000000000003 17.651 20.32 17.656 19.916 17.896 L 17.87 19.115000000000002 C 17.412000000000003 19.388 16.84 19.356 16.42 19.028000000000002 C 15.694000000000003 18.461000000000002 14.525000000000002 17.507 13.508000000000003 16.490000000000002 C 12.491000000000003 15.473000000000003 11.537000000000003 14.304000000000002 10.970000000000002 13.578000000000003 C 10.642000000000003 13.158000000000003 10.610000000000003 12.586000000000002 10.883000000000003 12.128000000000004 L 12.102000000000002 10.082000000000004 C 12.343000000000002 9.678000000000004 12.345000000000002 9.175000000000004 12.107000000000003 8.769000000000004 L 9.105 3.641 C 8.814 3.145 8.236 2.901 7.6770000000000005 3.0380000000000003 C 7.134 3.17 6.429 3.492 5.69 4.232 C 3.3760000000000003 6.546 2.1470000000000002 10.449 10.849 19.151 C 19.551000000000002 27.853 23.453 26.625 25.768 24.31 C 26.509 23.569 26.830000000000002 22.863 26.963 22.319 C 27.098000000000003 21.761 26.858 21.186999999999998 26.363 20.897 C 25.127 20.174 22.461 18.613 21.225 17.889 z" stroke-linecap="round" />
+            </g></svg></span>
+            <span><a href="tel:+18884877507" class="hover:text-primary transition duration-300">888-487-7507</a> &mdash; 24/7 Emergency Dispatch</span>
+          </p>
+
+          <p class="flex items-center gap-3">
+            <span class="shrink-0" aria-hidden="true"><svg id='mail-filled_24' width='23' height='23' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
+            <g transform="matrix(1 0 0 1 12 12)" >
+            <g>
+            <g transform="matrix(1 0 0 1 0 0)" >
+            <path style="stroke: none; stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;" transform=" translate(-12, -12)" d="M 0 0 L 24 0 L 24 24 L 0 24 z" stroke-linecap="round" />
+            </g>
+            <g transform="matrix(1 0 0 1 0 1.77)" >
+            <path style="stroke: rgb(0,0,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: #000; fill-rule: nonzero; opacity: 1;" transform=" translate(-12, -13.77)" d="M 22 7.535 L 22 17 C 22.000088491259472 18.58855761036894 20.761821525552804 19.90180462251181 19.176000000000002 19.995 L 19.000000000000004 20 L 5.0000000000000036 20 C 3.4114423896310617 20.000088491259472 2.0981953774881914 18.761821525552804 2.0050000000000034 17.176000000000002 L 2.0000000000000036 17.000000000000004 L 2.0000000000000036 7.535000000000004 L 11.445000000000004 13.832000000000004 L 11.561000000000003 13.898000000000005 C 11.838017651257287 14.03335058443139 12.16198234874272 14.03335058443139 12.439000000000004 13.898000000000005 L 12.555000000000003 13.832000000000004 L 22.000000000000004 7.535000000000005 z" stroke-linecap="round" />
+            </g>
+            <g transform="matrix(1 0 0 1 0 -4.1)" >
+            <path style="stroke: rgb(0,0,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: #000; fill-rule: nonzero; opacity: 1;" transform=" translate(-12, -7.9)" d="M 19 4 C 20.08 4 21.027 4.57 21.555 5.427 L 12 11.797 L 2.4450000000000003 5.4270000000000005 C 2.953736834003722 4.6007163877977995 3.8308162238907655 4.071637061697714 4.798999999999999 4.0070000000000014 L 5 4.000000000000001 L 19 4.000000000000001 z" stroke-linecap="round" />
+            </g>
+            </g>
+            </g>
+            </svg></span>
+            <span><a href="mailto:info@jdktransportation.com" class="hover:text-primary transition duration-300">info@jdktransportation.com</a></span>
+          </p>
+
+          <p class="flex items-center gap-3">
+            <span class="shrink-0" aria-hidden="true">
+              <svg id='Clock_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
+                <g transform="matrix(1 0 0 1 12 12)" >
+                <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" translate(-12, -12)" d="M 12 2 C 6.477 2 2 6.477 2 12 C 2 17.523 6.477 22 12 22 C 17.523 22 22 17.523 22 12 C 22 6.477 17.523 2 12 2 z M 15.293 16.707 L 11 12.414 L 11 6 L 13 6 L 13 11.586 L 16.707 15.293 L 15.293 16.707 z" stroke-linecap="round" />
+                </g>
+              </svg>
+            </span>
+            <span>Dispatch & Support available 24/7</span>
+          </p>
+
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="bg-gray-100 rounded-2xl shadow-md p-6 md:p-8">
+        <h3 class="text-2xl md:text-3xl font-phudu font-extrabold uppercase tracking-wide">
+          Send Us a <span class="text-primary">Message</span>
+        </h3>
+        <p class="mt-2 text-sm font-light">
+          Fill out the form below and a member of our team will get back to you shortly.
+        </p>
+
+        <form class="mt-6 grid sm:grid-cols-2 gap-x-8 gap-y-6" id="contactForm" novalidate>
+
+          <div class="relative">
+            <input type="text" placeholder="Full Name" name="name" class="font-light w-full bg-transparent border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700 transition duration-300">
+            <small class="error text-red-500 text-xs absolute top-full left-0" id="nameError"></small>
+          </div>
+
+          <div class="relative">
+            <input type="email" placeholder="Email Address" name="email" class="font-light w-full bg-transparent border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700 transition duration-300">
+            <small class="error text-red-500 text-xs absolute top-full left-0" id="emailError"></small>
+          </div>
+
+          <div class="relative">
+            <input type="tel" placeholder="Phone Number" name="phone" class="font-light w-full bg-transparent border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700 transition duration-300" oninput="this.value=this.value.replace(/[^0-9+ -]/g,'')">
+            <small class="error text-red-500 text-xs absolute top-full left-0" id="phoneError"></small>
+          </div>
+
+          <div class="relative">
+            <input type="text" placeholder="Subject" name="subject" class="font-light w-full bg-transparent border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700 transition duration-300">
+            <small class="error text-red-500 text-xs absolute top-full left-0" id="subjectError"></small>
+          </div>
+
+          <div class="sm:col-span-2 relative">
+            <textarea placeholder="Your Message" name="message" rows="4" class="font-light w-full bg-transparent border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700 transition duration-300 resize-none"></textarea>
+            <small class="error text-red-500 text-xs absolute top-full left-0" id="messageError"></small>
+          </div>
+
+          <!-- Honeypot -->
+          <div class="hidden">
+            <input type="text" name="website">
+          </div>
+
+          <div class="sm:col-span-2">
+            <button type="submit" id="contactSubmitBtn"
+              class="font-normal w-full sm:w-auto px-10 py-3 rounded-full bg-primary hover:bg-yellow-600 text-black uppercase transition duration-300 cursor-pointer">
+              Send Message
+            </button>
+            <p id="contactFormStatus" class="mt-3 text-sm font-light" role="status"></p>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Our Locations -->
+  <section aria-labelledby="contact-locations-heading" class="bg-gray-100 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-10">
+        <h2 id="contact-locations-heading" class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+          Our <span class="text-primary">Locations</span>
+        </h2>
+        <p class="mt-4 text-sm md:text-base font-light max-w-2xl mx-auto">
+          With offices across the East Coast, JDK Transportation is positioned to support your group wherever your trip begins.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        {locations.map((location) => (
+          <div class="bg-white rounded-2xl shadow-md p-6 flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
+            <svg class="w-7 h-7 mb-2 text-primary" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M 12 0 C 7.581722001353652 0 4 3.5817220013536524 4 8 C 4 11.51 9 20 11.15 23.52 C 11.332339276920418 23.814216930468866 11.65386243474251 23.993217312357363 12 23.993217312357363 C 12.34613756525749 23.993217312357363 12.667660723079582 23.814216930468863 12.85 23.52 C 15 20 20 11.51 20 8 C 20 3.5817220013536524 16.418277998646346 0 12 0 Z M 12 11.5 C 10.067003375592222 11.5 8.5 9.932996624407778 8.5 8 C 8.5 6.067003375592223 10.067003375592222 4.5 12 4.5 C 13.932996624407778 4.5 15.5 6.067003375592222 15.5 7.999999999999999 C 15.5 9.932996624407778 13.932996624407778 11.5 12 11.5 Z" />
+            </svg>
+            <h3 class="font-medium text-base mb-1">{location.name}</h3>
+            <p class="text-sm font-light leading-snug">{location.address}</p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section aria-labelledby="contact-faq-heading" class="bg-white py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-10">
+        <h2 id="contact-faq-heading" class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+          Contact <span class="text-primary">FAQs</span>
+        </h2>
+        <p class="mt-4 text-sm md:text-base font-light max-w-2xl mx-auto">
+          Answers to common questions about reaching JDK Transportation.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="group bg-gray-100 rounded-xl border border-gray-300 p-4 md:p-6">
+            <summary class="flex items-center justify-between gap-4 cursor-pointer font-medium text-base md:text-lg list-none">
+              {faq.question}
+              <svg class="w-5 h-5 shrink-0 transition-transform duration-300 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <p class="mt-3 text-sm md:text-base font-light leading-snug">
+              {faq.answer}
+            </p>
+          </details>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <CalltoBook />
+
+  <QuoteModalForm />
+
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+</Layout>
+
+<script>
+  function initContactForm() {
+    const form = document.getElementById("contactForm");
+    if (!form) return;
+
+    const btn = document.getElementById("contactSubmitBtn");
+    const status = document.getElementById("contactFormStatus");
+    const fields = ["name", "email", "phone", "subject", "message"];
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      let isValid = true;
+      document.querySelectorAll("#contactForm .error").forEach(el => el.textContent = "");
+      status.textContent = "";
+
+      fields.forEach(name => {
+        const input = form.querySelector(`[name="${name}"]`);
+        if (!input.value.trim()) {
+          document.getElementById(name + "Error").textContent = "Required";
+          input.classList.add("border-red-500");
+          isValid = false;
+        }
+      });
+
+      if (!/^\S+@\S+\.\S+$/.test(form.email.value)) {
+        document.getElementById("emailError").textContent = "Invalid email";
+        isValid = false;
+      }
+
+      const cleanedPhone = form.phone.value.trim().replace(/\D/g, "");
+      if (cleanedPhone.length < 10 || cleanedPhone.length > 15) {
+        document.getElementById("phoneError").textContent = "Invalid phone number";
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      btn.innerText = "Sending...";
+      btn.disabled = true;
+
+      try {
+        const res = await fetch("/contactform.php", {
+          method: "POST",
+          body: new FormData(form)
+        });
+
+        const data = await res.json();
+
+        if (data.status === "success") {
+          form.reset();
+          status.textContent = "Thank you! Your message has been sent. Our team will get back to you shortly.";
+          status.classList.remove("text-red-500");
+          status.classList.add("text-green-600");
+        } else {
+          status.textContent = data.message || "Something went wrong. Please try again.";
+          status.classList.remove("text-green-600");
+          status.classList.add("text-red-500");
+        }
+      } catch {
+        status.textContent = "Something went wrong. Please try again.";
+        status.classList.remove("text-green-600");
+        status.classList.add("text-red-500");
+      }
+
+      btn.innerText = "Send Message";
+      btn.disabled = false;
+    });
+
+    fields.forEach(name => {
+      const input = form.querySelector(`[name="${name}"]`);
+      const errorEl = document.getElementById(name + "Error");
+
+      input.addEventListener("input", function () {
+        const value = input.value.trim();
+
+        if (value === "") {
+          errorEl.textContent = "Required";
+          input.classList.add("border-red-500");
+          return;
+        }
+
+        if (name === "email" && !/^\S+@\S+\.\S+$/.test(value)) {
+          errorEl.textContent = "Invalid email";
+          input.classList.add("border-red-500");
+          return;
+        }
+
+        if (name === "phone") {
+          const cleaned = value.replace(/\D/g, "");
+          if (cleaned.length < 10 || cleaned.length > 15) {
+            errorEl.textContent = "Invalid phone number";
+            input.classList.add("border-red-500");
+            return;
+          }
+        }
+
+        errorEl.textContent = "";
+        input.classList.remove("border-red-500");
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initContactForm);
+</script>

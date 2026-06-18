@@ -7,11 +7,77 @@ import BusesTypes from '../components/BusesTypes.astro'
 import Amenities from '../components/Amenities.astro'
 import Companies from '../components/Companies.astro'
 import ServicesTypes from '../components/ServicesTypes.astro'
+import ServiceAreas from '../components/ServiceAreas.astro'
+import FAQ from '../components/FAQ.astro'
 import CalltoBook from '../components/CalltoBook.astro'
 import QuoteModalForm from '../components/QuoteModalForm.astro'
+
+const siteUrl = "https://jdktransportation.com";
+
+const homeFaqs = [
+  {
+    question: "What types of groups does JDK Transportation serve?",
+    answer: "We serve schools, corporations, wedding parties, sports teams, religious organizations, travel agents, government agencies, and any group that needs safe, reliable transportation. If your group needs to travel together, we can help."
+  },
+  {
+    question: "How do I get a quote?",
+    answer: "Request a free quote online or call our 24/7 team at 877-377-7172. Share your travel dates, group size, and pickup and drop-off locations, and we'll get back to you with a custom price — usually within 30 minutes."
+  },
+  {
+    question: "What vehicle sizes are available?",
+    answer: "Our fleet ranges from 15-passenger minibuses and sprinter vans up to 56-passenger motorcoaches, so we can match the right vehicle to your group size for any trip or occasion."
+  },
+  {
+    question: "Are your drivers licensed, trained, and insured?",
+    answer: "Yes. Every driver is licensed, professionally trained, and background-checked, and every vehicle is regularly inspected and fully insured for your group's safety."
+  },
+  {
+    question: "Do you offer 24/7 support?",
+    answer: "Yes. Our dispatch team is available around the clock to help plan your trip, confirm availability, answer questions, and support your group while on the road."
+  },
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": siteUrl + "/#website",
+      "url": siteUrl,
+      "name": "JDK Transportation",
+      "description": "JDK Transportation provides premium motor coach services for corporate travel, group tours, airport transfers, and special events.",
+      "publisher": {
+        "@id": siteUrl + "/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": siteUrl + "/#webpage",
+      "url": siteUrl + "/",
+      "name": "Luxury Motor Coach Services | JDK Transportation",
+      "isPartOf": {
+        "@id": siteUrl + "/#website"
+      },
+      "about": {
+        "@id": siteUrl + "/#organization"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": homeFaqs.map((faq) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    }
+  ]
+};
 ---
 
-<Layout title="Luxury Charter Bus & Coach Services | JDK Transportation" description="JDK Transportation provides premium charter bus and luxury coach services for corporate travel, group tours, airport transfers, and special events. Safe, reliable, and comfortable transportation you can trust.">
+<Layout title="Luxury Motor Coach Services | JDK Transportation" description="JDK Transportation provides premium motor coach services for corporate travel, group tours, airport transfers, and special events. Safe, reliable, and comfortable transportation you can trust.">
 
     <HeroSlider />
     <QuoteForm />
@@ -20,7 +86,17 @@ import QuoteModalForm from '../components/QuoteModalForm.astro'
     <Amenities />
     <Companies />
     <ServicesTypes />
+    <ServiceAreas />
+    <FAQ
+      title="Motor Coach Rental"
+      titleHighlight="FAQs"
+      subheading="Common questions about booking a motor coach with JDK Transportation."
+      items={homeFaqs}
+      headingId="home-faq-heading"
+    />
     <CalltoBook />
     <QuoteModalForm />
+
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
 </Layout>

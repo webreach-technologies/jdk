@@ -1,0 +1,478 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import ServiceAreas from '../components/ServiceAreas.astro';
+import FAQ from '../components/FAQ.astro';
+import CalltoBook from '../components/CalltoBook.astro';
+import QuoteModalForm from '../components/QuoteModalForm.astro';
+import PricesHero from "../assets/banners/cta.jpg";
+
+const siteUrl = "https://jdktransportation.com";
+
+const pricingTable = [
+  {
+    type: "50-56 Passenger Motor Coach",
+    hourly: "$159 - $415+/hr",
+    daily: "$1,443 - $3,043/day",
+    mile: "$4.91 - $8.07/mile",
+  },
+  {
+    type: "30-40 Passenger Mini Coach",
+    hourly: "$116 - $356+/hr",
+    daily: "$1,289 - $2,773/day",
+    mile: "$3.32 - $8.08/mile",
+  },
+  {
+    type: "15-28 Passenger Mini Bus",
+    hourly: "$113 - $369+/hr",
+    daily: "$1,211 - $2,720/day",
+    mile: "$3.32 - $7.44/mile",
+  },
+  {
+    type: "Sprinter Van",
+    hourly: "$116 - $308+/hr",
+    daily: "$1,120 - $2,560/day",
+    mile: "$3.20 - $7.20/mile",
+  },
+  {
+    type: "Party Bus",
+    hourly: "$154 - $418+/hr",
+    daily: "Custom Quote",
+    mile: "Custom Quote",
+  },
+];
+
+const weekdayWeekendTable = [
+  {
+    type: "Sprinter Van",
+    weekday: "$116 - $308+/hr",
+    weekend: "$141 - $357+/hr",
+  },
+  {
+    type: "Party Bus",
+    weekday: "$154 - $414+/hr",
+    weekend: "$162 - $418+/hr",
+  },
+];
+
+const factors = [
+  {
+    title: "Vehicle Type & Size",
+    description: "Larger motorcoaches cost more per hour than mini buses or sprinter vans, but offer more seating and amenities for bigger groups.",
+    icon: "M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3ZM8 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3Zm8 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4Zm-8 0c-.29 0-.62.02-.97.05C5.81 13.4 4 14.61 4 16v2H2v-2c0-2.66 4.13-4 6-4Z",
+  },
+  {
+    title: "Trip Distance & Duration",
+    description: "Longer trips and multi-day rentals affect total cost through mileage, additional driver hours, and any overnight stays for the driver.",
+    icon: "M9 20l-5-2V4l5 2 6-2 5 2v14l-5-2-6 2zM9 6v14M15 4v14",
+  },
+  {
+    title: "Season & Demand",
+    description: "Rates rise during peak travel months such as April through June and September through October. January, February, July, and August often have lower rates.",
+    icon: "M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z",
+  },
+  {
+    title: "Day of the Week",
+    description: "Weekend trips, especially Friday and Saturday nights, typically cost more than weekday charters due to higher demand for events and parties.",
+    icon: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-13v4l3 2",
+  },
+  {
+    title: "Pickup & Drop-off Locations",
+    description: "Trips into major cities, stadiums, or airports may include additional charges for tolls, congestion pricing, or terminal access fees.",
+    icon: "M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11Zm0-9a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z",
+  },
+  {
+    title: "Tolls, Parking & Fees",
+    description: "Bridge and tunnel tolls often run $15-$20+ each way, and parking at venues like stadiums or downtown locations can add $50-$80 or more.",
+    icon: "M4 4h16v4a2 2 0 0 0 0 4v4a2 2 0 0 0 0 4H4v-4a2 2 0 0 0 0-4V4Zm5 0v16",
+  },
+  {
+    title: "Advance Booking",
+    description: "Booking three to six months ahead of your travel date generally secures the best rates and ensures the vehicle size you need is available.",
+    icon: "M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm4 10 2 2 4-4",
+  },
+];
+
+const examples = [
+  {
+    title: "School Field Trip",
+    vehicle: "35-Passenger Mini Coach",
+    detail: "One-day round trip, approx. 100 miles",
+    price: "$1,680 - $2,400",
+  },
+  {
+    title: "Wedding Shuttle",
+    vehicle: "50-Passenger Motor Coach",
+    detail: "Local service, approx. 6 hours",
+    price: "$1,440 - $2,240",
+  },
+  {
+    title: "Corporate Event",
+    vehicle: "56-Passenger Motorcoach",
+    detail: "Full-day round trip with multiple stops",
+    price: "$2,560 - $3,840",
+  },
+  {
+    title: "Multi-Day Sports Trip",
+    vehicle: "54-Passenger Coach",
+    detail: "3-day round trip with overnight stays",
+    price: "$4,800 - $6,880",
+  },
+  {
+    title: "Airport Transfer",
+    vehicle: "Sprinter Van",
+    detail: "One-way trip, approx. 30 miles",
+    price: "$200 - $360",
+  },
+  {
+    title: "Night Out / Party Bus",
+    vehicle: "Party Bus",
+    detail: "Weekend rental, approx. 4 hours",
+    price: "$720 - $1,680",
+  },
+];
+
+const faqs = [
+  {
+    question: "How much does it cost to rent a motor coach?",
+    answer: "Motor Coach rental costs typically range from about $113 to $410+ per hour depending on vehicle size, trip length, and season, with daily rates generally falling between $1,200 and $3,000 or more. Call 877-377-7172 or request a quote for an exact price based on your trip details."
+  },
+  {
+    question: "Do you charge by the hour, the day, or by mileage?",
+    answer: "Pricing depends on whichever option best fits your trip. Short local trips are often billed hourly with a minimum, while longer or multi-day trips may be priced by the day or by mileage. Our team will recommend the most cost-effective option for your itinerary."
+  },
+  {
+    question: "Are tolls, parking, and fees included in the quoted price?",
+    answer: "Tolls, parking fees, and venue charges are typically billed separately from the base rental rate since they vary by route and destination. We'll walk you through any expected additional costs when you request a quote."
+  },
+  {
+    question: "Is there a minimum rental time?",
+    answer: "Most motor coach and mini bus rentals have a minimum number of hours, which varies by vehicle and date. Let us know your schedule and we'll confirm the minimum that applies to your trip."
+  },
+  {
+    question: "When are motor coach prices the lowest?",
+    answer: "Rates tend to be lower during off-peak months like January, February, July, and August, and on weekdays rather than weekends. Booking three to six months in advance also helps secure better pricing."
+  },
+  {
+    question: "How do I get an exact price for my trip?",
+    answer: "Request a quote online or call our 24/7 team at 877-377-7172 with your travel dates, group size, pickup and drop-off locations, and itinerary, and we'll provide a detailed price for your trip."
+  },
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": siteUrl + "/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Prices",
+          "item": siteUrl + "/prices"
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "serviceType": "Motor Coach Rental",
+      "name": "JDK Transportation Pricing",
+      "description": "Motor Coach, mini bus, sprinter van, and party bus rental rates from JDK Transportation, with hourly, daily, and per-mile pricing for groups of every size.",
+      "priceRange": "$113 - $418+ per hour",
+      "provider": {
+        "@type": "Organization",
+        "name": "JDK Transportation",
+        "url": siteUrl,
+        "telephone": "+1-877-377-7172",
+        "email": "info@jdktransportation.com"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map((faq) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    }
+  ]
+};
+---
+
+<Layout
+  title="Motor Coach Prices & Rates | JDK Transportation"
+  description="See estimated motor coach, mini bus, sprinter van, and party bus rental prices from JDK Transportation, plus the factors that affect your rate. Call 877-377-7172 for a custom quote.">
+
+  <!-- Prices Hero -->
+  <section aria-labelledby="prices-hero-heading" class="relative w-full py-28 md:py-40 text-center text-white">
+
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <Image src={PricesHero} alt="" quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-black/60"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm font-light">
+        <ol class="flex items-center justify-center gap-2">
+          <li><a href="/" class="hover:text-primary transition duration-300">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-primary">Prices</li>
+        </ol>
+      </nav>
+
+      <h1 id="prices-hero-heading" class="text-4xl md:text-6xl font-phudu font-extrabold uppercase tracking-wide">
+        Motor Coach Prices
+      </h1>
+
+      <p class="mt-4 text-base md:text-lg font-light leading-snug">
+        Transparent rate guides for motor coaches, mini buses, sprinter vans, and party buses
+        &mdash; see what affects your price and get a custom quote in minutes.
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="javascript:void(0)" class="open-modal flex items-center gap-2 bg-primary text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
+          Get a Quote in 30 Minutes
+        </a>
+        <a href="tel:+18773777172" class="flex items-center gap-2 bg-white text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
+          Call: 877-377-7172
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Pricing Overview -->
+  <section aria-labelledby="prices-overview-heading" class="bg-white py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+      <h2 id="prices-overview-heading" class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+        How Much Does a Motor Coach <span class="text-primary">Cost?</span>
+      </h2>
+
+      <p class="mt-5 text-base md:text-lg font-light leading-snug">
+        The cost of renting a motor coach, mini bus, sprinter van, or party bus depends on several
+        factors, including the size and type of vehicle, the distance and length of your trip, the
+        time of year, and the day of the week you're traveling. While every quote is custom to your
+        itinerary, the rate guide below gives you a general idea of what to expect when planning
+        your trip with JDK Transportation.
+      </p>
+
+      <p class="mt-4 text-base md:text-lg font-light leading-snug">
+        For an exact price, call our 24/7 team at 877-377-7172 or request a free quote online.
+        We'll ask a few quick questions about your trip and get back to you with a detailed price
+        &mdash; usually within 30 minutes.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- Pricing Table -->
+  <section aria-labelledby="prices-table-heading" class="bg-gray-100 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-10">
+        <h2 id="prices-table-heading" class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+          Motor Coach, Mini Coach & Mini Bus <span class="text-primary">Rental Rates</span>
+        </h2>
+        <p class="mt-4 text-sm md:text-base font-light max-w-2xl mx-auto">
+          These hourly, daily, and per-mile rates are general estimates based on vehicle type. Your
+          exact price will depend on your trip's distance, duration, pickup location, and travel date.
+        </p>
+      </div>
+
+      <!-- Mobile: stacked cards -->
+      <div class="md:hidden space-y-4">
+        {pricingTable.map((row) => (
+          <div class="bg-white rounded-xl border border-gray-300 shadow-sm p-4">
+            <h3 class="font-medium text-base mb-2">{row.type}</h3>
+            <dl class="text-sm font-light divide-y divide-gray-100">
+              <div class="flex items-center justify-between py-1.5">
+                <dt class="text-gray-500">Hourly Rate</dt>
+                <dd>{row.hourly}</dd>
+              </div>
+              <div class="flex items-center justify-between py-1.5">
+                <dt class="text-gray-500">Daily Rate</dt>
+                <dd>{row.daily}</dd>
+              </div>
+              <div class="flex items-center justify-between py-1.5">
+                <dt class="text-gray-500">Per Mile</dt>
+                <dd>{row.mile}</dd>
+              </div>
+            </dl>
+          </div>
+        ))}
+      </div>
+
+      <!-- Desktop/Tablet: table -->
+      <div class="hidden md:block overflow-x-auto rounded-2xl shadow-lg border border-gray-300">
+        <table class="w-full bg-white text-sm md:text-base">
+          <thead>
+            <tr class="bg-black text-primary">
+              <th scope="col" class="text-left font-medium px-4 md:px-6 py-4">Vehicle Type</th>
+              <th scope="col" class="text-left font-medium px-4 md:px-6 py-4">Hourly Rate</th>
+              <th scope="col" class="text-left font-medium px-4 md:px-6 py-4">Daily Rate</th>
+              <th scope="col" class="text-left font-medium px-4 md:px-6 py-4">Per Mile</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pricingTable.map((row, index) => (
+              <tr class={`border-t border-gray-200 ${index % 2 === 1 ? 'bg-gray-50' : ''}`}>
+                <td class="px-4 md:px-6 py-4 font-medium">{row.type}</td>
+                <td class="px-4 md:px-6 py-4 font-light">{row.hourly}</td>
+                <td class="px-4 md:px-6 py-4 font-light">{row.daily}</td>
+                <td class="px-4 md:px-6 py-4 font-light">{row.mile}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="mt-4 text-xs md:text-sm font-light text-center max-w-2xl mx-auto">
+        Rates shown are general estimates and can vary by location, availability, and season. All
+        prices are confirmed at the time of booking.
+      </p>
+
+      <!-- Weekday vs Weekend Rates -->
+      <div class="mt-12">
+        <div class="text-center mb-6">
+          <h3 class="text-2xl md:text-3xl font-phudu font-extrabold uppercase tracking-wide">
+            Party Bus &amp; Sprinter Van: <span class="text-primary">Weekday vs. Weekend</span>
+          </h3>
+          <p class="mt-2 text-sm md:text-base font-light max-w-2xl mx-auto">
+            Party buses and sprinter vans are popular for nights out, so weekend rates
+            &mdash; especially Friday and Saturday evenings &mdash; run higher than weekday rates.
+          </p>
+        </div>
+
+        <!-- Mobile: stacked cards -->
+        <div class="md:hidden space-y-4">
+          {weekdayWeekendTable.map((row) => (
+            <div class="bg-white rounded-xl border border-gray-300 shadow-sm p-4">
+              <h4 class="font-medium text-base mb-2">{row.type}</h4>
+              <dl class="text-sm font-light divide-y divide-gray-100">
+                <div class="flex items-center justify-between py-1.5">
+                  <dt class="text-gray-500">Weekday Rate</dt>
+                  <dd>{row.weekday}</dd>
+                </div>
+                <div class="flex items-center justify-between py-1.5">
+                  <dt class="text-gray-500">Weekend Rate</dt>
+                  <dd>{row.weekend}</dd>
+                </div>
+              </dl>
+            </div>
+          ))}
+        </div>
+
+        <!-- Desktop/Tablet: table -->
+        <div class="hidden md:block overflow-x-auto rounded-2xl shadow-lg border border-gray-300">
+          <table class="w-full bg-white text-sm md:text-base">
+            <thead>
+              <tr class="bg-black text-primary">
+                <th scope="col" class="text-left font-medium px-4 md:px-6 py-4">Vehicle Type</th>
+                <th scope="col" class="text-left font-medium px-4 md:px-6 py-4">Weekday Rate</th>
+                <th scope="col" class="text-left font-medium px-4 md:px-6 py-4">Weekend Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              {weekdayWeekendTable.map((row, index) => (
+                <tr class={`border-t border-gray-200 ${index % 2 === 1 ? 'bg-gray-50' : ''}`}>
+                  <td class="px-4 md:px-6 py-4 font-medium">{row.type}</td>
+                  <td class="px-4 md:px-6 py-4 font-light">{row.weekday}</td>
+                  <td class="px-4 md:px-6 py-4 font-light">{row.weekend}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Factors Affecting Price -->
+  <section aria-labelledby="prices-factors-heading" class="relative w-full py-12 text-white">
+
+    <div class="absolute inset-0 bg-black"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 id="prices-factors-heading" class="text-center text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+        What Affects Your <span class="text-primary">Rental Price?</span>
+      </h2>
+
+      <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {factors.map((factor) => (
+          <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3 transition-all duration-500 hover:-translate-y-2 hover:bg-white/10">
+            <div class="text-primary" aria-hidden="true">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d={factor.icon} />
+              </svg>
+            </div>
+            <h3 class="text-lg font-medium">{factor.title}</h3>
+            <p class="text-sm font-light leading-snug">
+              {factor.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sample Pricing Examples -->
+  <section aria-labelledby="prices-examples-heading" class="bg-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-10">
+        <h2 id="prices-examples-heading" class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+          Sample Pricing <span class="text-primary">Examples</span>
+        </h2>
+        <p class="mt-4 text-sm md:text-base font-light max-w-2xl mx-auto">
+          Every trip is different, but these real-world examples show how motor coach and mini bus
+          pricing can come together for common trip types.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {examples.map((example) => (
+          <div class="bg-gray-100 rounded-xl border border-gray-300 p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
+            <h3 class="text-lg font-medium">{example.title}</h3>
+            <p class="mt-1 text-sm font-light text-gray-600">{example.vehicle}</p>
+            <p class="mt-1 text-sm font-light text-gray-600">{example.detail}</p>
+            <p class="mt-4 text-2xl font-phudu font-extrabold text-primary">{example.price}</p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Areas We Serve -->
+  <ServiceAreas />
+
+  <!-- FAQ -->
+  <FAQ
+    title="Pricing"
+    subheading="Answers to common questions about motor coach and mini bus rental pricing."
+    items={faqs}
+    headingId="prices-faq-heading"
+  />
+
+  <!-- Call to Action -->
+  <CalltoBook />
+
+  <QuoteModalForm />
+
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+</Layout>

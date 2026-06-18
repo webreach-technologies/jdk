@@ -1,0 +1,250 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import ServicesTypes from '../components/ServicesTypes.astro';
+import ServiceAreas from '../components/ServiceAreas.astro';
+import FAQ from '../components/FAQ.astro';
+import CalltoBook from '../components/CalltoBook.astro';
+import QuoteModalForm from '../components/QuoteModalForm.astro';
+import ServicesHero from "../assets/banners/cta.jpg";
+import OverviewImage from "../assets/services/services-global.webp";
+
+const siteUrl = "https://jdktransportation.com";
+
+const services = [
+  { name: "Travel Agent Partnerships", slug: "travel-agents" },
+  { name: "Wedding Shuttles", slug: "wedding-shuttles" },
+  { name: "Sports Team Charters", slug: "sports-teams" },
+  { name: "School Field Trips", slug: "school-trips" },
+  { name: "Airport Shuttles", slug: "airport-shuttles" },
+  { name: "Private Events", slug: "private-events" },
+  { name: "Corporate Transportation", slug: "corporate-events" },
+  { name: "Family Reunions & Vacations", slug: "vacations-family-trips" },
+  { name: "Proms & Homecomings", slug: "proms-homecomings" },
+  { name: "Religious Groups", slug: "religious-groups" },
+  { name: "Hospital & Healthcare Shuttles", slug: "hospital-healthcare-shuttles" },
+  { name: "Construction Site Shuttles", slug: "construction-site-shuttles" },
+  { name: "Government & Military Groups", slug: "government-military-groups" },
+  { name: "Emergency Services", slug: "emergency-services" },
+  { name: "Wine Tours & Pub Crawls", slug: "wine-tours-pub-crawls" },
+  { name: "Summer Camps", slug: "summer-camps" },
+  { name: "Employee Shuttles", slug: "employee-shuttles" },
+];
+
+const faqs = [
+  {
+    question: "What types of groups does JDK Transportation provide service for?",
+    answer: "We provide motor coach rentals for schools, sports teams, corporations, wedding parties, travel agents, religious groups, government agencies, and more. If your group needs to travel together, we can help."
+  },
+  {
+    question: "Can I customize a route or schedule for my group?",
+    answer: "Yes. Our 24/7 dispatch team works with you to plan pickup times, routes, and stops that fit your itinerary, whether it's a single trip or a multi-day schedule."
+  },
+  {
+    question: "What size vehicles are available for my service?",
+    answer: "Our fleet ranges from 15-passenger minibuses and sprinter vans up to 56-passenger motorcoaches, so we can match the right vehicle to your group size for any service."
+  },
+  {
+    question: "Are your drivers experienced with my type of trip?",
+    answer: "Our licensed, professional drivers are experienced with everything from school trips and wedding shuttles to multi-day tours and emergency evacuations, and are trained to keep your group safe and on schedule."
+  },
+  {
+    question: "How do I get a quote for a specific service?",
+    answer: "Request a quote online or call our team at 877-377-7172. Let us know your service type, group size, and travel dates, and we'll put together a custom quote for your trip."
+  },
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": siteUrl + "/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Services",
+          "item": siteUrl + "/services"
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "serviceType": "Motor Coach Rental",
+      "name": "JDK Transportation Services",
+      "description": "Motor Coach rental services for schools, corporations, wedding parties, sports teams, travel agents, and groups of every size.",
+      "provider": {
+        "@type": "Organization",
+        "name": "JDK Transportation",
+        "url": siteUrl,
+        "telephone": "+1-877-377-7172",
+        "email": "info@jdktransportation.com"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Motor Coach Services",
+        "itemListElement": services.map((service, index) => ({
+          "@type": "Offer",
+          "position": index + 1,
+          "itemOffered": {
+            "@type": "Service",
+            "name": service.name,
+            "url": siteUrl + "/services/" + service.slug
+          }
+        }))
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map((faq) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    }
+  ]
+};
+---
+
+<Layout
+  title="Motor Coach Services | JDK Transportation"
+  description="Explore JDK Transportation's motor coach services for schools, corporations, wedding parties, sports teams, travel agents, and groups of every size, with vehicles seating 15 to 56 passengers.">
+
+  <!-- Services Hero -->
+  <section aria-labelledby="services-hero-heading" class="relative w-full py-28 md:py-40 text-center text-white">
+
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <Image src={ServicesHero} alt="" quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-black/60"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm font-light">
+        <ol class="flex items-center justify-center gap-2">
+          <li><a href="/" class="hover:text-primary transition duration-300">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-primary">Services</li>
+        </ol>
+      </nav>
+
+      <h1 id="services-hero-heading" class="text-4xl md:text-6xl font-phudu font-extrabold uppercase tracking-wide">
+        Our Services
+      </h1>
+
+      <p class="mt-4 text-base md:text-lg font-light leading-snug">
+        Motor Coach rentals tailored to schools, corporations, wedding parties,
+        sports teams, and groups of every size.
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="javascript:void(0)" class="open-modal flex items-center gap-2 bg-primary text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
+          Get a Quote in 30 Minutes
+        </a>
+        <a href="tel:+18773777172" class="flex items-center gap-2 bg-white text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
+          Call: 877-377-7172
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Services Overview -->
+  <section aria-labelledby="services-overview-heading" class="bg-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-center">
+
+      <div>
+        <h2 id="services-overview-heading" class="text-center md:text-start text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+          Motor Coach Services Built Around <span class="text-primary">Your Group</span>
+        </h2>
+
+        <p class="mt-5 text-base md:text-lg font-light leading-snug">
+          No two groups travel the same way, so JDK Transportation offers a wide range of charter
+          bus services designed around the needs of schools, corporations, wedding parties, sports
+          teams, travel agents, and more. Whatever the occasion, we'll match you with the right
+          vehicle, route, and schedule.
+        </p>
+
+        <p class="mt-4 text-base md:text-lg font-light leading-snug">
+          Every service is backed by our well-maintained fleet, licensed and professional drivers,
+          and 24/7 dispatch support &mdash; so your group can focus on the destination, not the
+          logistics.
+        </p>
+      </div>
+
+      <div class="overflow-hidden rounded-2xl shadow-md">
+        <Image
+          src={OverviewImage}
+          alt="JDK Transportation motor coach ready for a group service"
+          quality={1}
+          loading="lazy"
+          class="w-full h-auto object-cover" />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Why Choose Us for Group Services -->
+  <section aria-labelledby="services-why-heading" class="relative w-full py-12 text-white">
+
+    <div class="absolute inset-0 bg-black"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 id="services-why-heading" class="text-center text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+        Why Groups Choose Our <span class="text-primary">Services</span>
+      </h2>
+
+      <dl class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <dt class="text-3xl md:text-4xl font-phudu font-extrabold text-primary">17+</dt>
+          <dd class="mt-2 text-sm md:text-base font-light">Specialized Services</dd>
+        </div>
+        <div>
+          <dt class="text-3xl md:text-4xl font-phudu font-extrabold text-primary">15-56</dt>
+          <dd class="mt-2 text-sm md:text-base font-light">Passenger Vehicle Sizes</dd>
+        </div>
+        <div>
+          <dt class="text-3xl md:text-4xl font-phudu font-extrabold text-primary">10+</dt>
+          <dd class="mt-2 text-sm md:text-base font-light">Metro Areas Served</dd>
+        </div>
+        <div>
+          <dt class="text-3xl md:text-4xl font-phudu font-extrabold text-primary">24/7</dt>
+          <dd class="mt-2 text-sm md:text-base font-light">Dispatch & Support</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Services We Offer -->
+  <ServicesTypes />
+
+  <!-- Areas We Serve -->
+  <ServiceAreas />
+
+  <!-- FAQ -->
+  <FAQ
+    title="Services"
+    subheading="Answers to common questions about booking a motor coach service with JDK Transportation."
+    items={faqs}
+    headingId="services-faq-heading"
+  />
+
+  <!-- Call to Action -->
+  <CalltoBook />
+
+  <QuoteModalForm />
+
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+</Layout>

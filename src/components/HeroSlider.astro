@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import Hero from "../assets/banners/hero.jpg";
-import Video from "../assets/video/hero-video.mp4";
 ---
 
 
@@ -10,19 +9,6 @@ import Video from "../assets/video/hero-video.mp4";
   <!-- Background Image -->
   <div class="absolute inset-0">
     <Image src={Hero} alt="hero" quality={50} loading="eager" fetchpriority="high" class="w-full h-full object-cover transition-opacity duration-700" id="hero-image"></Image>
-
-    <!-- Desktop Video -->
-    <!-- <video
-      id="hero-video"
-      class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="none"
-    >
-      <source src={Video} type="video/mp4" />
-    </video> -->
 
     <div class="absolute inset-0 bg-black/30"></div>
   </div>
@@ -37,12 +23,12 @@ import Video from "../assets/video/hero-video.mp4";
     </h1>
 
     <h2 class="text-2xl md:text-4xl font-phudu font-bold mt-4 uppercase">
-      Premier Coach Bus & Charter Bus Rentals
+      Premier Motor Coach Rentals
     </h2>
 
     <!-- Paragraph -->
     <p class="mt-5 text-base md:text-xl font-light leading-snug">
-      We offer top-notch charter bus rentals for groups of all sizes.
+      We offer top-notch motor coach rentals for groups of all sizes.
       With years of experience, we've handled everything from sports teams to weddings,
       school trips, and corporate events. Our diverse fleet features vehicles ranging
       from 15-seater minibuses to 56-seater coaches, ensuring comfortable travel
@@ -60,7 +46,7 @@ import Video from "../assets/video/hero-video.mp4";
               </g>
               </svg>
           </div>
-          Call us - +1 (877) 377 7172
+          Call us: 877-377-7172
       </a>
 
       <a href="javascript:void(0)" class="open-modal flex items-center gap-2 md:shrink-0 bg-black text-primary px-4 py-3 text-sm rounded-full border border-primary hover:scale-105 transition duration-300">
@@ -78,13 +64,3 @@ import Video from "../assets/video/hero-video.mp4";
 
   </div>
 </section>
-
-<!-- <script>
-  const video = document.getElementById("hero-video");
-  const image = document.getElementById("hero-image");
-
-  video.addEventListener("loadeddata", () => {
-    video.style.opacity = "1";
-    image.style.opacity = "0";
-  });
-</script> -->

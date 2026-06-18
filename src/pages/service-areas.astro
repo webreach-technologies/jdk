@@ -1,0 +1,280 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import FAQ from '../components/FAQ.astro';
+import CalltoBook from '../components/CalltoBook.astro';
+import QuoteModalForm from '../components/QuoteModalForm.astro';
+import AreasHero from "../assets/service-areas/service-areas-global.webp";
+
+const siteUrl = "https://jdktransportation.com";
+
+const areas = (await getCollection('serviceAreas')).sort((a, b) => a.data.order - b.data.order);
+
+const faqs = [
+  {
+    question: "What areas does JDK Transportation serve?",
+    answer: "We provide motor coach rentals throughout the Northeast Corridor including Newark, Jersey City, New York, and Philadelphia, into Ontario for Toronto and Niagara Falls, and across South and Central Florida including Miami, Fort Lauderdale, and Orlando."
+  },
+  {
+    question: "Can you provide transportation outside of these listed cities?",
+    answer: "Yes. These are our most requested locations, but our fleet regularly travels to surrounding towns, suburbs, and regions. Contact our dispatch team with your pickup and drop-off locations and we'll confirm availability."
+  },
+  {
+    question: "Do you offer cross-border service to Canada?",
+    answer: "Yes, we provide motor coach service between the U.S. and Ontario, including trips to and from Toronto and both the U.S. and Canadian sides of Niagara Falls."
+  },
+  {
+    question: "Can you arrange one-way or multi-city trips?",
+    answer: "Absolutely. Whether you need a one-way airport transfer, a round trip, or a multi-city itinerary spanning several of our service areas, our 24/7 dispatch team can help plan the route and schedule."
+  },
+  {
+    question: "How quickly can you schedule a pickup in my area?",
+    answer: "Availability depends on your dates, group size, and pickup location. We recommend booking as early as possible, but our team works hard to accommodate last-minute requests across all of our service areas."
+  },
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": siteUrl + "/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Service Areas",
+          "item": siteUrl + "/service-areas"
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "serviceType": "Motor Coach Rental",
+      "name": "JDK Transportation Service Areas",
+      "description": "Motor Coach and mini bus rentals across the Northeast Corridor, Ontario, and Florida.",
+      "provider": {
+        "@type": "Organization",
+        "name": "JDK Transportation",
+        "url": siteUrl,
+        "telephone": "+1-877-377-7172",
+        "email": "info@jdktransportation.com"
+      },
+      "areaServed": areas.map((area) => ({
+        "@type": "City",
+        "name": `${area.data.name}, ${area.data.state}`
+      })),
+      "url": siteUrl + "/service-areas"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map((faq) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    }
+  ]
+};
+---
+
+<Layout
+  title="Service Areas | Motor Coach Rentals | JDK Transportation"
+  description="JDK Transportation provides motor coach and mini bus rentals across Newark, New York, Philadelphia, Toronto, Niagara Falls, Miami, Fort Lauderdale, Orlando, and surrounding areas.">
+
+  <!-- Service Areas Hero -->
+  <section aria-labelledby="areas-hero-heading" class="relative w-full py-28 md:py-40 text-center text-white">
+
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <Image src={AreasHero} alt="" quality={1} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-black/60"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm font-light">
+        <ol class="flex items-center justify-center gap-2">
+          <li><a href="/" class="hover:text-primary transition duration-300">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-primary">Service Areas</li>
+        </ol>
+      </nav>
+
+      <h1 id="areas-hero-heading" class="text-4xl md:text-6xl font-phudu font-extrabold uppercase tracking-wide">
+        Service Areas
+      </h1>
+
+      <p class="mt-4 text-base md:text-lg font-light leading-snug">
+        Motor Coach and mini bus rentals across the Northeast Corridor, Ontario, and Florida
+        &mdash; with a fleet ready to go wherever your group needs to be.
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="javascript:void(0)" class="open-modal flex items-center gap-2 bg-primary text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
+          Get a Quote in 30 Minutes
+        </a>
+        <a href="tel:+18773777172" class="flex items-center gap-2 bg-white text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
+          Call: 877-377-7172
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Areas Overview -->
+  <section aria-labelledby="areas-overview-heading" class="bg-white py-16 md:py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 id="areas-overview-heading" class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+        Where We <span class="text-primary">Operate</span>
+      </h2>
+      <p class="mt-5 text-base md:text-lg font-light leading-snug">
+        JDK Transportation's fleet covers a wide footprint &mdash; from Newark, Jersey City, and New
+        York down through Philadelphia, north into Toronto and Niagara Falls on both sides of the
+        border, and south to Miami, Fort Lauderdale, and Orlando. Wherever your group is headed,
+        our 24/7 dispatch team can help plan the route, vehicle, and schedule.
+      </p>
+    </div>
+  </section>
+
+  <!-- Areas Grid -->
+  <section aria-labelledby="areas-grid-heading" class="bg-gray-100 py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-10">
+        <h2 id="areas-grid-heading" class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+          Cities We <span class="text-primary">Serve</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {areas.map((area) => (
+          <div class="group bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+            <div class="overflow-hidden">
+              <Image
+                src={area.data.heroImage}
+                alt={`${area.data.name}, ${area.data.state}`}
+                quality={1}
+                loading="lazy"
+                class="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-105" />
+            </div>
+
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-2">
+                <svg class="w-6 h-6 shrink-0 text-primary" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M 12 0 C 7.581722001353652 0 4 3.5817220013536524 4 8 C 4 11.51 9 20 11.15 23.52 C 11.332339276920418 23.814216930468866 11.65386243474251 23.993217312357363 12 23.993217312357363 C 12.34613756525749 23.993217312357363 12.667660723079582 23.814216930468863 12.85 23.52 C 15 20 20 11.51 20 8 C 20 3.5817220013536524 16.418277998646346 0 12 0 Z M 12 11.5 C 10.067003375592222 11.5 8.5 9.932996624407778 8.5 8 C 8.5 6.067003375592223 10.067003375592222 4.5 12 4.5 C 13.932996624407778 4.5 15.5 6.067003375592222 15.5 7.999999999999999 C 15.5 9.932996624407778 13.932996624407778 11.5 12 11.5 Z" />
+                </svg>
+                <h3 class="font-medium text-lg">
+                  {area.data.name}, {area.data.state}
+                </h3>
+              </div>
+              <p class="text-sm font-light leading-snug line-clamp-3">{area.data.summary}</p>
+              <a href={`/service-areas/${area.id}`} class="group/link inline-flex items-center gap-1 mt-3 text-sm font-semibold text-primary">
+                View Details <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section aria-labelledby="areas-why-heading" class="relative w-full py-12 text-white">
+
+    <div class="absolute inset-0 bg-black"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 id="areas-why-heading" class="text-center text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+        Group Transportation <span class="text-primary">Wherever You Are</span>
+      </h2>
+
+      <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Feature 1 -->
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3 transition-all duration-500 hover:-translate-y-2 hover:bg-white/10">
+          <div class="text-primary" aria-hidden="true">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11Zm0-8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium">Multi-City Coverage</h3>
+          <p class="text-sm font-light leading-snug">
+            From the Northeast Corridor to Ontario and Florida, our fleet is ready for local trips
+            and long-distance itineraries alike.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3 transition-all duration-500 hover:-translate-y-2 hover:bg-white/10">
+          <div class="text-primary" aria-hidden="true">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-13v4l3 2" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium">24/7 Dispatch & Support</h3>
+          <p class="text-sm font-light leading-snug">
+            Our team is available around the clock to plan routes, confirm availability, and
+            support your group on the road.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3 transition-all duration-500 hover:-translate-y-2 hover:bg-white/10">
+          <div class="text-primary" aria-hidden="true">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 13h18M5 13V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5M4 13l1 6h2l.5-2h9l.5 2h2l1-6M7 19a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm10 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium">15 to 56 Passenger Fleet</h3>
+          <p class="text-sm font-light leading-snug">
+            Sprinter vans to full-size motorcoaches, matched to your group size in every service
+            area we cover.
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3 transition-all duration-500 hover:-translate-y-2 hover:bg-white/10">
+          <div class="text-primary" aria-hidden="true">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Zm-2.5 10.5 2 2 4-4.5" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium">Licensed, Insured Drivers</h3>
+          <p class="text-sm font-light leading-snug">
+            Every driver is licensed, trained, and background-checked, no matter which service
+            area your trip starts in.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <FAQ
+    title="Service Area"
+    subheading="Answers to common questions about where JDK Transportation operates."
+    items={faqs}
+    headingId="areas-faq-heading"
+  />
+
+  <!-- Call to Action -->
+  <CalltoBook />
+
+  <QuoteModalForm />
+
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+</Layout>
