@@ -46,6 +46,12 @@ try {
     $adminMail->setFrom($config['from_email'], $config['from_name']);
     $adminMail->addAddress($config['admin_email']);
 
+    if (!empty($config['cc'])) {
+        foreach ($config['cc'] as $ccEmail) {
+            $adminMail->addCC($ccEmail);
+        }
+    }
+
     if (!empty($config['bcc'])) {
         foreach ($config['bcc'] as $bccEmail) {
             $adminMail->addBCC($bccEmail);

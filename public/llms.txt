@@ -1,0 +1,17 @@
+# JDK Transportation
+
+> JDK Transportation provides motor coach and group transportation rentals (charter buses, minibuses, school/corporate/sports/wedding group travel) with 24/7 dispatch and licensed professional drivers. Operating for over 15 years across the Northeast Corridor (Newark, Jersey City, New York, Philadelphia), Ontario (Toronto, Niagara Falls), and South/Central Florida (Miami, Fort Lauderdale, Orlando).
+
+## Pages
+
+- [Home](https://jdktransportation.com/): Overview of services, fleet, and service areas.
+- [About](https://jdktransportation.com/about): Company history, mission, and FAQs.
+- [Services](https://jdktransportation.com/services): Charter and group transportation service types.
+- [Fleet](https://jdktransportation.com/fleet): Bus and motor coach types available for rental.
+- [Service Areas](https://jdktransportation.com/service-areas): Regions and cities served.
+- [Prices](https://jdktransportation.com/prices): Pricing and quote information.
+- [Contact](https://jdktransportation.com/contact): Phone, quote requests, and contact details.
+
+## Contact
+
+- Phone (24/7): 877-377-7172

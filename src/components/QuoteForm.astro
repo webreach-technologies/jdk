@@ -14,7 +14,7 @@
     </div>
 
     <!-- Form -->
-    <form class="grid md:grid-cols-4 gap-x-12 gap-y-6" id="quoteForm" novalidate>
+    <form class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-6" id="quoteForm" novalidate>
 
       <!-- Row 1 -->
       <div class="relative">
@@ -64,7 +64,7 @@
       </div>
 
       <!-- Additional Info (Span 2 Columns) -->
-      <div class="md:col-span-2 relative">
+      <div class="lg:col-span-2 relative">
         <input type="text" placeholder="Additional Info" name="addinfo" class="font-light w-full bg-transparent border-b border-gray-400 focus:outline-none py-2 placeholder-gray-700 transition duration-300">
         <small class="error text-red-500 text-xs absolute top-full left-0" id="addinfoError"></small>
       </div>
@@ -75,9 +75,9 @@
       </div>
 
       <!-- Request Button -->
-      <div class="flex items-end">
+      <div class="sm:col-span-2 lg:col-span-1 flex items-end">
         <button type="submit" id="submitBtn"
-          class="font-normal w-full h-full py-2.25 md:py-0 rounded-full bg-primary hover:bg-yellow-600 text-black uppercase transition duration-300 cursor-pointer">
+          class="font-normal w-full h-full py-2.25 lg:py-0 rounded-full bg-primary hover:bg-yellow-600 text-black uppercase transition duration-300 cursor-pointer">
           Request
         </button>
       </div>

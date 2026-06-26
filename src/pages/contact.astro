@@ -374,9 +374,13 @@ const structuredData = {
 
         if (data.status === "success") {
           form.reset();
-          status.textContent = "Thank you! Your message has been sent. Our team will get back to you shortly.";
-          status.classList.remove("text-red-500");
-          status.classList.add("text-green-600");
+          document.querySelectorAll("#contactForm .error").forEach(el => el.textContent = "");
+
+          setTimeout(() => {
+            window.location.href = "/success";
+          }, 500);
+
+          return;
         } else {
           status.textContent = data.message || "Something went wrong. Please try again.";
           status.classList.remove("text-green-600");

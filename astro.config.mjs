@@ -9,8 +9,8 @@ export default defineConfig({
       plugins: [tailwindcss()],
   },
 
-  // site: 'https://jdktransportation.com', // For development, you can use a placeholder URL. Make sure to update it to the actual URL when deploying.
-  site: 'https://webreach-technologies.github.io', // testing with GitHub Pages
-  base: '/jdk', // Set the base path for GitHub Pages deployment
+  site: 'https://jdktransportation.com',
+  // site: 'https://webreach-technologies.github.io',
+  // base: '/jdk',
   integrations: [sitemap()],
 });

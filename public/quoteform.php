@@ -52,11 +52,11 @@ try {
     $adminMail->addAddress($config['admin_email']);
 
     // Add CC
-    // if (!empty($config['cc'])) {
-    //     foreach ($config['cc'] as $ccEmail) {
-    //         $adminMail->addCC($ccEmail);
-    //     }
-    // }
+    if (!empty($config['cc'])) {
+        foreach ($config['cc'] as $ccEmail) {
+            $adminMail->addCC($ccEmail);
+        }
+    }
 
     // Add BCC
     if (!empty($config['bcc'])) {

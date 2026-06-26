@@ -3,8 +3,9 @@ import { Image } from 'astro:assets';
 import Logo from "../assets/logo/logo.png";
 import { withBase, stripBase } from '../utils/url';
 
-const pathname = stripBase(Astro.url.pathname);
-const isActive = (path: string) => pathname === path;
+const normalize = (path: string) => path.replace(/\/+$/, '') || '/';
+const pathname = normalize(stripBase(Astro.url.pathname));
+const isActive = (path: string) => pathname === normalize(path);
 const isActiveSection = (prefix: string) => pathname === prefix || pathname.startsWith(`${prefix}/`);
 ---
 
@@ -69,7 +70,7 @@ const isActiveSection = (prefix: string) => pathname === prefix || pathname.star
             <!-- Logo -->
             <div class="shrink-0">
                 <a href={withBase('/')} class="block">
-                    <Image src={Logo} alt="JDK Transportation Logo" quality={1} loading="lazy" class="w-28 xl:w-32"></Image>
+                    <Image src={Logo} alt="JDK Transportation Logo" quality={1} loading="lazy" class="w-30 xl:w-32"></Image>
                 </a>
             </div>
 
@@ -78,14 +79,14 @@ const isActiveSection = (prefix: string) => pathname === prefix || pathname.star
                 <li><a href={withBase('/about')} class={`block px-3 2xl:px-4 py-3.5 hover:text-primary transition duration-300 ${isActive('/about') ? 'text-primary' : ''}`}>About Us</a></li>
 
                 <!-- Our Fleet Mega Menu -->
-                <li class="group relative">
-                    <button type="button" class={`flex items-center gap-1 px-3 2xl:px-4 py-3.5 hover:text-primary transition duration-300 cursor-pointer ${isActiveSection('/fleet') ? 'text-primary' : ''}`}>
+                <li class="dropdown-item group relative">
+                    <button type="button" aria-expanded="false" class={`dropdown-trigger flex items-center gap-1 px-3 2xl:px-4 py-3.5 hover:text-primary transition duration-300 cursor-pointer ${isActiveSection('/fleet') ? 'text-primary' : ''}`}>
                         Our Fleet
-                        <svg class="w-3 h-3 transition-transform duration-300 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="dropdown-icon w-3 h-3 transition-transform duration-300 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
-                    <div class="absolute left-0 top-full opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300">
+                    <div class="dropdown-panel absolute left-0 top-full opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300">
                         <div class="bg-white text-black border-t-2 border-primary shadow-xl p-6 w-130">
                             <div class="grid grid-cols-2 gap-x-8 gap-y-1">
                                 <div>
@@ -126,14 +127,14 @@ const isActiveSection = (prefix: string) => pathname === prefix || pathname.star
                 </li>
 
                 <!-- Services Mega Menu -->
-                <li class="group relative">
-                    <button type="button" class={`flex items-center gap-1 px-3 2xl:px-4 py-3.5 hover:text-primary transition duration-300 cursor-pointer ${isActiveSection('/services') ? 'text-primary' : ''}`}>
+                <li class="dropdown-item group relative">
+                    <button type="button" aria-expanded="false" class={`dropdown-trigger flex items-center gap-1 px-3 2xl:px-4 py-3.5 hover:text-primary transition duration-300 cursor-pointer ${isActiveSection('/services') ? 'text-primary' : ''}`}>
                         Services
-                        <svg class="w-3 h-3 transition-transform duration-300 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="dropdown-icon w-3 h-3 transition-transform duration-300 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
-                    <div class="absolute left-0 top-full opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300">
+                    <div class="dropdown-panel absolute left-0 top-full opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300">
                         <div class="bg-white text-black border-t-2 border-primary shadow-xl p-6 w-150 grid grid-cols-2 gap-x-8 gap-y-1.5 text-sm">
                             <a href={withBase('/services/airport-shuttles')} class="block text-black hover:text-primary transition duration-300">Airport Shuttles</a>
                             <a href={withBase('/services/construction-site-shuttles')} class="block text-black hover:text-primary transition duration-300">Construction Site Shuttles</a>
@@ -158,14 +159,14 @@ const isActiveSection = (prefix: string) => pathname === prefix || pathname.star
                 </li>
 
                 <!-- Service Areas Mega Menu -->
-                <li class="group relative">
-                    <button type="button" class={`flex items-center gap-1 px-3 2xl:px-4 py-3.5 hover:text-primary transition duration-300 cursor-pointer ${isActiveSection('/service-areas') ? 'text-primary' : ''}`}>
+                <li class="dropdown-item group relative">
+                    <button type="button" aria-expanded="false" class={`dropdown-trigger flex items-center gap-1 px-3 2xl:px-4 py-3.5 hover:text-primary transition duration-300 cursor-pointer ${isActiveSection('/service-areas') ? 'text-primary' : ''}`}>
                         Service Areas
-                        <svg class="w-3 h-3 transition-transform duration-300 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="dropdown-icon w-3 h-3 transition-transform duration-300 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
-                    <div class="absolute left-0 top-full opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300">
+                    <div class="dropdown-panel absolute left-0 top-full opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300">
                         <div class="bg-white text-black border-t-2 border-primary shadow-xl p-6 w-100 grid grid-cols-2 gap-x-8 gap-y-1.5 text-sm">
                             <a href={withBase('/service-areas/newark')} class="block text-black hover:text-primary transition duration-300">Newark</a>
                             <a href={withBase('/service-areas/jersey-city')} class="block text-black hover:text-primary transition duration-300">Jersey City</a>
@@ -377,6 +378,44 @@ const isActiveSection = (prefix: string) => pathname === prefix || pathname.star
                 btn.querySelector(".dropdown-icon")?.classList.toggle("rotate-180");
             });
         });
+
+        // Desktop mega-menu dropdowns: hover opens them on pointer/mouse devices,
+        // but on touch screens (tablets, touch laptops) there is no hover, so a
+        // click/tap must also toggle the panel. The "dropdown-open" class mirrors
+        // the group-hover styles so both interaction methods work at once.
+        const dropdownItems = Array.from(document.querySelectorAll(".dropdown-item"));
+
+        function closeDropdown(item) {
+            item.classList.remove("dropdown-open");
+            item.querySelector(".dropdown-trigger")?.setAttribute("aria-expanded", "false");
+        }
+
+        function closeAllDropdowns(except) {
+            dropdownItems.forEach((item) => {
+                if (item !== except) closeDropdown(item);
+            });
+        }
+
+        dropdownItems.forEach((item) => {
+            const trigger = item.querySelector(".dropdown-trigger");
+            trigger?.addEventListener("click", (e) => {
+                e.preventDefault();
+                const isOpen = item.classList.contains("dropdown-open");
+                closeAllDropdowns(item);
+                item.classList.toggle("dropdown-open", !isOpen);
+                trigger.setAttribute("aria-expanded", String(!isOpen));
+            });
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!(e.target instanceof Element) || !e.target.closest(".dropdown-item")) {
+                closeAllDropdowns();
+            }
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") closeAllDropdowns();
+        });
     }
 
     // Re-run on initial load and after every View Transition navigation
@@ -405,5 +444,17 @@ const isActiveSection = (prefix: string) => pathname === prefix || pathname.star
 html :global(body) {
     height: auto;
     min-height: 100%;
+}
+
+/* Tapped-open state for desktop mega menus on touch devices (e.g. tablets in
+   landscape that are wide enough to show the desktop nav but have no hover). */
+.dropdown-item.dropdown-open .dropdown-panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item.dropdown-open .dropdown-icon {
+    transform: rotate(180deg);
 }
 </style>
