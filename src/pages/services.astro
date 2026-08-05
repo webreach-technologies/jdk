@@ -71,7 +71,7 @@ const structuredData = {
           "@type": "ListItem",
           "position": 2,
           "name": "Services",
-          "item": siteUrl + "/services"
+          "item": siteUrl + "/services/"
         }
       ]
     },
@@ -96,7 +96,7 @@ const structuredData = {
           "itemOffered": {
             "@type": "Service",
             "name": service.name,
-            "url": siteUrl + "/services/" + service.slug
+            "url": siteUrl + "/services/" + service.slug + "/"
           }
         }))
       }
@@ -125,7 +125,7 @@ const structuredData = {
 
     <!-- Background Image -->
     <div class="absolute inset-0">
-      <Image src={ServicesHero} alt="" quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
+      <Image src={ServicesHero} alt="JDK Transportation motor coach services" quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
       <div class="absolute inset-0 bg-black/60"></div>
     </div>
 

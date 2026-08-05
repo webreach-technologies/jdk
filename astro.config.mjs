@@ -10,7 +10,6 @@ export default defineConfig({
   },
 
   site: 'https://jdktransportation.com',
-  // site: 'https://webreach-technologies.github.io',
-  // base: '/jdk',
+  trailingSlash: 'always',
   integrations: [sitemap()],
 });

@@ -44,6 +44,7 @@ try {
     $adminMail->Port       = $config['port'];
 
     $adminMail->setFrom($config['from_email'], $config['from_name']);
+    $adminMail->addReplyTo($email, $name);
     $adminMail->addAddress($config['admin_email']);
 
     if (!empty($config['cc'])) {
@@ -59,7 +60,7 @@ try {
     }
 
     $adminMail->isHTML(true);
-    $adminMail->Subject = "JDK Contact Form - {$subject}";
+    $adminMail->Subject = "JDK Trans - {$subject}";
     $adminMail->Body = "
         <table style='border-collapse: collapse; width: 100%; max-width: 600px; border: 1px solid #ddd;'>
             <tr style='background-color: #f2f2f2;'>

@@ -57,7 +57,7 @@ const structuredData = {
           "@type": "ListItem",
           "position": 2,
           "name": "Our Fleet",
-          "item": siteUrl + "/fleet"
+          "item": siteUrl + "/fleet/"
         }
       ]
     },
@@ -80,10 +80,10 @@ const structuredData = {
           "@type": "Offer",
           "position": index + 1,
           "itemOffered": {
-            "@type": "Product",
+            "@type": "Service",
             "name": vehicle.data.title,
             "description": vehicle.data.capacity,
-            "url": siteUrl + "/fleet/" + vehicle.id
+            "url": siteUrl + "/fleet/" + vehicle.id + "/"
           }
         }))
       }
@@ -112,7 +112,7 @@ const structuredData = {
 
     <!-- Background Image -->
     <div class="absolute inset-0">
-      <Image src={FleetHero} alt="" quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
+      <Image src={FleetHero} alt="JDK Transportation fleet of motor coaches, mini buses, and sprinter vans" quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
       <div class="absolute inset-0 bg-black/60"></div>
     </div>
 

@@ -50,13 +50,13 @@ const structuredData = {
           "@type": "ListItem",
           "position": 2,
           "name": "Services",
-          "item": siteUrl + "/services"
+          "item": siteUrl + "/services/"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": title,
-          "item": siteUrl + "/services/" + service.id
+          "item": siteUrl + "/services/" + service.id + "/"
         }
       ]
     },
@@ -73,7 +73,7 @@ const structuredData = {
         "email": "info@jdktransportation.com"
       },
       "areaServed": "US",
-      "url": siteUrl + "/services/" + service.id
+      "url": siteUrl + "/services/" + service.id + "/"
     },
     ...(faqs && faqs.length > 0 ? [{
       "@type": "FAQPage",
@@ -97,7 +97,7 @@ const structuredData = {
 
     <!-- Background Image -->
     <div class="absolute inset-0">
-      <Image src={ServiceHero} alt="" quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
+      <Image src={ServiceHero} alt={`${title} - JDK Transportation`} quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
       <div class="absolute inset-0 bg-black/60"></div>
     </div>
 

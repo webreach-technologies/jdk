@@ -49,6 +49,7 @@ try {
     $adminMail->Port       = $config['port'];
 
     $adminMail->setFrom($config['from_email'], $config['from_name']);
+    $adminMail->addReplyTo($email, $fname);
     $adminMail->addAddress($config['admin_email']);
 
     // Add CC
@@ -66,7 +67,7 @@ try {
     }
 
     $adminMail->isHTML(true);
-    $adminMail->Subject = "JDK Online Request - {$gname}";
+    $adminMail->Subject = "JDK Trans - {$gname}";
     $adminMail->Body = "
         <table style='border-collapse: collapse; width: 100%; max-width: 600px; border: 1px solid #ddd;'>
             <tr style='background-color: #f2f2f2;'>
@@ -131,7 +132,7 @@ try {
     $userMail->addAddress($_POST['email'], $fname);
 
     $userMail->isHTML(true);
-    $userMail->Subject = "We Received Your Tour Request";
+    $userMail->Subject = "We Received Your Quote Request";
     $userMail->Body = "
         <h2>Hi {$fname},</h2>
         <p>Thank you for your request.</p>
@@ -139,7 +140,7 @@ try {
         <br>
         <table style='border-collapse: collapse; width: 100%; max-width: 600px; border: 1px solid #ddd;'>
             <tr style='background-color: #f2f2f2;'>
-                <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold; width: 40%;'>Tour Date</td>
+                <td style='border: 1px solid #ddd; padding: 8px; font-weight: bold; width: 40%;'>Pickup Date</td>
                 <td style='border: 1px solid #ddd; padding: 8px;'>{$datetime}</td>
             </tr>
             <tr>

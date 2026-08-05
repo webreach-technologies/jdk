@@ -42,35 +42,27 @@ const structuredData = {
           "@type": "ListItem",
           "position": 2,
           "name": "Our Fleet",
-          "item": siteUrl + "/fleet"
+          "item": siteUrl + "/fleet/"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": title,
-          "item": siteUrl + "/fleet/" + vehicle.id
+          "item": siteUrl + "/fleet/" + vehicle.id + "/"
         }
       ]
     },
     {
-      "@type": "Product",
+      "@type": "Service",
       "name": title,
       "description": summary,
-      "category": category,
-      "brand": {
+      "serviceType": category,
+      "url": siteUrl + "/fleet/" + vehicle.id + "/",
+      "provider": {
         "@type": "Organization",
-        "name": "JDK Transportation"
-      },
-      "offers": {
-        "@type": "Offer",
-        "url": siteUrl + "/fleet/" + vehicle.id,
-        "availability": "https://schema.org/InStock",
-        "seller": {
-          "@type": "Organization",
-          "name": "JDK Transportation",
-          "telephone": "+1-877-377-7172",
-          "email": "info@jdktransportation.com"
-        }
+        "name": "JDK Transportation",
+        "telephone": "+1-877-377-7172",
+        "email": "info@jdktransportation.com"
       }
     },
     ...(faqs && faqs.length > 0 ? [{
@@ -95,7 +87,7 @@ const structuredData = {
 
     <!-- Background Image -->
     <div class="absolute inset-0">
-      <Image src={FleetHero} alt="" quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
+      <Image src={FleetHero} alt={`${title} - JDK Transportation`} quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
       <div class="absolute inset-0 bg-black/60"></div>
     </div>
 
