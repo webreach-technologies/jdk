@@ -1,0 +1,180 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import type { GetStaticPathsOptions } from 'astro';
+import Layout from '../../layouts/Layout.astro';
+import CalltoBook from '../../components/CalltoBook.astro';
+import QuoteModalForm from '../../components/QuoteModalForm.astro';
+import BlogHero from "../../assets/banners/cta.jpg";
+import { withBase } from '../../utils/url';
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const posts = (await getCollection('blog'))
+    .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+  return paginate(posts, { pageSize: 6 });
+}
+
+const { page } = Astro.props as { page: import('astro').Page<CollectionEntry<'blog'>> };
+
+const siteUrl = "https://jdktransportation.com";
+const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const pageTitle = page.currentPage > 1
+  ? `Blog - Page ${page.currentPage} | JDK Transportation`
+  : "Blog | JDK Transportation";
+
+const pageNumbers = Array.from({ length: page.lastPage }, (_, i) => i + 1);
+const pageHref = (n: number) => withBase(n === 1 ? '/blog' : `/blog/${n}`);
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": siteUrl + "/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": siteUrl + "/blog/"
+        }
+      ]
+    },
+    {
+      "@type": "Blog",
+      "name": "JDK Transportation Blog",
+      "description": "Travel tips, group transportation guides, and news from JDK Transportation.",
+      "url": siteUrl + "/blog/",
+      "blogPost": page.data.map((post) => ({
+        "@type": "BlogPosting",
+        "headline": post.data.title,
+        "url": siteUrl + "/blog/" + post.id + "/",
+        "datePublished": post.data.publishDate.toISOString(),
+        "author": {
+          "@type": "Organization",
+          "name": post.data.author,
+        },
+      }))
+    }
+  ]
+};
+---
+
+<Layout
+  title={pageTitle}
+  description="Travel tips, group transportation guides, and news from JDK Transportation, covering vehicle selection, trip planning, and more."
+  noindex={page.currentPage > 1}>
+
+  <!-- Blog Hero -->
+  <section aria-labelledby="blog-hero-heading" class="relative w-full py-28 md:py-40 text-center text-white">
+
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <Image src={BlogHero} alt="JDK Transportation blog" quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-black/60"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm font-light">
+        <ol class="flex items-center justify-center gap-2">
+          <li><a href={withBase('/')} class="hover:text-primary transition duration-300">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-primary">Blog</li>
+        </ol>
+      </nav>
+
+      <h1 id="blog-hero-heading" class="text-4xl md:text-6xl font-phudu font-extrabold uppercase tracking-wide">
+        Our Blog
+      </h1>
+
+      <p class="mt-4 text-base md:text-lg font-light leading-snug">
+        Travel tips, group transportation guides, and news from JDK Transportation.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- Blog Posts -->
+  <section aria-labelledby="blog-posts-heading" class="bg-white py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <h2 id="blog-posts-heading" class="sr-only">Latest Articles</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        {page.data.map((post) => (
+          <article class="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl">
+
+            <div class="overflow-hidden">
+              <Image src={post.data.heroImage} alt={post.data.title} quality={40} class="w-full h-56 object-cover" />
+            </div>
+
+            <div class="p-6">
+              <time datetime={post.data.publishDate.toISOString()} class="text-xs font-medium text-black/60 uppercase tracking-wide">
+                {dateFormatter.format(post.data.publishDate)}
+              </time>
+
+              <h3 class="mt-3 font-medium text-lg leading-6">
+                {post.data.title}
+              </h3>
+
+              <p class="mt-2 text-sm leading-snug font-light line-clamp-3">
+                {post.data.excerpt}
+              </p>
+
+              <a href={withBase(`/blog/${post.id}`)} class="group/link inline-flex items-center gap-1 mt-4 text-sm font-semibold text-primary">
+                Read More <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span>
+              </a>
+            </div>
+
+          </article>
+        ))}
+      </div>
+
+      <!-- Pagination -->
+      {page.lastPage > 1 && (
+        <nav aria-label="Blog pagination" class="mt-14 flex items-center justify-center gap-2">
+          {page.url.prev ? (
+            <a href={pageHref(page.currentPage - 1)} class="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 text-sm hover:bg-primary hover:border-primary transition duration-300" aria-label="Previous page">
+              &larr;
+            </a>
+          ) : (
+            <span class="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 text-sm text-black/30 cursor-not-allowed" aria-hidden="true">&larr;</span>
+          )}
+
+          {pageNumbers.map((n) => (
+            n === page.currentPage ? (
+              <span aria-current="page" class="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-black text-sm font-semibold">{n}</span>
+            ) : (
+              <a href={pageHref(n)} class="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 text-sm hover:bg-primary hover:border-primary transition duration-300">{n}</a>
+            )
+          ))}
+
+          {page.url.next ? (
+            <a href={pageHref(page.currentPage + 1)} class="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 text-sm hover:bg-primary hover:border-primary transition duration-300" aria-label="Next page">
+              &rarr;
+            </a>
+          ) : (
+            <span class="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 text-sm text-black/30 cursor-not-allowed" aria-hidden="true">&rarr;</span>
+          )}
+        </nav>
+      )}
+
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <CalltoBook />
+
+  <QuoteModalForm />
+
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+</Layout>

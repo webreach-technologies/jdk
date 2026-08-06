@@ -11,5 +11,9 @@ export default defineConfig({
 
   site: 'https://jdktransportation.com',
   trailingSlash: 'always',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => !/\/blog\/\d+\/?$/.test(page),
+    }),
+  ],
 });

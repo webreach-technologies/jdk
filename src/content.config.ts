@@ -76,4 +76,21 @@ const serviceAreas = defineCollection({
   }),
 });
 
-export const collections = { fleet, services, serviceAreas };
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    excerpt: z.string(),
+    heroImage: image(),
+    author: z.string(),
+    publishDate: z.date(),
+    category: z.string(),
+    faqs: z.array(faqItem).optional(),
+    seo: z.object({
+      title: z.string(),
+      description: z.string(),
+    }),
+  }),
+});
+
+export const collections = { fleet, services, serviceAreas, blog };
