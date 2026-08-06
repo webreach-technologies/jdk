@@ -22,6 +22,12 @@ const { Content } = await render(post);
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
+const breadcrumbWordLimit = 5;
+const titleWords = title.split(' ');
+const breadcrumbTitle = titleWords.length > breadcrumbWordLimit
+  ? `${titleWords.slice(0, breadcrumbWordLimit).join(' ')}…`
+  : title;
+
 const relatedPosts = (await getCollection('blog'))
   .filter((p) => p.id !== post.id)
   .sort((a, b) => {
@@ -111,7 +117,7 @@ const structuredData = {
           <li aria-hidden="true">/</li>
           <li><a href={withBase('/blog')} class="hover:text-primary transition duration-300">Blog</a></li>
           <li aria-hidden="true">/</li>
-          <li aria-current="page" class="text-primary">{title}</li>
+          <li aria-current="page" class="text-primary" title={title}>{breadcrumbTitle}</li>
         </ol>
       </nav>
 
