@@ -1,11 +1,12 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import type { GetStaticPathsOptions } from 'astro';
 import Layout from '../../layouts/Layout.astro';
 import CalltoBook from '../../components/CalltoBook.astro';
 import QuoteModalForm from '../../components/QuoteModalForm.astro';
 import BlogHero from "../../assets/banners/cta.jpg";
+import Logo from '../../assets/logo/logo.png';
 import { withBase } from '../../utils/url';
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
@@ -25,6 +26,16 @@ const pageTitle = page.currentPage > 1
 
 const pageNumbers = Array.from({ length: page.lastPage }, (_, i) => i + 1);
 const pageHref = (n: number) => withBase(n === 1 ? '/blog' : `/blog/${n}`);
+
+const logoImage = await getImage({ src: Logo, format: 'png' });
+const logoUrl = `${siteUrl}${logoImage.src}`;
+
+const postImageUrls = await Promise.all(
+  page.data.map(async (post) => {
+    const img = await getImage({ src: post.data.heroImage, width: 1200, format: 'jpg' });
+    return `${siteUrl}${img.src}`;
+  })
+);
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -51,14 +62,24 @@ const structuredData = {
       "name": "JDK Transportation Blog",
       "description": "Travel tips, group transportation guides, and news from JDK Transportation.",
       "url": siteUrl + "/blog/",
-      "blogPost": page.data.map((post) => ({
+      "blogPost": page.data.map((post, index) => ({
         "@type": "BlogPosting",
         "headline": post.data.title,
         "url": siteUrl + "/blog/" + post.id + "/",
+        "image": postImageUrls[index],
         "datePublished": post.data.publishDate.toISOString(),
         "author": {
           "@type": "Organization",
           "name": post.data.author,
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "JDK Transportation",
+          "url": siteUrl,
+          "logo": {
+            "@type": "ImageObject",
+            "url": logoUrl,
+          },
         },
       }))
     }
