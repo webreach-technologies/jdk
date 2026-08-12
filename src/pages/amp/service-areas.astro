@@ -1,12 +1,12 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
-import FAQ from '../components/FAQ.astro';
-import CalltoBook from '../components/CalltoBook.astro';
-import QuoteModalForm from '../components/QuoteModalForm.astro';
-import AreasHero from "../assets/service-areas/service-areas-global.webp";
-import { withBase } from '../utils/url';
+import AmpLayout from '../../layouts/AmpLayout.astro';
+import AmpPageHero from '../../components/amp/AmpPageHero.astro';
+import AmpImage from '../../components/amp/AmpImage.astro';
+import AmpCalltoBook from '../../components/amp/AmpCalltoBook.astro';
+import FAQ from '../../components/FAQ.astro';
+import { withBase } from '../../utils/url';
+import AreasHero from "../../assets/service-areas/service-areas-global.webp";
 
 const siteUrl = "https://jdktransportation.com";
 
@@ -41,18 +41,8 @@ const structuredData = {
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": siteUrl + "/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Service Areas",
-          "item": siteUrl + "/service-areas/"
-        }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": siteUrl + "/" },
+        { "@type": "ListItem", "position": 2, "name": "Service Areas", "item": siteUrl + "/service-areas/" }
       ]
     },
     {
@@ -78,61 +68,25 @@ const structuredData = {
       "mainEntity": faqs.map((faq) => ({
         "@type": "Question",
         "name": faq.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": faq.answer
-        }
+        "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
       }))
     }
   ]
 };
 ---
 
-<Layout
+<AmpLayout
   title="Service Areas | Motor Coach Rentals | JDK Transportation"
-  description="JDK Transportation provides motor coach and mini bus rentals across Newark, New York, Philadelphia, Toronto, Niagara Falls, Miami, Fort Lauderdale, Orlando, and surrounding areas."
-  ampHref="/amp/service-areas/">
+  description="JDK Transportation provides motor coach and mini bus rentals across Newark, New York, Philadelphia, Toronto, Niagara Falls, Miami, Fort Lauderdale, Orlando, and surrounding areas.">
 
-  <!-- Service Areas Hero -->
-  <section aria-labelledby="areas-hero-heading" class="relative w-full py-28 md:py-40 text-center text-white">
-
-    <!-- Background Image -->
-    <div class="absolute inset-0">
-      <Image src={AreasHero} alt="JDK Transportation motor coach rental service areas" quality={1} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
-      <div class="absolute inset-0 bg-black/60"></div>
-    </div>
-
-    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-
-      <!-- Breadcrumb -->
-      <nav aria-label="Breadcrumb" class="mb-4 text-sm font-light">
-        <ol class="flex items-center justify-center gap-2">
-          <li><a href={withBase('/')} class="hover:text-primary transition duration-300">Home</a></li>
-          <li aria-hidden="true">/</li>
-          <li aria-current="page" class="text-primary">Service Areas</li>
-        </ol>
-      </nav>
-
-      <h1 id="areas-hero-heading" class="text-4xl md:text-6xl font-phudu font-extrabold uppercase tracking-wide">
-        Service Areas
-      </h1>
-
-      <p class="mt-4 text-base md:text-lg font-light leading-snug">
-        Motor Coach and mini bus rentals across the Northeast Corridor, Ontario, and Florida
-        &mdash; with a fleet ready to go wherever your group needs to be.
-      </p>
-
-      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="javascript:void(0)" class="open-modal flex items-center gap-2 bg-primary text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
-          Get a Quote in 30 Minutes
-        </a>
-        <a href="tel:+18773777172" class="flex items-center gap-2 bg-white text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
-          Call: 877-377-7172
-        </a>
-      </div>
-
-    </div>
-  </section>
+  <AmpPageHero
+    image={AreasHero}
+    imageAlt="JDK Transportation motor coach rental service areas"
+    breadcrumb={[{ label: "Home", href: "/amp/" }, { label: "Service Areas" }]}
+    title="Service Areas"
+    subtitle="Motor Coach and mini bus rentals across the Northeast Corridor, Ontario, and Florida — with a fleet ready to go wherever your group needs to be."
+    headingId="areas-hero-heading"
+  />
 
   <!-- Areas Overview -->
   <section aria-labelledby="areas-overview-heading" class="bg-white py-16 md:py-20">
@@ -141,7 +95,7 @@ const structuredData = {
         Where We <span class="text-primary">Operate</span>
       </h2>
       <p class="mt-5 text-base md:text-lg font-light leading-snug">
-        JDK Transportation's fleet covers a wide footprint &mdash; from Newark, Jersey City, and New
+        JDK Transportation's fleet covers a wide footprint — from Newark, Jersey City, and New
         York down through Philadelphia, north into Toronto and Niagara Falls on both sides of the
         border, and south to Miami, Fort Lauderdale, and Orlando. Wherever your group is headed,
         our 24/7 dispatch team can help plan the route, vehicle, and schedule.
@@ -161,16 +115,10 @@ const structuredData = {
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {areas.map((area) => (
-          <div class="group bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+          <div class="bg-white rounded-2xl shadow-md overflow-hidden">
             <div class="overflow-hidden">
-              <Image
-                src={area.data.heroImage}
-                alt={`${area.data.name}, ${area.data.state}`}
-                quality={1}
-                loading="lazy"
-                class="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-105" />
+              <AmpImage src={area.data.heroImage} alt={`${area.data.name}, ${area.data.state}`} />
             </div>
-
             <div class="p-6">
               <div class="flex items-center gap-3 mb-2">
                 <svg class="w-6 h-6 shrink-0 text-primary" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -181,8 +129,8 @@ const structuredData = {
                 </h3>
               </div>
               <p class="text-sm font-light leading-snug line-clamp-3">{area.data.summary}</p>
-              <a href={withBase(`/service-areas/${area.id}`)} class="group/link inline-flex items-center gap-1 mt-3 text-sm font-semibold text-primary">
-                View Details <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span>
+              <a href={withBase(`/amp/service-areas/${area.id}/`)} class="inline-flex items-center gap-1 mt-3 text-sm font-semibold text-primary">
+                View Details &rarr;
               </a>
             </div>
           </div>
@@ -194,9 +142,7 @@ const structuredData = {
 
   <!-- Why Choose Us -->
   <section aria-labelledby="areas-why-heading" class="relative w-full py-12 text-white">
-
     <div class="absolute inset-0 bg-black"></div>
-
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 id="areas-why-heading" class="text-center text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
         Group Transportation <span class="text-primary">Wherever You Are</span>
@@ -204,8 +150,7 @@ const structuredData = {
 
       <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-        <!-- Feature 1 -->
-        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3 transition-all duration-500 hover:-translate-y-2 hover:bg-white/10">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3">
           <div class="text-primary" aria-hidden="true">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11Zm0-8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
@@ -218,8 +163,7 @@ const structuredData = {
           </p>
         </div>
 
-        <!-- Feature 2 -->
-        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3 transition-all duration-500 hover:-translate-y-2 hover:bg-white/10">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3">
           <div class="text-primary" aria-hidden="true">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-13v4l3 2" />
@@ -232,8 +176,7 @@ const structuredData = {
           </p>
         </div>
 
-        <!-- Feature 3 -->
-        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3 transition-all duration-500 hover:-translate-y-2 hover:bg-white/10">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3">
           <div class="text-primary" aria-hidden="true">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 13h18M5 13V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5M4 13l1 6h2l.5-2h9l.5 2h2l1-6M7 19a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm10 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" />
@@ -246,8 +189,7 @@ const structuredData = {
           </p>
         </div>
 
-        <!-- Feature 4 -->
-        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3 transition-all duration-500 hover:-translate-y-2 hover:bg-white/10">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3">
           <div class="text-primary" aria-hidden="true">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Zm-2.5 10.5 2 2 4-4.5" />
@@ -264,7 +206,6 @@ const structuredData = {
     </div>
   </section>
 
-  <!-- FAQ -->
   <FAQ
     title="Service Area"
     subheading="Answers to common questions about where JDK Transportation operates."
@@ -272,11 +213,8 @@ const structuredData = {
     headingId="areas-faq-heading"
   />
 
-  <!-- Call to Action -->
-  <CalltoBook />
-
-  <QuoteModalForm />
+  <AmpCalltoBook />
 
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
-</Layout>
+</AmpLayout>

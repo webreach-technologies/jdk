@@ -1,39 +1,39 @@
 ---
-import { Image } from 'astro:assets';
-import Logo from "../assets/logo/logo.png";
-import { withBase } from '../utils/url';
+import AmpImage from './AmpImage.astro';
+import Logo from '../../assets/logo/logo.png';
+import { withBase } from '../../utils/url';
 
 const year = new Date().getFullYear();
 
 const quickLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'About Us', href: '/about' },
-  { label: 'Our Fleet', href: '/fleet' },
-  { label: 'Services', href: '/services' },
-  { label: 'Service Areas', href: '/service-areas' },
-  { label: 'Prices', href: '/prices' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Contact Us', href: '/contact' },
+  { label: 'Home', href: '/amp/' },
+  { label: 'About Us', href: '/amp/about/' },
+  { label: 'Our Fleet', href: '/amp/fleet/' },
+  { label: 'Services', href: '/amp/services/' },
+  { label: 'Service Areas', href: '/amp/service-areas/' },
+  { label: 'Prices', href: '/amp/prices/' },
+  { label: 'Blog', href: '/amp/blog/' },
+  { label: 'Contact Us', href: '/amp/contact/' },
 ];
 
 const popularServices = [
-  { label: 'Airport Shuttles', href: '/services/airport-shuttles' },
-  { label: 'Corporate Events', href: '/services/corporate-events' },
-  { label: 'Wedding Shuttles', href: '/services/wedding-shuttles' },
-  { label: 'School Trips', href: '/services/school-trips' },
-  { label: 'Sports Teams', href: '/services/sports-teams' },
-  { label: 'Private Events', href: '/services/private-events' },
-  { label: 'Employee Shuttles', href: '/services/employee-shuttles' },
-  { label: 'Proms & Homecomings', href: '/services/proms-homecomings' },
+  { label: 'Airport Shuttles', href: '/amp/services/airport-shuttles/' },
+  { label: 'Corporate Events', href: '/amp/services/corporate-events/' },
+  { label: 'Wedding Shuttles', href: '/amp/services/wedding-shuttles/' },
+  { label: 'School Trips', href: '/amp/services/school-trips/' },
+  { label: 'Sports Teams', href: '/amp/services/sports-teams/' },
+  { label: 'Private Events', href: '/amp/services/private-events/' },
+  { label: 'Employee Shuttles', href: '/amp/services/employee-shuttles/' },
+  { label: 'Proms & Homecomings', href: '/amp/services/proms-homecomings/' },
 ];
 
 const serviceAreas = [
-  { label: 'New York', href: '/service-areas/new-york' },
-  { label: 'Newark', href: '/service-areas/newark' },
-  { label: 'Philadelphia', href: '/service-areas/philadelphia' },
-  { label: 'Toronto', href: '/service-areas/toronto' },
-  { label: 'Miami', href: '/service-areas/miami' },
-  { label: 'Orlando', href: '/service-areas/orlando' },
+  { label: 'New York', href: '/amp/service-areas/new-york/' },
+  { label: 'Newark', href: '/amp/service-areas/newark/' },
+  { label: 'Philadelphia', href: '/amp/service-areas/philadelphia/' },
+  { label: 'Toronto', href: '/amp/service-areas/toronto/' },
+  { label: 'Miami', href: '/amp/service-areas/miami/' },
+  { label: 'Orlando', href: '/amp/service-areas/orlando/' },
 ];
 
 const offices = [
@@ -69,7 +69,6 @@ const socialLinks = [
 ];
 ---
 
-
 <footer class="bg-gray-100 text-black">
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
@@ -79,8 +78,8 @@ const socialLinks = [
 
       <!-- Brand Section -->
       <div class="sm:col-span-2 lg:col-span-3 flex flex-col items-start text-left space-y-5">
-        <a href={withBase('/')}>
-          <Image src={Logo} alt="JDK Transportation Logo" quality={1} loading="lazy" class="w-40"></Image>
+        <a href={withBase('/amp/')} class="block w-40">
+          <AmpImage src={Logo} alt="JDK Transportation Logo" />
         </a>
         <p class="text-black text-sm leading-relaxed">
           Premium motor coach, mini bus, and shuttle transportation trusted by corporations, schools, and event planners across the Northeast, Florida, and Canada.
@@ -195,7 +194,6 @@ const socialLinks = [
 
 </footer>
 
-
 <!-- Floating Emergency Dispatch Button -->
 <a href="tel:+18884877507" aria-label="Call Emergency Dispatch: 888-487-7507"
   class="flex items-center fixed bottom-6 left-6 z-49
@@ -217,60 +215,14 @@ const socialLinks = [
   </span>
 </a>
 
-
-<!-- Scroll To Top Button -->
-<button id="scrollTopBtn"
-  class="fixed bottom-6 right-6 z-49 
+<!-- Scroll To Top -->
+<a href="#top" aria-label="Scroll to top"
+  class="fixed bottom-6 right-6 z-49
          flex items-center justify-center
-         w-12 h-12 rounded-full 
+         w-12 h-12 rounded-full
          bg-black text-primary shadow-lg
-         transition-all duration-500 ease-out
-         opacity-0 translate-y-6 pointer-events-none cursor-pointer" aria-label="Scroll top">
-
-  <svg xmlns="http://www.w3.org/2000/svg"
-       class="w-5 h-5"
-       fill="none"
-       viewBox="0 0 24 24"
-       stroke="currentColor">
-    <path stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M5 15l7-7 7 7" />
+         transition-transform duration-300 hover:scale-105">
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
   </svg>
-</button>
-
-
-<script>
-  function initScrollTop() {
-    const scrollTopBtn = document.getElementById("scrollTopBtn");
-    if (!scrollTopBtn) return;
-
-    // Remove any listener bound to a previous (now detached) button
-    if (window.__scrollTopHandler) {
-      window.removeEventListener("scroll", window.__scrollTopHandler);
-    }
-
-    window.__scrollTopHandler = () => {
-      if (window.scrollY > 300) {
-        scrollTopBtn.classList.remove("opacity-0", "translate-y-6", "pointer-events-none");
-        scrollTopBtn.classList.add("opacity-100", "translate-y-0");
-      } else {
-        scrollTopBtn.classList.add("opacity-0", "translate-y-6", "pointer-events-none");
-        scrollTopBtn.classList.remove("opacity-100", "translate-y-0");
-      }
-    };
-
-    window.addEventListener("scroll", window.__scrollTopHandler);
-    window.__scrollTopHandler();
-
-    scrollTopBtn.addEventListener("click", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    });
-  }
-
-  // Re-run on initial load and after every View Transition navigation
-  document.addEventListener('astro:page-load', initScrollTop);
-</script>
+</a>

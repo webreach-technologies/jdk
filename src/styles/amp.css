@@ -1,0 +1,82 @@
+@import "tailwindcss" source(none);
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/phudu";
+
+@source "../layouts/AmpLayout.astro";
+@source "../components/amp/**/*.astro";
+@source "../components/FAQ.astro";
+@source "../pages/amp/**/*.astro";
+
+@theme {
+  --color-primary: #f5b417;
+  --color-secondary: #f5b21785;
+  --font-phudu: 'Phudu Variable', system-ui;
+}
+
+html,
+body {
+  width: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter Variable', sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* AmpHeader.astro top-bar marquee */
+.marquee-track {
+  padding-left: 100%;
+  animation: marqueeScroll 18s linear infinite;
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+/* AmpCompanies.astro logo marquee */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: scroll 30s linear infinite;
+}
+
+.logo-group {
+  display: flex;
+  align-items: center;
+}
+
+.logo-item {
+  padding: 0 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-image {
+  height: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* AmpQuoteForm.astro / AmpContactForm.astro: hide number-input spin buttons */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}

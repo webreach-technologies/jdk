@@ -1,0 +1,65 @@
+---
+const overlayClass = "absolute inset-0 flex items-center bg-gray-100 border-b border-gray-400 px-0 py-2 font-light text-gray-700 cursor-text transition-opacity duration-300 peer-focus:opacity-0 peer-focus:pointer-events-none peer-valid:opacity-0 peer-valid:pointer-events-none";
+const inputClass = "peer font-light w-full bg-transparent border-b border-gray-400 focus:outline-none focus:border-primary py-2 transition duration-300";
+
+const fields: { name: string; label: string; type: string }[] = [
+  { name: "name", label: "Full Name", type: "text" },
+  { name: "email", label: "Email Address", type: "email" },
+  { name: "phone", label: "Phone Number", type: "tel" },
+  { name: "subject", label: "Subject", type: "text" },
+];
+---
+
+<div class="bg-gray-100 rounded-2xl shadow-md p-6 md:p-8">
+  <h3 class="text-2xl md:text-3xl font-phudu font-extrabold uppercase tracking-wide">
+    Send Us a <span class="text-primary">Message</span>
+  </h3>
+  <p class="mt-2 text-sm font-light">
+    Fill out the form below and a member of our team will get back to you shortly.
+  </p>
+
+  <form
+    id="amp-contact-form"
+    class="mt-6 grid sm:grid-cols-2 gap-x-8 gap-y-8"
+    method="post"
+    action-xhr="https://jdktransportation.com/contactform-amp.php"
+    target="_top"
+    on="submit-success:AMP.navigateTo(url='https://jdktransportation.com/success/')"
+  >
+
+    {fields.map((field) => (
+      <div class="relative">
+        <input type={field.type} id={`contact-${field.name}`} name={field.name} required class={inputClass} />
+        <label for={`contact-${field.name}`} class={overlayClass}>{field.label}</label>
+      </div>
+    ))}
+
+    <div class="sm:col-span-2 relative">
+      <textarea id="contact-message" name="message" rows="4" required class="peer font-light w-full bg-transparent border-b border-gray-400 focus:outline-none focus:border-primary py-2 transition duration-300 resize-none"></textarea>
+      <label for="contact-message" class="absolute inset-0 flex items-center bg-gray-100 border-b border-gray-400 px-0 py-2 font-light text-gray-700 cursor-text transition-opacity duration-300 peer-focus:opacity-0 peer-focus:pointer-events-none peer-valid:opacity-0 peer-valid:pointer-events-none">
+        Your Message
+      </label>
+    </div>
+
+    <!-- Honeypot -->
+    <div class="hidden">
+      <input type="text" name="website">
+    </div>
+
+    <div class="sm:col-span-2">
+      <button type="submit"
+        class="font-normal w-full sm:w-auto px-10 py-3 rounded-full bg-primary hover:bg-yellow-600 text-black uppercase transition duration-300 cursor-pointer">
+        Send Message
+      </button>
+    </div>
+
+    <div submit-success class="sm:col-span-2 text-sm font-medium text-green-700">
+      <p>Thanks! Your message was sent — redirecting you now.</p>
+    </div>
+
+    <div submit-error class="sm:col-span-2 text-sm font-medium text-red-600">
+      <p>Something went wrong. Please call us at 877-377-7172 or try again.</p>
+    </div>
+
+  </form>
+</div>

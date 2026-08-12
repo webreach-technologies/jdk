@@ -1,13 +1,12 @@
 ---
 import { getCollection, render } from 'astro:content';
-import { Image } from 'astro:assets';
-import Layout from '../../layouts/Layout.astro';
-import FAQ from '../../components/FAQ.astro';
-import CalltoBook from '../../components/CalltoBook.astro';
-import QuoteModalForm from '../../components/QuoteModalForm.astro';
-import ServicesTypes from '../../components/ServicesTypes.astro';
-import ServiceHero from "../../assets/banners/cta.jpg";
-import { withBase } from '../../utils/url';
+import AmpLayout from '../../../layouts/AmpLayout.astro';
+import AmpPageHero from '../../../components/amp/AmpPageHero.astro';
+import AmpImage from '../../../components/amp/AmpImage.astro';
+import AmpServicesTypes from '../../../components/amp/AmpServicesTypes.astro';
+import AmpCalltoBook from '../../../components/amp/AmpCalltoBook.astro';
+import FAQ from '../../../components/FAQ.astro';
+import ServiceHero from "../../../assets/banners/cta.jpg";
 
 export async function getStaticPaths() {
   const services = await getCollection('services');
@@ -40,24 +39,9 @@ const structuredData = {
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": siteUrl + "/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Services",
-          "item": siteUrl + "/services/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": title,
-          "item": siteUrl + "/services/" + service.id + "/"
-        }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": siteUrl + "/" },
+        { "@type": "ListItem", "position": 2, "name": "Services", "item": siteUrl + "/services/" },
+        { "@type": "ListItem", "position": 3, "name": title, "item": siteUrl + "/services/" + service.id + "/" }
       ]
     },
     {
@@ -80,59 +64,23 @@ const structuredData = {
       "mainEntity": faqs.map((faq) => ({
         "@type": "Question",
         "name": faq.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": faq.answer
-        }
+        "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
       }))
     }] : [])
   ]
 };
 ---
 
-<Layout title={seo.title} description={seo.description} ampHref={`/amp/services/${service.id}/`}>
+<AmpLayout title={seo.title} description={seo.description}>
 
-  <!-- Service Hero -->
-  <section aria-labelledby="service-hero-heading" class="relative w-full py-28 md:py-40 text-center text-white">
-
-    <!-- Background Image -->
-    <div class="absolute inset-0">
-      <Image src={ServiceHero} alt={`${title} - JDK Transportation`} quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
-      <div class="absolute inset-0 bg-black/60"></div>
-    </div>
-
-    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-
-      <!-- Breadcrumb -->
-      <nav aria-label="Breadcrumb" class="mb-4 text-sm font-light">
-        <ol class="flex items-center justify-center gap-2">
-          <li><a href={withBase('/')} class="hover:text-primary transition duration-300">Home</a></li>
-          <li aria-hidden="true">/</li>
-          <li><a href={withBase('/services')} class="hover:text-primary transition duration-300">Services</a></li>
-          <li aria-hidden="true">/</li>
-          <li aria-current="page" class="text-primary">{title}</li>
-        </ol>
-      </nav>
-
-      <h1 id="service-hero-heading" class="text-4xl md:text-6xl font-phudu font-extrabold uppercase tracking-wide">
-        {title}
-      </h1>
-
-      <p class="mt-4 text-base md:text-lg font-light leading-snug">
-        {summary}
-      </p>
-
-      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="javascript:void(0)" class="open-modal flex items-center gap-2 bg-primary text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
-          Get a Quote in 30 Minutes
-        </a>
-        <a href="tel:+18773777172" class="flex items-center gap-2 bg-white text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
-          Call: 877-377-7172
-        </a>
-      </div>
-
-    </div>
-  </section>
+  <AmpPageHero
+    image={ServiceHero}
+    imageAlt={`${title} - JDK Transportation`}
+    breadcrumb={[{ label: "Home", href: "/amp/" }, { label: "Services", href: "/amp/services/" }, { label: title }]}
+    title={title}
+    subtitle={summary}
+    headingId="service-hero-heading"
+  />
 
   <!-- Intro -->
   <section aria-labelledby="service-intro-heading" class="bg-white py-12 md:py-16">
@@ -150,16 +98,11 @@ const structuredData = {
   <section aria-labelledby="service-overview-heading" class="bg-gray-100 py-16 md:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-center">
 
-      <div class="overflow-hidden rounded-2xl shadow-md order-2 md:order-1">
-        <Image
-          src={heroImage}
-          alt={title}
-          quality={40}
-          loading="eager"
-          class="w-full h-auto object-cover" />
+      <div class="overflow-hidden rounded-2xl shadow-md">
+        <AmpImage src={heroImage} alt={title} />
       </div>
 
-      <div class="order-1 md:order-2">
+      <div>
         <h2 id="service-overview-heading" class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
           What's <span class="text-primary">Included</span>
         </h2>
@@ -193,7 +136,7 @@ const structuredData = {
           Service <span class="text-primary">Details</span>
         </h2>
 
-        <div class="mt-5 prose prose-neutral max-w-none text-base md:text-lg font-light leading-snug [&_h2]:font-phudu [&_h2]:font-extrabold [&_h2]:uppercase [&_h2]:tracking-wide [&_h2]:text-2xl [&_h2]:md:text-3xl [&_h2]:mt-6 [&_h2]:mb-2">
+        <div class="mt-5 text-base md:text-lg font-light leading-snug [&_h2]:font-phudu [&_h2]:font-extrabold [&_h2]:uppercase [&_h2]:tracking-wide [&_h2]:text-2xl [&_h2]:md:text-3xl [&_h2]:mt-6 [&_h2]:mb-2">
           <Content />
         </div>
 
@@ -214,13 +157,8 @@ const structuredData = {
         </div>
       </div>
 
-      <div class="overflow-hidden rounded-2xl shadow-md md:sticky md:top-24">
-        <Image
-          src={secondaryImage}
-          alt={`${title} interior`}
-          quality={40}
-          loading="lazy"
-          class="w-full h-auto object-cover" />
+      <div class="overflow-hidden rounded-2xl shadow-md">
+        <AmpImage src={secondaryImage} alt={`${title} interior`} />
       </div>
 
     </div>
@@ -253,14 +191,13 @@ const structuredData = {
   </section>
 
   <!-- Our Other Services -->
-  <ServicesTypes currentSlug={service.id}>
+  <AmpServicesTypes currentSlug={service.id}>
     <Fragment slot="heading">
       OUR OTHER
       <span class="text-primary">SERVICES</span>
     </Fragment>
-  </ServicesTypes>
+  </AmpServicesTypes>
 
-  <!-- FAQ -->
   {faqs && faqs.length > 0 && (
     <FAQ
       title={title}
@@ -271,11 +208,8 @@ const structuredData = {
     />
   )}
 
-  <!-- Call to Action -->
-  <CalltoBook />
-
-  <QuoteModalForm />
+  <AmpCalltoBook />
 
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
-</Layout>
+</AmpLayout>

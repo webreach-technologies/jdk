@@ -1,0 +1,49 @@
+---
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  width?: number;
+  // For layout="fixed-height" only: the desired DISPLAY height in px (e.g.
+  // 50). Width is then computed from the source's own aspect ratio so the
+  // logo isn't distorted.
+  height?: number;
+  quality?: number | string;
+  // 'responsive' scales to 100% of a sized container, preserving aspect ratio.
+  // 'fill' fills a position:relative parent (full-bleed backgrounds).
+  // 'fixed-height' renders at an exact pixel height with a proportional
+  // pixel width computed up front — for logo strips etc. sized by a fixed
+  // row height. (Maps to AMP's own `fixed` layout: AMP's actual
+  // `fixed-height` layout leaves width as "auto" and only resolves it once
+  // the image has loaded, which doesn't reflow reliably inside a flex
+  // container — computing the width ourselves avoids that.)
+  layout?: 'responsive' | 'fill' | 'fixed-height';
+  class?: string;
+}
+
+const { src, alt, width, height, quality, layout = 'responsive', class: className } = Astro.props;
+
+const optimized = await getImage({ src, width, quality, format: 'webp' });
+
+// AMP requires explicit width/height for non-fill layouts so it can reserve
+// space before the image loads; derive them from the source's own aspect
+// ratio so callers only ever need to size the wrapping element.
+const aspectRatio = src.height / src.width;
+const ampWidth = width ?? src.width;
+const ampHeight = Math.round(ampWidth * aspectRatio);
+
+const fixedDisplayHeight = height ?? 40;
+const fixedDisplayWidth = Math.round(fixedDisplayHeight * (src.width / src.height));
+---
+
+{layout === 'fill' && (
+  <amp-img src={optimized.src} alt={alt} layout="fill" object-fit="cover" class={className}></amp-img>
+)}
+{layout === 'fixed-height' && (
+  <amp-img src={optimized.src} alt={alt} width={fixedDisplayWidth} height={fixedDisplayHeight} layout="fixed" class={className}></amp-img>
+)}
+{layout === 'responsive' && (
+  <amp-img src={optimized.src} alt={alt} width={ampWidth} height={ampHeight} layout="responsive" class={className}></amp-img>
+)}

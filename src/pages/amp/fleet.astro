@@ -1,14 +1,12 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
-import BusesTypes from '../components/BusesTypes.astro';
-import Amenities from '../components/Amenities.astro';
-import FAQ from '../components/FAQ.astro';
-import CalltoBook from '../components/CalltoBook.astro';
-import QuoteModalForm from '../components/QuoteModalForm.astro';
-import FleetHero from "../assets/banners/wcu.jpg";
-import { withBase } from '../utils/url';
+import AmpLayout from '../../layouts/AmpLayout.astro';
+import AmpPageHero from '../../components/amp/AmpPageHero.astro';
+import AmpBusesTypes from '../../components/amp/AmpBusesTypes.astro';
+import AmpAmenities from '../../components/amp/AmpAmenities.astro';
+import AmpCalltoBook from '../../components/amp/AmpCalltoBook.astro';
+import FAQ from '../../components/FAQ.astro';
+import FleetHero from "../../assets/banners/wcu.jpg";
 
 const siteUrl = "https://jdktransportation.com";
 
@@ -47,18 +45,8 @@ const structuredData = {
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": siteUrl + "/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Our Fleet",
-          "item": siteUrl + "/fleet/"
-        }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": siteUrl + "/" },
+        { "@type": "ListItem", "position": 2, "name": "Our Fleet", "item": siteUrl + "/fleet/" }
       ]
     },
     {
@@ -93,61 +81,25 @@ const structuredData = {
       "mainEntity": faqs.map((faq) => ({
         "@type": "Question",
         "name": faq.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": faq.answer
-        }
+        "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
       }))
     }
   ]
 };
 ---
 
-<Layout
+<AmpLayout
   title="Our Fleet | Motor Coaches, Mini Buses & Sprinter Vans | JDK Transportation"
-  description="Explore JDK Transportation's full fleet of motor coaches, mini buses, sprinter vans, and party buses. Modern, well-maintained vehicles seating 15 to 56 passengers for groups of any size."
-  ampHref="/amp/fleet/">
+  description="Explore JDK Transportation's full fleet of motor coaches, mini buses, sprinter vans, and party buses. Modern, well-maintained vehicles seating 15 to 56 passengers for groups of any size.">
 
-  <!-- Fleet Hero -->
-  <section aria-labelledby="fleet-hero-heading" class="relative w-full py-28 md:py-40 text-center text-white">
-
-    <!-- Background Image -->
-    <div class="absolute inset-0">
-      <Image src={FleetHero} alt="JDK Transportation fleet of motor coaches, mini buses, and sprinter vans" quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
-      <div class="absolute inset-0 bg-black/60"></div>
-    </div>
-
-    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-
-      <!-- Breadcrumb -->
-      <nav aria-label="Breadcrumb" class="mb-4 text-sm font-light">
-        <ol class="flex items-center justify-center gap-2">
-          <li><a href={withBase('/')} class="hover:text-primary transition duration-300">Home</a></li>
-          <li aria-hidden="true">/</li>
-          <li aria-current="page" class="text-primary">Our Fleet</li>
-        </ol>
-      </nav>
-
-      <h1 id="fleet-hero-heading" class="text-4xl md:text-6xl font-phudu font-extrabold uppercase tracking-wide">
-        Our Fleet
-      </h1>
-
-      <p class="mt-4 text-base md:text-lg font-light leading-snug">
-        Motor Coaches, mini buses, sprinter vans, and party buses &mdash; seating 15 to 56 passengers
-        and ready for groups of every size.
-      </p>
-
-      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="javascript:void(0)" class="open-modal flex items-center gap-2 bg-primary text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
-          Get a Quote in 30 Minutes
-        </a>
-        <a href="tel:+18773777172" class="flex items-center gap-2 bg-white text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
-          Call: 877-377-7172
-        </a>
-      </div>
-
-    </div>
-  </section>
+  <AmpPageHero
+    image={FleetHero}
+    imageAlt="JDK Transportation fleet of motor coaches, mini buses, and sprinter vans"
+    breadcrumb={[{ label: "Home", href: "/amp/" }, { label: "Our Fleet" }]}
+    title="Our Fleet"
+    subtitle="Motor Coaches, mini buses, sprinter vans, and party buses — seating 15 to 56 passengers and ready for groups of every size."
+    headingId="fleet-hero-heading"
+  />
 
   <!-- Fleet Overview -->
   <section aria-labelledby="fleet-overview-heading" class="bg-white py-16 md:py-20">
@@ -161,8 +113,8 @@ const structuredData = {
           From intimate sprinter vans to full-size 56-passenger motorcoaches, JDK Transportation's
           fleet is maintained to the highest safety standards and equipped with the comfort features
           groups expect. Whether you're planning a school trip, corporate event, wedding, sports
-          tournament, or night out, we have the right vehicle &mdash; and a professional, licensed
-          driver &mdash; ready to get your group there safely and on time.
+          tournament, or night out, we have the right vehicle — and a professional, licensed
+          driver — ready to get your group there safely and on time.
         </p>
       </div>
 
@@ -213,9 +165,7 @@ const structuredData = {
 
   <!-- Why Our Fleet Stands Out -->
   <section aria-labelledby="fleet-why-heading" class="relative w-full py-12 text-white">
-
     <div class="absolute inset-0 bg-black"></div>
-
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 id="fleet-why-heading" class="text-center text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
         Why Our <span class="text-primary">Fleet</span> Stands Out
@@ -223,8 +173,7 @@ const structuredData = {
 
       <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-        <!-- Feature 1 -->
-        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3 transition-all duration-500 hover:-translate-y-2 hover:bg-white/10">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3">
           <div class="text-primary" aria-hidden="true">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 13h18M5 13V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5M4 13l1 6h2l.5-2h9l.5 2h2l1-6M7 19a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm10 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" />
@@ -237,8 +186,7 @@ const structuredData = {
           </p>
         </div>
 
-        <!-- Feature 2 -->
-        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3 transition-all duration-500 hover:-translate-y-2 hover:bg-white/10">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3">
           <div class="text-primary" aria-hidden="true">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3ZM8 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3Zm8 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4Zm-8 0c-.29 0-.62.02-.97.05C5.81 13.4 4 14.61 4 16v2H2v-2c0-2.66 4.13-4 6-4Z" />
@@ -251,8 +199,7 @@ const structuredData = {
           </p>
         </div>
 
-        <!-- Feature 3 -->
-        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3 transition-all duration-500 hover:-translate-y-2 hover:bg-white/10">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3">
           <div class="text-primary" aria-hidden="true">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Zm-2.5 10.5 2 2 4-4.5" />
@@ -260,13 +207,12 @@ const structuredData = {
           </div>
           <h3 class="text-lg font-medium">Licensed, Professional Drivers</h3>
           <p class="text-sm font-light leading-snug">
-            Every driver is licensed, trained, and background-checked &mdash; committed to getting
+            Every driver is licensed, trained, and background-checked — committed to getting
             your group there safely.
           </p>
         </div>
 
-        <!-- Feature 4 -->
-        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3 transition-all duration-500 hover:-translate-y-2 hover:bg-white/10">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center text-center gap-3">
           <div class="text-primary" aria-hidden="true">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2 2m8.8-2-2 2m-8.8 8.8 2-2m8.8 2-2-2M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z" />
@@ -274,7 +220,7 @@ const structuredData = {
           </div>
           <h3 class="text-lg font-medium">Premium Onboard Amenities</h3>
           <p class="text-sm font-light leading-snug">
-            Reclining seats, climate control, power outlets, Wi-Fi, and more &mdash; built for
+            Reclining seats, climate control, power outlets, Wi-Fi, and more — built for
             long trips and short hops alike.
           </p>
         </div>
@@ -283,13 +229,9 @@ const structuredData = {
     </div>
   </section>
 
-  <!-- Types of Vehicles in Our Fleet -->
-  <BusesTypes />
+  <AmpBusesTypes />
+  <AmpAmenities />
 
-  <!-- Amenities Available -->
-  <Amenities />
-
-  <!-- FAQ -->
   <FAQ
     title="Fleet"
     subheading="Answers to common questions about our motor coaches, mini buses, and specialty vehicles."
@@ -297,11 +239,8 @@ const structuredData = {
     headingId="fleet-faq-heading"
   />
 
-  <!-- Call to Action -->
-  <CalltoBook />
-
-  <QuoteModalForm />
+  <AmpCalltoBook />
 
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
-</Layout>
+</AmpLayout>

@@ -1,0 +1,153 @@
+---
+import type { InferGetStaticPropsType } from 'astro';
+import { getCollection, render } from 'astro:content';
+import AmpLayout from '../../../layouts/AmpLayout.astro';
+import AmpPageHero from '../../../components/amp/AmpPageHero.astro';
+import AmpImage from '../../../components/amp/AmpImage.astro';
+import AmpBusesTypes from '../../../components/amp/AmpBusesTypes.astro';
+import AmpCalltoBook from '../../../components/amp/AmpCalltoBook.astro';
+import FAQ from '../../../components/FAQ.astro';
+import FleetHero from "../../../assets/banners/wcu.jpg";
+
+export async function getStaticPaths() {
+  const vehicles = await getCollection('fleet');
+  return vehicles.map((vehicle) => ({
+    params: { slug: vehicle.id },
+    props: { vehicle },
+  }));
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { vehicle } = Astro.props as Props;
+const { title, category, capacity, summary, heroImage, interiorImage, features, faqs, seo } = vehicle.data;
+const { Content } = await render(vehicle);
+
+const siteUrl = "https://jdktransportation.com";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": siteUrl + "/" },
+        { "@type": "ListItem", "position": 2, "name": "Our Fleet", "item": siteUrl + "/fleet/" },
+        { "@type": "ListItem", "position": 3, "name": title, "item": siteUrl + "/fleet/" + vehicle.id + "/" }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": title,
+      "description": summary,
+      "serviceType": category,
+      "url": siteUrl + "/fleet/" + vehicle.id + "/",
+      "provider": {
+        "@type": "Organization",
+        "name": "JDK Transportation",
+        "telephone": "+1-877-377-7172",
+        "email": "info@jdktransportation.com"
+      }
+    },
+    ...(faqs && faqs.length > 0 ? [{
+      "@type": "FAQPage",
+      "mainEntity": faqs.map((faq) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+      }))
+    }] : [])
+  ]
+};
+---
+
+<AmpLayout title={seo.title} description={seo.description}>
+
+  <AmpPageHero
+    image={FleetHero}
+    imageAlt={`${title} - JDK Transportation`}
+    breadcrumb={[{ label: "Home", href: "/amp/" }, { label: "Our Fleet", href: "/amp/fleet/" }, { label: title }]}
+    title={title}
+    subtitle={summary}
+    headingId="vehicle-hero-heading"
+  />
+
+  <!-- Vehicle Overview -->
+  <section aria-labelledby="vehicle-overview-heading" class="bg-white py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-start">
+
+      <div class="overflow-hidden rounded-2xl shadow-md">
+        <AmpImage src={heroImage} alt={title} />
+      </div>
+
+      <div>
+        <p class="text-sm font-medium uppercase tracking-wide text-primary">{category}</p>
+        <h2 id="vehicle-overview-heading" class="mt-2 text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+          Vehicle <span class="text-primary">Overview</span>
+        </h2>
+        <p class="mt-5 text-base md:text-lg font-light leading-snug">
+          {capacity}
+        </p>
+
+        <div class="mt-5 text-base md:text-lg font-light leading-snug
+          [&_h3]:font-phudu [&_h3]:font-extrabold [&_h3]:uppercase [&_h3]:tracking-wide [&_h3]:text-2xl [&_h3]:md:text-3xl [&_h3]:mt-6 [&_h3]:mb-2
+          [&_p]:mb-4
+          [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_ul]:mb-4">
+          <Content />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Features & Amenities -->
+  <section aria-labelledby="vehicle-features-heading" class="bg-gray-100 py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-10">
+        <h2 id="vehicle-features-heading" class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+          Features & <span class="text-primary">Amenities</span>
+        </h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+        {features.map((feature) => (
+          <div class="bg-white border border-gray-400 rounded-2xl py-8 md:py-6 px-6 text-center">
+            <div class="mb-3 w-14 md:w-12 mx-auto">
+              <AmpImage src={feature.icon} alt={feature.label} />
+            </div>
+            <p class="text-sm font-normal leading-snug">{feature.label}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="overflow-hidden rounded-2xl shadow-md max-w-3xl mx-auto">
+        <AmpImage src={interiorImage} alt={`${title} Interior`} />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Our Other Buses -->
+  <AmpBusesTypes currentSlug={vehicle.id}>
+    <Fragment slot="heading">
+      OUR OTHER
+      <span class="text-primary">BUSES</span>
+    </Fragment>
+  </AmpBusesTypes>
+
+  {faqs && faqs.length > 0 && (
+    <FAQ
+      title={title}
+      titleHighlight="FAQs"
+      subheading={`Common questions about renting a ${title.toLowerCase()} with JDK Transportation.`}
+      items={faqs}
+      headingId="vehicle-faq-heading"
+    />
+  )}
+
+  <AmpCalltoBook />
+
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+</AmpLayout>

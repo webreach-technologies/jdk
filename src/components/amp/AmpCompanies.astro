@@ -1,0 +1,61 @@
+---
+import { getImage } from 'astro:assets';
+import Company1 from '../../assets/companies/company1.png';
+import Company2 from '../../assets/companies/company2.png';
+import Company3 from '../../assets/companies/company3.png';
+import Company4 from '../../assets/companies/company4.png';
+import Company5 from '../../assets/companies/company5.png';
+
+const rawLogos = [
+  { src: Company1, alt: "Discover" },
+  { src: Company2, alt: "Microsoft" },
+  { src: Company3, alt: "Ford" },
+  { src: Company4, alt: "Walmart" },
+  { src: Company5, alt: "Disney" },
+];
+
+// amp-img is a managed AMP resource: the runtime only fetches its image once
+// its *static* layout position (pre-CSS-transform) is judged near the
+// viewport. This marquee lays every logo out in a row far wider than its
+// container and only brings the rest into view via a CSS transform
+// animation, which AMP's scheduler has no visibility into — so most of these
+// never got scheduled to load at all (confirmed: no network request ever
+// fires for them). A plain CSS background-image isn't an AMP-managed
+// resource, so it's loaded the normal browser way regardless of its position
+// in the row — same optimized image, same visual result, just not gated by
+// AMP's viewport check.
+const logos = await Promise.all(rawLogos.map(async (logo) => {
+  const optimized = await getImage({ src: logo.src, height: 100, format: 'webp' });
+  const aspectRatio = logo.src.width / logo.src.height;
+  return { alt: logo.alt, url: optimized.src, width: Math.round(50 * aspectRatio) };
+}));
+---
+
+<section class="bg-gray-100 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+    <h2 class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide mb-8">
+      COMPANIES WE'VE <span class="text-primary">WORKED</span> WITH
+    </h2>
+
+    <div class="overflow-hidden relative">
+      <div class="marquee">
+        <div class="logo-group">
+          {logos.map((logo) => (
+            <div class="logo-item">
+              <div class="logo-image" style={`background-image:url(${logo.url});width:${logo.width}px;`} role="img" aria-label={logo.alt}></div>
+            </div>
+          ))}
+        </div>
+        <div class="logo-group">
+          {logos.map((logo) => (
+            <div class="logo-item">
+              <div class="logo-image" style={`background-image:url(${logo.url});width:${logo.width}px;`} role="img" aria-label={logo.alt}></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

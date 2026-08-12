@@ -13,7 +13,7 @@ import HeroImage from '../assets/banners/hero.jpg';
 import Logo from '../assets/logo/logo.png';
 import { withBase } from '../utils/url';
 
-const { title, description, image, noindex } = Astro.props;
+const { title, description, image, noindex, ampHref } = Astro.props;
 const metaTitle = title;
 const siteUrl = "https://jdktransportation.com";
 const metaUrl = `${siteUrl}${Astro.url.pathname}`;
@@ -77,6 +77,7 @@ const businessSchema = {
 		<meta name="description" content={description} />
 		<link rel="canonical" href={metaUrl} />
 		{noindex && <meta name="robots" content="noindex, follow" />}
+		{ampHref && <link rel="amphtml" href={`${siteUrl}${ampHref}`} />}
 
 		<!-- Open Graph -->
 		<meta property="og:type" content="website" />

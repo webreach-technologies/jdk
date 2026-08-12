@@ -1,0 +1,70 @@
+---
+import AmpImage from './AmpImage.astro';
+import { withBase } from '../../utils/url';
+import type { ImageMetadata } from 'astro';
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  image: ImageMetadata;
+  imageAlt: string;
+  breadcrumb: Crumb[];
+  title: string;
+  subtitle: string;
+  headingId?: string;
+  showCta?: boolean;
+}
+
+const { image, imageAlt, breadcrumb, title, subtitle, headingId = "page-hero-heading", showCta = true } = Astro.props;
+---
+
+<section aria-labelledby={headingId} class="relative w-full py-28 md:py-40 text-center text-white">
+
+  <div class="absolute inset-0">
+    <AmpImage src={image} alt={imageAlt} layout="fill" />
+    <div class="absolute inset-0 bg-black/60"></div>
+  </div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <nav aria-label="Breadcrumb" class="mb-4 text-sm font-light">
+      <ol class="flex items-center justify-center gap-2 flex-wrap">
+        {breadcrumb.map((crumb, i) => (
+          <>
+            {i > 0 && <li aria-hidden="true">/</li>}
+            <li>
+              {crumb.href ? (
+                <a href={withBase(crumb.href)} class="hover:text-primary transition duration-300">{crumb.label}</a>
+              ) : (
+                <span aria-current="page" class="text-primary">{crumb.label}</span>
+              )}
+            </li>
+          </>
+        ))}
+      </ol>
+    </nav>
+
+    <h1 id={headingId} class="text-4xl md:text-6xl font-phudu font-extrabold uppercase tracking-wide">
+      {title}
+    </h1>
+
+    <p class="mt-4 text-base md:text-lg font-light leading-snug">
+      {subtitle}
+    </p>
+
+    {showCta && (
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button on="tap:quoteLightbox.open" class="flex items-center gap-2 bg-primary text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105 cursor-pointer">
+          Get a Quote in 30 Minutes
+        </button>
+        <a href="tel:+18773777172" class="flex items-center gap-2 bg-white text-black font-normal px-6 py-3 text-sm rounded-full transition-all duration-300 hover:scale-105">
+          Call: 877-377-7172
+        </a>
+      </div>
+    )}
+
+  </div>
+</section>

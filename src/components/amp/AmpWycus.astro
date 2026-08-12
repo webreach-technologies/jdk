@@ -1,0 +1,81 @@
+---
+import AmpImage from './AmpImage.astro';
+import Wycus from '../../assets/banners/wcu.jpg';
+---
+
+<section class="relative w-full py-12 md:py-22 text-white">
+
+  <!-- Background Image -->
+  <div class="absolute inset-0">
+    <AmpImage src={Wycus} alt="Wycus" layout="fill" />
+    <div class="absolute inset-0 bg-black/70"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+    <h2 class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+      WHY CHOOSE <span class="text-primary">JDK TRANSPORTATION?</span>
+    </h2>
+
+    <p class="mt-8 text-lg md:text-xl font-light leading-snug">
+      JDK Transportation is a trusted motor coach rental provider serving diverse clients across the metro area.
+      With years of experience, we've earned a reputation for reliability and exceptional service, helping groups
+      of all sizes travel stress-free. Our 24/7 team is dedicated to finding the perfect vehicle and amenities to
+      match your unique needs.
+      <br><br>
+      We'll work with you to craft a customized package that fits your schedule, route, and budget. Whether it's
+      a school trip, corporate event, or private outing, we prioritize comfort, safety, and punctuality. Our
+      commitment to exceptional customer service means you'll enjoy a seamless journey from start to finish.
+    </p>
+
+  </div>
+
+</section>
+
+
+<section class="bg-gray-100 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="grid lg:grid-cols-3 gap-8">
+
+      <div class="bg-white rounded-xl shadow-lg p-6 flex items-start gap-4 border border-gray-400">
+        <div class="text-black">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 11l3 3 5-5" />
+            <path d="M19.778 15.222 23 12l-3.222-3.222V4.222h-4.556L12 1 8.778 4.222H4.222v4.556L1 12l3.222 3.222v4.556h4.556L12 23l3.222-3.222h4.556v-4.556z" />
+          </svg>
+        </div>
+        <p class="text-lg font-normal leading-snug">
+          Whether you need 1 bus or more, our Transportation fleet can help you
+        </p>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-lg p-6 flex items-start gap-4 border border-gray-400">
+        <div class="text-black">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 11l3 3 5-5" />
+            <path d="M19.778 15.222 23 12l-3.222-3.222V4.222h-4.556L12 1 8.778 4.222H4.222v4.556L1 12l3.222 3.222v4.556h4.556L12 23l3.222-3.222h4.556v-4.556z" />
+          </svg>
+        </div>
+        <p class="text-lg font-normal leading-snug">
+          Get Personalized Pictures & prices in seconds
+        </p>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-lg p-6 flex items-start gap-4 border border-gray-400">
+        <div class="text-black">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 11l3 3 5-5" />
+            <path d="M19.778 15.222 23 12l-3.222-3.222V4.222h-4.556L12 1 8.778 4.222H4.222v4.556L1 12l3.222 3.222v4.556h4.556L12 23l3.222-3.222h4.556v-4.556z" />
+          </svg>
+        </div>
+        <p class="text-lg font-normal leading-snug">
+          We offer oneway, hourly, round-trip, and multi-day packages
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>

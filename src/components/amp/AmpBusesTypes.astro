@@ -1,0 +1,60 @@
+---
+import AmpImage from './AmpImage.astro';
+import { getCollection } from 'astro:content';
+import { withBase } from '../../utils/url';
+
+interface Props {
+  currentSlug?: string;
+}
+
+const { currentSlug } = Astro.props;
+
+const vehicles = (await getCollection('fleet'))
+  .filter((vehicle) => vehicle.id !== currentSlug)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="bg-gray-100 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-8">
+      <h2 class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+        <slot name="heading">
+          TYPES OF BUSES WE
+          <span class="text-primary">OFFER</span>
+        </slot>
+      </h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      {vehicles.map((vehicle) => (
+        <div class="bg-white rounded-2xl p-4 shadow-md">
+
+          <h3 class="text-xl font-normal text-center mb-3">
+            {vehicle.data.title}
+          </h3>
+
+          <div class="overflow-hidden rounded-xl mb-4">
+            <AmpImage src={vehicle.data.heroImage} alt={vehicle.data.title} />
+          </div>
+
+          <div class="flex flex-wrap items-center justify-center gap-3 mb-4">
+            <a href={withBase(`/amp/fleet/${vehicle.id}/`)} class="bg-black text-primary font-light px-6 py-2 rounded-full transition-all duration-300 hover:scale-105">
+              View This Bus
+            </a>
+            <button on="tap:quoteLightbox.open" class="bg-primary text-black font-normal px-6 py-2 rounded-full transition-all duration-300 hover:scale-105 cursor-pointer">
+              Get a Quote
+            </button>
+          </div>
+
+          <div class="overflow-hidden rounded-xl">
+            <AmpImage src={vehicle.data.interiorImage} alt={`${vehicle.data.title} Interior`} />
+          </div>
+
+        </div>
+      ))}
+
+    </div>
+  </div>
+</section>

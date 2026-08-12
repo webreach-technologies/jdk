@@ -5,13 +5,21 @@
 ## Pages
 
 - [Home](https://jdktransportation.com/): Overview of services, fleet, and service areas.
-- [About](https://jdktransportation.com/about): Company history, mission, and FAQs.
-- [Services](https://jdktransportation.com/services): Charter and group transportation service types.
-- [Fleet](https://jdktransportation.com/fleet): Bus and motor coach types available for rental.
-- [Service Areas](https://jdktransportation.com/service-areas): Regions and cities served.
-- [Prices](https://jdktransportation.com/prices): Pricing and quote information.
-- [Contact](https://jdktransportation.com/contact): Phone, quote requests, and contact details.
+- [About](https://jdktransportation.com/about/): Company history, mission, and FAQs.
+- [Services](https://jdktransportation.com/services/): Charter and group transportation service types.
+- [Fleet](https://jdktransportation.com/fleet/): Motor coaches, mini buses, sprinter vans, and party buses seating 15 to 56 passengers.
+- [Service Areas](https://jdktransportation.com/service-areas/): Regions and cities served.
+- [Prices](https://jdktransportation.com/prices/): Pricing and quote information.
+- [Blog](https://jdktransportation.com/blog/): Travel tips, group transportation guides, and company news.
+- [Contact](https://jdktransportation.com/contact/): Phone, quote requests, and contact details.
 
 ## Contact
 
-- Phone (24/7): 877-377-7172
+- Phone (24/7 Reservations & Quotes): 877-377-7172
+- Phone (24/7 Emergency Dispatch): 888-487-7507
+- Email: info@jdktransportation.com
+
+## Social
+
+- [Facebook](https://www.facebook.com/jdktransportation)
+- [Instagram](https://www.instagram.com/jdktransportation/)

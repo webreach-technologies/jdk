@@ -1,0 +1,51 @@
+---
+import AmpImage from './AmpImage.astro';
+import { getCollection } from 'astro:content';
+import { withBase } from '../../utils/url';
+
+interface Props {
+  currentSlug?: string;
+}
+
+const { currentSlug } = Astro.props;
+
+const services = (await getCollection('services'))
+  .filter((service) => service.id !== currentSlug)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="bg-gray-100 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-8">
+      <h2 class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+        <slot name="heading">
+          MOTOR COACH SERVICES WE OFFER IN
+          <span class="text-primary">JDK</span>
+        </slot>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      {services.map((service) => (
+        <div class="bg-white rounded-2xl overflow-hidden shadow-md">
+          <div class="overflow-hidden">
+            <AmpImage src={service.data.heroImage} alt={service.data.title} />
+          </div>
+          <div class="p-6">
+            <h3 class="font-medium text-lg mb-2 leading-6">
+              {service.data.title}
+            </h3>
+            <p class="text-sm leading-snug font-light line-clamp-3">
+              {service.data.summary}
+            </p>
+            <a href={withBase(`/amp/services/${service.id}/`)} class="inline-flex items-center gap-1 mt-2 text-sm font-semibold text-primary">
+              View More &rarr;
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

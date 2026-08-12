@@ -1,0 +1,24 @@
+---
+import AmpQuoteForm from './AmpQuoteForm.astro';
+---
+
+<amp-lightbox id="quoteLightbox" layout="nodisplay" scrollable class="quote-lightbox">
+  <div class="bg-white w-full min-h-full rounded-none md:rounded-3xl md:my-6 md:mx-auto md:max-w-6xl shadow-2xl p-6 md:p-10 relative">
+
+    <button on="tap:quoteLightbox.close" aria-label="Close" class="absolute top-5 right-6 hover:text-black text-2xl cursor-pointer">
+      &times;
+    </button>
+
+    <div class="text-center mb-6 md:mb-10">
+      <h2 class="text-2xl md:text-4xl font-phudu font-extrabold uppercase tracking-wide">
+        Online Reservation
+      </h2>
+      <p class="mt-2 text-sm font-light md:text-base">
+        Fill in your details and our team will contact you shortly.
+      </p>
+    </div>
+
+    <AmpQuoteForm formId="amp-quote-form-modal" bare />
+
+  </div>
+</amp-lightbox>

@@ -1,0 +1,98 @@
+---
+interface Props {
+  formId?: string;
+  bare?: boolean;
+}
+
+const { formId = "amp-quote-form", bare = false } = Astro.props;
+
+const fieldId = (name: string) => `${formId}-${name}`;
+
+// This form is reused two ways: inline on a bg-gray-100 section, and bare
+// inside the white quote-lightbox modal. The label overlay needs to match
+// whichever background it's actually sitting on, or it reads as a stray box.
+const overlayBg = bare ? "bg-white" : "bg-gray-100";
+
+// Every field's label is an opaque overlay sized to exactly cover its input
+// (same border/padding), so it reads like placeholder text — clicking it
+// natively focuses the input (it's a real <label for>, no JS needed), which
+// fades the overlay out. Every field is `required`, so an empty field is
+// natively :invalid and a filled one is :valid — used instead of
+// :placeholder-shown so datetime-local (which ignores the placeholder
+// attribute in every browser) behaves identically to the text fields, and
+// the overlay stays hidden after a value is picked, not just while focused.
+const overlayClass = `absolute inset-0 flex items-center ${overlayBg} border-b border-gray-400 px-0 py-2 font-light text-gray-700 cursor-text transition-opacity duration-300 peer-focus:opacity-0 peer-focus:pointer-events-none peer-valid:opacity-0 peer-valid:pointer-events-none`;
+const inputClass = "peer font-light w-full bg-transparent border-b border-gray-400 focus:outline-none focus:border-primary py-2 transition duration-300";
+
+const fields: { name: string; label: string; type: string; colSpan?: string }[] = [
+  { name: "gname", label: "Group Name", type: "text" },
+  { name: "fname", label: "Full Name", type: "text" },
+  { name: "email", label: "Email Address", type: "email" },
+  { name: "phone", label: "Phone Number", type: "tel" },
+  { name: "tourtype", label: "Tour Type", type: "text" },
+  { name: "tourdesti", label: "Tour Destination", type: "text" },
+  { name: "datetime", label: "Tour Date & Time", type: "datetime-local" },
+  { name: "pickuploc", label: "Pickup Location", type: "text" },
+  { name: "noofpass", label: "No. Of Guests in Groups", type: "number" },
+  { name: "addinfo", label: "Additional Info", type: "text", colSpan: "lg:col-span-2" },
+];
+---
+
+<div class={bare ? undefined : "bg-gray-100 py-12"}>
+  <div class={bare ? undefined : "max-w-6xl mx-auto px-6"}>
+
+    {!bare && (
+      <div class="text-center mb-8">
+        <h2 class="text-4xl md:text-5xl font-extrabold uppercase font-phudu tracking-wide">
+          REQUEST A INSTANT <span class="text-primary">QUOTE</span>
+        </h2>
+      </div>
+    )}
+
+    <form
+      id={formId}
+      class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-8"
+      method="post"
+      action-xhr="https://jdktransportation.com/quoteform-amp.php"
+      target="_top"
+      on="submit-success:AMP.navigateTo(url='https://jdktransportation.com/success/')"
+    >
+
+      {fields.map((field) => (
+        <div class={`relative ${field.colSpan ?? ""}`}>
+          <input
+            type={field.type}
+            id={fieldId(field.name)}
+            name={field.name}
+            required
+            min={field.type === "number" ? 1 : undefined}
+            class={inputClass}
+          />
+          <label for={fieldId(field.name)} class={overlayClass}>{field.label}</label>
+        </div>
+      ))}
+
+      <!-- Honeypot -->
+      <div class="hidden">
+        <input type="text" name="website">
+      </div>
+
+      <div class="sm:col-span-2 lg:col-span-1 flex items-end">
+        <button type="submit"
+          class="font-normal w-full h-full py-2.25 lg:py-0 rounded-full bg-primary hover:bg-yellow-600 text-black uppercase transition duration-300 cursor-pointer">
+          Request
+        </button>
+      </div>
+
+      <div submit-success class="sm:col-span-2 lg:col-span-4 text-center text-sm font-medium text-green-700">
+        <p>Thanks! Your request was sent — redirecting you now.</p>
+      </div>
+
+      <div submit-error class="sm:col-span-2 lg:col-span-4 text-center text-sm font-medium text-red-600">
+        <p>Something went wrong. Please call us at 877-377-7172 or try again.</p>
+      </div>
+
+    </form>
+
+  </div>
+</div>

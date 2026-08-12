@@ -1,12 +1,11 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import type { GetStaticPathsOptions } from 'astro';
-import Layout from '../../layouts/Layout.astro';
-import CalltoBook from '../../components/CalltoBook.astro';
-import QuoteModalForm from '../../components/QuoteModalForm.astro';
-import BlogHero from "../../assets/banners/cta.jpg";
-import { withBase } from '../../utils/url';
+import AmpLayout from '../../../layouts/AmpLayout.astro';
+import AmpImage from '../../../components/amp/AmpImage.astro';
+import AmpCalltoBook from '../../../components/amp/AmpCalltoBook.astro';
+import { withBase } from '../../../utils/url';
+import BlogHero from "../../../assets/banners/cta.jpg";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const posts = (await getCollection('blog'))
@@ -24,7 +23,7 @@ const pageTitle = page.currentPage > 1
   : "Blog | JDK Transportation";
 
 const pageNumbers = Array.from({ length: page.lastPage }, (_, i) => i + 1);
-const pageHref = (n: number) => withBase(n === 1 ? '/blog' : `/blog/${n}`);
+const pageHref = (n: number) => withBase(n === 1 ? '/amp/blog/' : `/amp/blog/${n}/`);
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -32,18 +31,8 @@ const structuredData = {
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": siteUrl + "/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Blog",
-          "item": siteUrl + "/blog/"
-        }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": siteUrl + "/" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": siteUrl + "/blog/" }
       ]
     },
     {
@@ -56,37 +45,31 @@ const structuredData = {
         "headline": post.data.title,
         "url": siteUrl + "/blog/" + post.id + "/",
         "datePublished": post.data.publishDate.toISOString(),
-        "author": {
-          "@type": "Organization",
-          "name": post.data.author,
-        },
+        "author": { "@type": "Organization", "name": post.data.author },
       }))
     }
   ]
 };
 ---
 
-<Layout
+<AmpLayout
   title={pageTitle}
   description="Travel tips, group transportation guides, and news from JDK Transportation, covering vehicle selection, trip planning, and more."
-  noindex={page.currentPage > 1}
-  ampHref={page.currentPage > 1 ? `/amp/blog/${page.currentPage}/` : "/amp/blog/"}>
+  noindex={page.currentPage > 1}>
 
   <!-- Blog Hero -->
   <section aria-labelledby="blog-hero-heading" class="relative w-full py-28 md:py-40 text-center text-white">
 
-    <!-- Background Image -->
     <div class="absolute inset-0">
-      <Image src={BlogHero} alt="JDK Transportation blog" quality={40} loading="eager" fetchpriority="high" class="w-full h-full object-cover" />
+      <AmpImage src={BlogHero} alt="JDK Transportation blog" layout="fill" />
       <div class="absolute inset-0 bg-black/60"></div>
     </div>
 
     <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <!-- Breadcrumb -->
       <nav aria-label="Breadcrumb" class="mb-4 text-sm font-light">
         <ol class="flex items-center justify-center gap-2">
-          <li><a href={withBase('/')} class="hover:text-primary transition duration-300">Home</a></li>
+          <li><a href={withBase('/amp/')} class="hover:text-primary transition duration-300">Home</a></li>
           <li aria-hidden="true">/</li>
           <li aria-current="page" class="text-primary">Blog</li>
         </ol>
@@ -111,10 +94,10 @@ const structuredData = {
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         {page.data.map((post) => (
-          <article class="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl">
+          <article class="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
 
             <div class="overflow-hidden">
-              <Image src={post.data.heroImage} alt={post.data.title} quality={40} class="w-full h-56 object-cover" />
+              <AmpImage src={post.data.heroImage} alt={post.data.title} />
             </div>
 
             <div class="p-6">
@@ -130,8 +113,8 @@ const structuredData = {
                 {post.data.excerpt}
               </p>
 
-              <a href={withBase(`/blog/${post.id}`)} class="group/link inline-flex items-center gap-1 mt-4 text-sm font-semibold text-primary">
-                Read More <span class="inline-block transition-transform duration-300 group-hover/link:translate-x-1">&rarr;</span>
+              <a href={withBase(`/amp/blog/${post.id}/`)} class="inline-flex items-center gap-1 mt-4 text-sm font-semibold text-primary">
+                Read More &rarr;
               </a>
             </div>
 
@@ -147,7 +130,7 @@ const structuredData = {
               &larr;
             </a>
           ) : (
-            <span class="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 text-sm text-black/30 cursor-not-allowed" aria-hidden="true">&larr;</span>
+            <span class="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 text-sm text-black/30" aria-hidden="true">&larr;</span>
           )}
 
           {pageNumbers.map((n) => (
@@ -163,7 +146,7 @@ const structuredData = {
               &rarr;
             </a>
           ) : (
-            <span class="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 text-sm text-black/30 cursor-not-allowed" aria-hidden="true">&rarr;</span>
+            <span class="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 text-sm text-black/30" aria-hidden="true">&rarr;</span>
           )}
         </nav>
       )}
@@ -171,11 +154,8 @@ const structuredData = {
     </div>
   </section>
 
-  <!-- Call to Action -->
-  <CalltoBook />
-
-  <QuoteModalForm />
+  <AmpCalltoBook />
 
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
-</Layout>
+</AmpLayout>

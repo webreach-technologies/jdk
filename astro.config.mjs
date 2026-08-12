@@ -13,7 +13,7 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [
     sitemap({
-      filter: (page) => !/\/blog\/\d+\/?$/.test(page),
+      filter: (page) => !/\/blog\/\d+\/?$/.test(page) && !/\/amp\//.test(page),
     }),
   ],
 });

@@ -1,0 +1,63 @@
+---
+import AmpImage from './AmpImage.astro';
+import Amenities1 from '../../assets/amenities/amenities-1.png';
+import Amenities2 from '../../assets/amenities/amenities-2.png';
+import Amenities3 from '../../assets/amenities/amenities-3.png';
+import Amenities4 from '../../assets/amenities/amenities-4.png';
+import Amenities5 from '../../assets/amenities/amenities-5.png';
+import Amenities6 from '../../assets/amenities/amenities-6.png';
+import Amenities7 from '../../assets/amenities/amenities-7.png';
+import Amenities8 from '../../assets/amenities/amenities-8.png';
+import Amenities9 from '../../assets/amenities/amenities-9.png';
+import Amenities10 from '../../assets/amenities/amenities-10.png';
+import Amenities11 from '../../assets/amenities/amenities-11.png';
+import Amenities12 from '../../assets/amenities/amenities-12.png';
+import Amenities13 from '../../assets/amenities/amenities-13.png';
+import Amenities14 from '../../assets/amenities/amenities-14.png';
+import Amenities15 from '../../assets/amenities/amenities-15.png';
+import Amenities16 from '../../assets/amenities/amenities-16.png';
+
+const items = [
+  { src: Amenities1, alt: "Reclining Seats with Armrests", label: "Reclining Seats with Armrests" },
+  { src: Amenities2, alt: "Onboard Restroom", label: "Onboard Restroom" },
+  { src: Amenities3, alt: "Complimentary Wi-Fi", label: "Complimentary Wi-Fi" },
+  { src: Amenities5, alt: "Generous Legroom", label: "Generous Legroom" },
+  { src: Amenities7, alt: "ADA Accessibility", label: "ADA Accessibility" },
+  { src: Amenities8, alt: "Ample Luggage Space", label: "Ample Luggage Space" },
+  { src: Amenities9, alt: "Individual Reading Lights", label: "Individual Reading Lights" },
+  { src: Amenities11, alt: "PA System / Microphones", label: "PA System / Microphones" },
+  { src: Amenities12, alt: "Panoramic Windows", label: "Panoramic Windows" },
+  { src: Amenities13, alt: "Interior and Ambient Lighting", label: "Interior and Ambient Lighting" },
+  { src: Amenities6, alt: "Climate Control with Personal Air Vents", label: "Climate Control with Personal Air Vents" },
+  { src: Amenities14, alt: "Perimeter Lighting for Night Visibility", label: "Perimeter Lighting for Night Visibility" },
+  { src: Amenities15, alt: "Entry Stairway for Smooth Boarding", label: "Entry Stairway for Smooth Boarding" },
+  { src: Amenities16, alt: "Standard, Premium, Luxury Seating", label: "Standard, Premium, Luxury Seating" },
+  { src: Amenities4, alt: "Power Outlets & USB Charging Ports at Every Seat", label: "Power Outlets & USB Charging Ports at Every Seat" },
+  { src: Amenities10, alt: "Onboard Entertainment System (TVs, DVD/Blu-ray, Streaming)", label: "Onboard Entertainment System (TVs, DVD/Blu-ray, Streaming)" },
+];
+---
+
+<section class="bg-gray-100 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-8">
+      <h2 class="text-4xl md:text-5xl font-phudu font-extrabold uppercase tracking-wide">
+        AVAILABLE AMENITIES ON OUR JDK MOTOR <span class="text-yellow-500">COACHES</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8">
+      {items.map((item) => (
+        <div class="bg-white border border-gray-400 rounded-2xl py-8 md:py-6 px-6 text-center">
+          <div class="mb-3 w-14 md:w-12 mx-auto">
+            <AmpImage src={item.src} alt={item.alt} />
+          </div>
+          <p class="text-sm font-normal leading-snug">
+            {item.label}
+          </p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

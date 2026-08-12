@@ -1,16 +1,15 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import HeroSlider from '../components/HeroSlider.astro'
-import QuoteForm from '../components/QuoteForm.astro'
-import Wycus from '../components/Wycus.astro'
-import BusesTypes from '../components/BusesTypes.astro'
-import Amenities from '../components/Amenities.astro'
-import Companies from '../components/Companies.astro'
-import ServicesTypes from '../components/ServicesTypes.astro'
-import ServiceAreas from '../components/ServiceAreas.astro'
-import FAQ from '../components/FAQ.astro'
-import CalltoBook from '../components/CalltoBook.astro'
-import QuoteModalForm from '../components/QuoteModalForm.astro'
+import AmpLayout from '../../layouts/AmpLayout.astro';
+import AmpHero from '../../components/amp/AmpHero.astro';
+import AmpQuoteForm from '../../components/amp/AmpQuoteForm.astro';
+import AmpWycus from '../../components/amp/AmpWycus.astro';
+import AmpBusesTypes from '../../components/amp/AmpBusesTypes.astro';
+import AmpAmenities from '../../components/amp/AmpAmenities.astro';
+import AmpCompanies from '../../components/amp/AmpCompanies.astro';
+import AmpServicesTypes from '../../components/amp/AmpServicesTypes.astro';
+import AmpServiceAreas from '../../components/amp/AmpServiceAreas.astro';
+import FAQ from '../../components/FAQ.astro';
+import AmpCalltoBook from '../../components/amp/AmpCalltoBook.astro';
 
 const siteUrl = "https://jdktransportation.com";
 
@@ -52,8 +51,8 @@ const structuredData = {
     },
     {
       "@type": "WebPage",
-      "@id": siteUrl + "/#webpage",
-      "url": siteUrl + "/",
+      "@id": siteUrl + "/amp/#webpage",
+      "url": siteUrl + "/amp/",
       "name": "Luxury Motor Coach Services | JDK Transportation",
       "isPartOf": {
         "@id": siteUrl + "/#website"
@@ -77,16 +76,16 @@ const structuredData = {
 };
 ---
 
-<Layout title="Luxury Motor Coach Services | JDK Transportation" description="JDK Transportation provides premium motor coach services for corporate travel, group tours, airport transfers, and special events. Safe, reliable, and comfortable transportation you can trust." ampHref="/amp/">
+<AmpLayout title="Luxury Motor Coach Services | JDK Transportation" description="JDK Transportation provides premium motor coach services for corporate travel, group tours, airport transfers, and special events. Safe, reliable, and comfortable transportation you can trust.">
 
-    <HeroSlider />
-    <QuoteForm />
-    <Wycus />
-    <BusesTypes />
-    <Amenities />
-    <Companies />
-    <ServicesTypes />
-    <ServiceAreas />
+    <AmpHero />
+    <AmpQuoteForm />
+    <AmpWycus />
+    <AmpBusesTypes />
+    <AmpAmenities />
+    <AmpCompanies />
+    <AmpServicesTypes />
+    <AmpServiceAreas />
     <FAQ
       title="Motor Coach Rental"
       titleHighlight="FAQs"
@@ -94,9 +93,8 @@ const structuredData = {
       items={homeFaqs}
       headingId="home-faq-heading"
     />
-    <CalltoBook />
-    <QuoteModalForm />
+    <AmpCalltoBook />
 
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
-</Layout>
+</AmpLayout>

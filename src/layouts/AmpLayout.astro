@@ -1,0 +1,158 @@
+---
+import postcss from 'postcss';
+import { getImage } from 'astro:assets';
+import ampStylesRaw from '../styles/amp.css?inline';
+import AmpHeader from '../components/amp/AmpHeader.astro';
+import AmpFooter from '../components/amp/AmpFooter.astro';
+import AmpQuoteLightbox from '../components/amp/AmpQuoteLightbox.astro';
+import Logo from '../assets/logo/logo.png';
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+}
+
+const { title, description, noindex } = Astro.props;
+const siteUrl = "https://jdktransportation.com";
+
+const logoImage = await getImage({ src: Logo, format: 'png' });
+const logoUrl = `${siteUrl}${logoImage.src}`;
+
+// Tailwind v4's output uses several modern CSS features AMP's stricter CSS
+// parser rejects: @layer (cascade layers) and @property (typed custom
+// properties, used for animatable gradients/transforms) — neither supported
+// at all; !important — banned outright by AMP; and range media queries like
+// `(width>=48rem)` — AMP only understands the classic `min-width`/`max-width`
+// feature syntax. Unwrap @layer blocks in place (Tailwind declares them in a
+// fixed order, so splicing preserves the same cascade), and strip !important
+// and rewrite range media queries.
+//
+// @property isn't just dropped: Tailwind registers custom properties like
+// --tw-border-style there with an `initial-value` (e.g. "solid") specifically
+// so that `border-style: var(--tw-border-style)` resolves to something even
+// when no utility class ever sets it directly. Deleting the rule outright
+// leaves that var() reference pointing at nothing, which is invalid at
+// compute time — the property using it silently falls back to ITS OWN
+// initial value (`border-style`'s initial value is `none`), so every border/
+// shadow/ring/scale/translate utility in the page quietly stops rendering.
+// Instead, pull each initial-value out and re-emit it as a plain custom
+// property default on a universal selector (the same pattern Tailwind's own
+// @supports fallback for pre-@property browsers already uses).
+const propertyDefaults: { prop: string; value: string }[] = [];
+
+const stripAmpUnsupportedCss = {
+	postcssPlugin: 'strip-amp-unsupported-css',
+	AtRule: {
+		property(rule: import('postcss').AtRule) {
+			const initial = rule.nodes?.find(
+				(node): node is import('postcss').Declaration => node.type === 'decl' && node.prop === 'initial-value'
+			);
+			if (initial) {
+				propertyDefaults.push({ prop: rule.params, value: initial.value });
+			}
+			rule.remove();
+		},
+		layer(rule: import('postcss').AtRule) {
+			if (rule.nodes && rule.nodes.length) {
+				rule.replaceWith(rule.nodes);
+			} else {
+				rule.remove();
+			}
+		},
+		media(rule: import('postcss').AtRule) {
+			rule.params = rule.params
+				.replace(/\(\s*width\s*>=\s*([\d.]+[a-z%]*)\s*\)/g, '(min-width: $1)')
+				.replace(/\(\s*width\s*<=\s*([\d.]+[a-z%]*)\s*\)/g, '(max-width: $1)');
+		},
+	},
+	Declaration(decl: import('postcss').Declaration) {
+		if (decl.important) decl.important = false;
+	},
+	OnceExit(root: import('postcss').Root) {
+		if (propertyDefaults.length === 0) return;
+		const fallbackRule = postcss.rule({ selector: '*, ::before, ::after, ::backdrop' });
+		for (const { prop, value } of propertyDefaults) {
+			fallbackRule.append({ prop, value });
+		}
+		root.prepend(fallbackRule);
+	},
+};
+
+const ampStyles = postcss([stripAmpUnsupportedCss]).process(ampStylesRaw, { from: undefined }).css;
+
+// AMP requires this boilerplate byte-for-byte; written as raw strings and
+// injected via set:html because Astro otherwise intercepts literal <style>
+// tags for its own scoped-CSS pipeline, which mangles non-standard attributes
+// like amp-boilerplate/amp-custom.
+const boilerplateCss = "body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}";
+const boilerplateNoscriptCss = "body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}";
+
+// AMP pages live under /amp/..., mirroring the canonical route 1:1 —
+// strip that one path segment to recover the canonical URL this page pairs with.
+const canonicalPathname = Astro.url.pathname.replace(/^\/amp(\/|$)/, '/');
+const canonicalUrl = `${siteUrl}${canonicalPathname}`;
+
+const businessSchema = {
+	"@context": "https://schema.org",
+	"@type": "LocalBusiness",
+	"@id": `${siteUrl}/#organization`,
+	name: "JDK Transportation",
+	image: logoUrl,
+	url: siteUrl,
+	telephone: "+1-877-377-7172",
+	email: "info@jdktransportation.com",
+	priceRange: "$$",
+	address: {
+		"@type": "PostalAddress",
+		streetAddress: "400 Rella Blvd #207-4",
+		addressLocality: "Montebello",
+		addressRegion: "NY",
+		postalCode: "10901",
+		addressCountry: "US",
+	},
+	areaServed: [
+		"Newark, NJ", "Jersey City, NJ", "New York, NY", "Philadelphia, PA",
+		"Toronto, ON", "Niagara Falls, NY", "Niagara Falls, ON", "Miami, FL",
+		"Fort Lauderdale, FL", "Orlando, FL", "Daytona Beach, FL",
+	],
+};
+
+const gtagConfig = {
+	vars: { gtag_id: "G-JP9T8KNMX8" },
+};
+---
+<!doctype html>
+<html amp lang="en">
+<head>
+	<meta charset="utf-8" />
+	<script async src="https://cdn.ampproject.org/v0.js"></script>
+	<title>{title}</title>
+	<link rel="canonical" href={canonicalUrl} />
+	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
+	<style amp-boilerplate set:html={boilerplateCss}></style><noscript><style amp-boilerplate set:html={boilerplateNoscriptCss}></style></noscript>
+	<script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+	<script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
+	<script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+	<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+	<meta name="description" content={description} />
+	{noindex && <meta name="robots" content="noindex, follow" />}
+	<style amp-custom set:html={ampStyles}></style>
+	<script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
+</head>
+<body>
+	<AmpHeader />
+
+	<main id="top">
+		<slot />
+	</main>
+
+	<AmpFooter />
+
+	<AmpQuoteLightbox />
+
+	<amp-analytics type="gtag" data-credentials="include">
+		<script type="application/json" set:html={JSON.stringify(gtagConfig)}></script>
+	</amp-analytics>
+</body>
+</html>
