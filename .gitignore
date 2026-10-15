@@ -1,6 +1,7 @@
 # build output
 dist/
 dist-changed/
+.deploy-manifest.json
 
 public/config.php
 
