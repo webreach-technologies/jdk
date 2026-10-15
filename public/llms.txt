@@ -1,26 +1,247 @@
 # JDK Transportation
 
-> JDK Transportation provides motor coach and group transportation rentals (charter buses, minibuses, school/corporate/sports/wedding group travel) with 24/7 dispatch and licensed professional drivers. Operating for over 15 years across the Northeast Corridor (Newark, Jersey City, New York, Philadelphia), Ontario (Toronto, Niagara Falls), and South/Central Florida (Miami, Fort Lauderdale, Orlando).
+> JDK Transportation provides motor coach, charter bus, minibus, shuttle, and group transportation services for schools, corporations, sports teams, wedding parties, travel agents, religious groups, government agencies, private groups, and other organizations. The fleet includes vehicles from 15-passenger minibuses and sprinter vans to 56-passenger motor coaches. JDK Transportation provides 24/7 dispatch and support across the Northeast Corridor, Ontario, and South and Central Florida.
 
-## Pages
+## Company Information
 
-- [Home](https://jdktransportation.com/): Overview of services, fleet, and service areas.
-- [About](https://jdktransportation.com/about/): Company history, mission, and FAQs.
-- [Services](https://jdktransportation.com/services/): Charter and group transportation service types.
-- [Fleet](https://jdktransportation.com/fleet/): Motor coaches, mini buses, sprinter vans, and party buses seating 15 to 56 passengers.
-- [Service Areas](https://jdktransportation.com/service-areas/): Regions and cities served.
-- [Prices](https://jdktransportation.com/prices/): Pricing and quote information.
-- [Blog](https://jdktransportation.com/blog/): Travel tips, group transportation guides, and company news.
-- [Contact](https://jdktransportation.com/contact/): Phone, quote requests, and contact details.
+* **Company:** JDK Transportation
+* **Website:** https://jdktransportation.com/
+* **Experience:** 15+ years
+* **Passenger Capacity:** 15-56 passengers
+* **Vehicle Types:** 13+ vehicle types
+* **Dispatch & Support:** 24/7
+* **Reservations & Quotes:** 877-377-7172
+* **Emergency Dispatch:** 888-487-7507
+* **Email:** [info@jdktransportation.com](mailto:info@jdktransportation.com)
+* **Licensed & Insured:** JDK states that its vehicles are fully insured and its drivers are licensed, trained, and background-checked.
+
+JDK Transportation states that it has provided motor coach rentals for more than 15 years and serves the Northeast Corridor, Ontario, and South and Central Florida.
+
+## Main Pages
+
+* [Home](https://jdktransportation.com/): Overview of JDK Transportation, services, fleet, and service areas.
+* [About JDK Transportation](https://jdktransportation.com/about/): Company information, experience, service philosophy, and frequently asked questions.
+* [Services](https://jdktransportation.com/services/): Motor coach and group transportation services.
+* [Fleet](https://jdktransportation.com/fleet/): Motor coaches, minibuses, mini coaches, sprinter vans, and party buses.
+* [Service Areas](https://jdktransportation.com/service-areas/): Cities and regions served.
+* [Prices](https://jdktransportation.com/prices/): Pricing and quote information.
+* [Blog](https://jdktransportation.com/blog/): Group transportation guides, travel information, and company content.
+* [Contact](https://jdktransportation.com/contact/): Contact and quote information.
+
+## Transportation Services
+
+JDK Transportation currently lists 17 specialized transportation services.
+
+### Airport Transportation
+
+* [Airport Shuttle Service](https://jdktransportation.com/services/airport-shuttles/): Group airport transportation, airport transfers, luggage assistance, and flight tracking.
+
+### Construction Transportation
+
+* [Construction Site Shuttles](https://jdktransportation.com/services/construction-site-shuttles/): Employee shuttle transportation for construction sites with limited parking or high traffic.
+
+### Corporate Transportation
+
+* [Corporate Transportation](https://jdktransportation.com/services/corporate-events/): Motor coach transportation for corporate events, conferences, corporate retreats, and employee transportation.
+
+### Employee Transportation
+
+* [Employee Shuttle Services](https://jdktransportation.com/services/employee-shuttles/): Recurring employee shuttle routes, schedules, and transportation programs.
+
+### Emergency Transportation
+
+* [Emergency Transportation Services](https://jdktransportation.com/services/emergency-services/): Motor coach transportation for emergency evacuations and disaster-response needs.
+
+### Government & Military Transportation
+
+* [Government & Military Transportation](https://jdktransportation.com/services/government-military-groups/): Motor coach transportation for government agencies and military groups.
+
+### Healthcare Transportation
+
+* [Hospital & Healthcare Shuttles](https://jdktransportation.com/services/hospital-healthcare-shuttles/): Transportation for hospital staff, patients, healthcare facilities, and related group transportation needs.
+
+### Private Events
+
+* [Private Event Transportation](https://jdktransportation.com/services/private-events/): Customized group transportation for private parties, family gatherings, and special occasions.
+
+### Prom & Homecoming Transportation
+
+* [Prom & Homecoming Bus Rentals](https://jdktransportation.com/services/proms-homecomings/): Group transportation for proms, homecomings, and school dance events.
+
+### Religious Group Transportation
+
+* [Religious Group Bus Rentals](https://jdktransportation.com/services/religious-groups/): Transportation for congregations, religious retreats, and faith-based group travel.
+
+### School Transportation
+
+* [School Field Trip Bus Rentals](https://jdktransportation.com/services/school-trips/): Motor coach transportation for school field trips, class excursions, and student group travel.
+
+### Sports Transportation
+
+* [Sports Team Bus Rentals](https://jdktransportation.com/services/sports-teams/): Motor coach transportation for sports teams traveling to games, tournaments, and practices.
+
+### Summer Camp Transportation
+
+* [Summer Camp Bus Rentals](https://jdktransportation.com/services/summer-camps/): Bus transportation for summer camps, field trips, and pickup/drop-off routes.
+
+### Travel Agent Partnerships
+
+* [Travel Agent Motor Coach Rental Partnerships](https://jdktransportation.com/services/travel-agents/): Group transportation partnerships for travel agents, tour operators, sightseeing tours, excursions, and multi-day itineraries.
+
+### Family & Vacation Transportation
+
+* [Family Reunion & Vacation Bus Rentals](https://jdktransportation.com/services/vacations-family-trips/): Motor coach transportation for family reunions, vacations, and multi-generational group travel.
+
+### Wedding Transportation
+
+* [Wedding Transportation & Shuttle Services](https://jdktransportation.com/services/wedding-shuttles/): Shuttle and motor coach transportation for wedding parties and wedding guests.
+
+### Wine Tours & Pub Crawls
+
+* [Wine Tour & Pub Crawl Bus Rentals](https://jdktransportation.com/services/wine-tours-pub-crawls/): Party bus and group transportation for wine tours, brewery visits, pub crawls, and nightlife outings.
+
+## Fleet
+
+JDK Transportation's fleet ranges from 15-passenger vehicles to 56-passenger motor coaches. The fleet page lists motor coaches, mini buses, mini coaches, sprinter vans, and party buses.
+
+### Motor Coaches
+
+* [50 Passenger Motor Coach](https://jdktransportation.com/fleet/50-passenger-motor-coach/)
+* [54 Passenger Motor Coach](https://jdktransportation.com/fleet/54-passenger-motor-coach/)
+* [55 Passenger Motor Coach](https://jdktransportation.com/fleet/55-passenger-motor-coach/)
+* [56 Passenger Motor Coach](https://jdktransportation.com/fleet/56-passenger-motor-coach/)
+
+### Mini Buses
+
+* [15 Passenger Minibus](https://jdktransportation.com/fleet/15-passenger-minibus/)
+* [18 Passenger Minibus](https://jdktransportation.com/fleet/18-passenger-minibus/)
+* [20 Passenger Minibus](https://jdktransportation.com/fleet/20-passenger-minibus/)
+* [25 Passenger Minibus](https://jdktransportation.com/fleet/25-passenger-minibus/)
+* [28 Passenger Minibus](https://jdktransportation.com/fleet/28-passenger-minibus/)
+
+### Mini Coaches
+
+* [30 Passenger Mini Coach](https://jdktransportation.com/fleet/30-passenger-mini-coach/)
+* [33 Passenger Mini Coach](https://jdktransportation.com/fleet/33-passenger-mini-coach/)
+* [35 Passenger Mini Coach](https://jdktransportation.com/fleet/35-passenger-mini-coach/)
+* [40 Passenger Mini Coach](https://jdktransportation.com/fleet/40-passenger-mini-coach/)
+
+### Specialty Vehicles
+
+* [Sprinter Van](https://jdktransportation.com/fleet/sprinter-van/)
+* [Party Bus](https://jdktransportation.com/fleet/party-bus/)
+
+## Fleet Amenities
+
+Depending on the vehicle, available amenities may include:
+
+* Reclining seats with armrests
+* Onboard restroom
+* Complimentary Wi-Fi
+* Generous legroom
+* ADA accessibility
+* Luggage storage
+* Individual reading lights
+* PA system and microphones
+* Panoramic windows
+* Interior and ambient lighting
+* Climate control with personal air vents
+* Perimeter lighting
+* Entry stairway
+* Standard, premium, and luxury seating
+* Power outlets and USB charging
+* Onboard entertainment systems
+
+Amenities vary by vehicle.
+
+## Service Areas
+
+JDK Transportation currently identifies 10 primary service areas across the Northeast Corridor, Ontario, and South/Central Florida.
+
+### New Jersey
+
+* [Newark, NJ](https://jdktransportation.com/service-areas/newark/): Motor coach and minibus transportation throughout Newark and Essex County.
+* [Jersey City, NJ](https://jdktransportation.com/service-areas/jersey-city/): Motor coach and minibus transportation throughout Jersey City and Hudson County.
+
+### New York
+
+* [New York, NY](https://jdktransportation.com/service-areas/new-york/): Group transportation throughout New York City's five boroughs.
+
+### Pennsylvania
+
+* [Philadelphia, PA](https://jdktransportation.com/service-areas/philadelphia/): Motor coach and minibus transportation throughout Philadelphia and the Delaware Valley.
+
+### Ontario, Canada
+
+* [Toronto, ON](https://jdktransportation.com/service-areas/toronto/): Cross-border motor coach transportation to and from Toronto.
+* [Niagara Falls, ON](https://jdktransportation.com/service-areas/niagara-falls-on/): Group transportation on the Canadian side of Niagara Falls.
+
+### Niagara Falls, New York
+
+* [Niagara Falls, NY](https://jdktransportation.com/service-areas/niagara-falls-ny/): Motor coach and tour transportation throughout Niagara Falls and Western New York.
+
+### Florida
+
+* [Miami, FL](https://jdktransportation.com/service-areas/miami/): Motor coach and minibus transportation throughout Miami-Dade County.
+* [Fort Lauderdale, FL](https://jdktransportation.com/service-areas/fort-lauderdale/): Motor coach and minibus transportation throughout Fort Lauderdale and Broward County.
+* [Orlando, FL](https://jdktransportation.com/service-areas/orlando/): Motor coach and minibus transportation throughout Orlando and Central Florida.
+
+JDK states that its fleet also travels to surrounding towns, suburbs, regions, and multi-city destinations beyond the primary listed service areas.
+
+## Cross-Border Transportation
+
+JDK Transportation provides motor coach service between the United States and Ontario, including transportation to and from Toronto and both the U.S. and Canadian sides of Niagara Falls.
+
+## Group Transportation
+
+JDK Transportation provides group transportation for:
+
+* Schools and universities
+* Corporate groups
+* Sports teams
+* Wedding parties
+* Travel agencies
+* Tour operators
+* Religious organizations
+* Government agencies
+* Military groups
+* Healthcare organizations
+* Construction companies
+* Families and private groups
+* Summer camps
+* Emergency and evacuation operations
+
+## Drivers & Safety
+
+JDK Transportation states that its drivers are licensed, trained, and background-checked and that its vehicles are regularly inspected and fully insured.
+
+## Pricing & Quotes
+
+* [JDK Transportation Prices](https://jdktransportation.com/prices/)
+
+Pricing depends on factors such as group size, travel dates, vehicle requirements, route, itinerary, and transportation needs. Customers can request a quote through the website or contact JDK Transportation directly.
 
 ## Contact
 
-- Phone (24/7 Reservations & Quotes): 877-377-7172
-- Phone (24/7 Emergency Dispatch): 888-487-7507
-- Email: info@jdktransportation.com
+* **Reservations & Quotes:** 877-377-7172
+* **Emergency Dispatch:** 888-487-7507
+* **Email:** [info@jdktransportation.com](mailto:info@jdktransportation.com)
+* **Availability:** 24/7 dispatch and support
+* [Contact JDK Transportation](https://jdktransportation.com/contact/)
 
-## Social
+## Social Profiles
 
-- [Facebook](https://www.facebook.com/jdktransportation)
-- [Instagram](https://www.instagram.com/jdktransportation/)
-- [Pinterest](https://www.pinterest.com/jdktransportation/)
+* [Facebook](https://www.facebook.com/jdktransportation)
+* [Instagram](https://www.instagram.com/jdktransportation/)
+* [Pinterest](https://www.pinterest.com/jdktransportation/)
+
+## Website Navigation
+
+* [Home](https://jdktransportation.com/)
+* [About](https://jdktransportation.com/about/)
+* [Fleet](https://jdktransportation.com/fleet/)
+* [Services](https://jdktransportation.com/services/)
+* [Service Areas](https://jdktransportation.com/service-areas/)
+* [Prices](https://jdktransportation.com/prices/)
+* [Blog](https://jdktransportation.com/blog/)
+* [Contact](https://jdktransportation.com/contact/)
